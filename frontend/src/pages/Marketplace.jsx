@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, ArrowUpDown, Sparkles, TrendingUp, ShieldAlert, Layers, RefreshCw } from 'lucide-react';
+import { Search, Filter, ArrowUpDown, Sparkles, TrendingUp, ShieldAlert, Layers, RefreshCw, Zap } from 'lucide-react';
 import CardItem from '../components/CardItem';
 import BuyModal from '../components/BuyModal';
 import { useWeb3 } from '../context/Web3Context';
 
 export default function Marketplace() {
-  const { API_BASE, dataVersion, triggerRefresh } = useWeb3();
+  const { API_BASE, dataVersion, triggerRefresh, setIsExchangeModalOpen } = useWeb3();
   const [listings, setListings] = useState([]);
   const [stats, setStats] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -85,9 +85,16 @@ export default function Marketplace() {
           <h1 className="font-cinzel text-3xl md:text-5xl font-black text-slate-100 tracking-wide leading-tight mb-4">
             Sàn Giao Dịch & Vật Phẩm Ảo <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">RIFTBOUND</span>
           </h1>
-          <p className="text-sm md:text-base text-slate-300 font-medium leading-relaxed">
+          <p className="text-sm md:text-base text-slate-300 font-medium leading-relaxed mb-4">
             Mua bán, trao đổi các lá bài NFT độc bản, quái thú vết nứt và thần binh cổ đại. Bảo đảm ký gửi Escrow 100% minh bạch on-chain.
           </p>
+          <button
+            onClick={() => setIsExchangeModalOpen && setIsExchangeModalOpen(true)}
+            className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/50 text-purple-200 text-xs font-bold transition shadow-md shadow-purple-600/20 active:scale-95"
+          >
+            <Zap className="w-3.5 h-3.5 fill-amber-300 text-amber-300 animate-pulse" />
+            <span>Nạp $RIFT Bằng Đồng ETH (1 ETH = 10,000 $RIFT)</span>
+          </button>
         </div>
 
         {/* Market Stats Counters */}
