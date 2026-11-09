@@ -23,6 +23,25 @@ export const formatRiftEquivalent = (ethAmount) => {
   return Math.round(num * RIFT_PER_ETH).toLocaleString() + ' $RIFT';
 };
 
+// Nhận diện tên mạng Blockchain chuẩn theo Chain ID
+export const getNetworkInfo = (chainId) => {
+  const cid = Number(chainId);
+  switch (cid) {
+    case 31337:
+      return { name: 'Hardhat Localhost', isCorrect: true, badge: 'Hardhat 31337' };
+    case 338:
+      return { name: 'Cronos Testnet', isCorrect: false, badge: 'Cronos 338' };
+    case 11155111:
+      return { name: 'Sepolia Testnet', isCorrect: false, badge: 'Sepolia' };
+    case 84532:
+      return { name: 'Base Sepolia', isCorrect: false, badge: 'Base Sepolia' };
+    case 1:
+      return { name: 'Ethereum Mainnet', isCorrect: false, badge: 'ETH Mainnet' };
+    default:
+      return { name: cid ? `Chain ID ${cid}` : 'Chưa Kết Nối', isCorrect: cid === 31337, badge: cid ? `Chain ${cid}` : 'Offline' };
+  }
+};
+
 // Synchronous initializers to persist state across refreshes without any flashing
 const getInitialActiveTab = () => {
   if (typeof window !== 'undefined' && window.location.hash) {
@@ -328,6 +347,39 @@ export function Web3Provider({ children }) {
     setBalanceEth('0.0000');
     showToast('Đã ngắt kết nối ví MetaMask', 'info');
     triggerRefresh();
+  };
+
+  // 1-Click Switch Network to Hardhat Localhost (Chain 31337)
+  const switchNetworkToHardhat = async () => {
+    if (!window.ethereum) return;
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x7a69' }], // 31337 in hex
+      });
+      showToast('🎉 Đã chuyển sang mạng Hardhat Localhost (Chain 31337)!', 'success');
+    } catch (switchError) {
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: '0x7a69',
+                chainName: 'Hardhat Localhost',
+                rpcUrls: ['http://127.0.0.1:8545'],
+                nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+              },
+            ],
+          });
+          showToast('🎉 Đã thêm và chuyển sang mạng Hardhat Localhost!', 'success');
+        } catch (addError) {
+          showToast('Lỗi thêm mạng: ' + addError.message, 'error');
+        }
+      } else {
+        showToast('Lỗi chuyển mạng: ' + switchError.message, 'error');
+      }
+    }
   };
 
   // Deposit / Swap ETH for $RIFT (1 ETH = 10,000 $RIFT)
@@ -730,6 +782,8 @@ export function Web3Provider({ children }) {
         triggerRefresh,
         connectMetaMask,
         disconnectWallet,
+        switchNetworkToHardhat,
+        getNetworkInfo,
         depositEthForRift,
         claimFaucet,
         buyCard,
