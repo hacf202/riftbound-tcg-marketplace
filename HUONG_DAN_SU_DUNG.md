@@ -20,7 +20,9 @@ Trước khi khởi chạy, máy tính của bạn cần có:
 - **Node.js**: Phiên bản `v18.x`, `v20.x` hoặc mới hơn. ([Tải Node.js tại đây](https://nodejs.org/))
 - **Git**: Đã cài đặt trên máy.
 - **Trình duyệt Web**: Google Chrome, Brave, hoặc Microsoft Edge.
-- **Ví Web3**: Tiện ích mở rộng **MetaMask** (Nếu không có, bạn vẫn có thể dùng **Demo Wallet** có sẵn trên giao diện mà không cần cài thêm gì).
+- **Ví Web3**: Tiện ích mở rộng **MetaMask** ([Tải MetaMask tại đây](https://metamask.io/download/)). Hệ thống sử dụng chuẩn xác thực Web3 nghiêm ngặt bằng chữ ký số qua MetaMask.
+
+> 💡 **Xem thêm:** Để tìm hiểu sâu về kiến trúc máy ảo EVM, ERC-1155, dòng tiền bản quyền và cơ chế chống lạm phát token $RIFT, vui lòng đọc: **[Tài Liệu Chuyên Sâu Công Nghệ Blockchain & Kinh Tế Học (TAI_LIEU_BLOCKCHAIN_VA_KINH_TE.md)](./TAI_LIEU_BLOCKCHAIN_VA_KINH_TE.md)**.
 
 ---
 

@@ -2,6 +2,10 @@
 
 Hệ thống dApp toàn diện ứng dụng công nghệ Blockchain EVM để quản lý, mở gói (Gacha / Booster Pack) và giao dịch mua bán các thẻ bài NFT và vật phẩm ảo. Lấy cảm hứng từ vũ trụ **Riftbound** và giao diện chợ **Bilgewater Market**. Dự án được thiết kế chuyên biệt phục vụ việc làm **Báo Cáo Học Phần / Khóa Luận Tốt Nghiệp** với đầy đủ các chuẩn Web3 công nghiệp.
 
+> 📖 **TÀI LIỆU QUAN TRỌNG ĐÍNH KÈM:**
+> - 📘 **[Hướng Dẫn Khởi Động & Sử Dụng Hệ Thống (HUONG_DAN_SU_DUNG.md)](./HUONG_DAN_SU_DUNG.md)**: Hướng dẫn cấu hình ví MetaMask, khởi động 3 terminal, nhận Faucet và giao dịch.
+> - 📗 **[Báo Cáo Chuyên Sâu Công Nghệ Blockchain & Kinh Tế Học (TAI_LIEU_BLOCKCHAIN_VA_KINH_TE.md)](./TAI_LIEU_BLOCKCHAIN_VA_KINH_TE.md)**: Phân tích chuẩn ERC-1155, kiểm tra EVM, dòng tiền bản quyền 2.5%, phí sàn 2.0%, cơ chế chống lạm phát token $RIFT, quy trình P2P Escrow và định giá thẻ bài.
+
 ---
 
 ## 🌟 Tính Năng Nổi Bật
