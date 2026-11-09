@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Page Not Found (404)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Courier Prime', 'IBM Plex Mono', monospace;
+            background-color: #000000; /* mono-0 */
+            color: #FFFFFF; /* mono-6 */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .error-container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            background-color: #000000;
+            border: 1px solid #444444; /* mono-2 */
+            padding: 40px;
+        }
+
+        .error-logo img {
+            max-width: 150px;
+            height: auto;
+            margin: 0 auto 20px auto;
+        }
+
+        .error-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #E717EB; /* primary */
+        }
+
+        .error-title::before {
+            content: "> ";
+            color: #AAAAAA; /* mono-4 */
+        }
+
+        .error-message {
+            font-size: 16px;
+            color: #AAAAAA; /* mono-4 */
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .error-actions a {
+            background-color: #000000;
+            border: 1px solid #E717EB; /* primary */
+            color: #E717EB;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 10px 20px;
+            display: inline-block;
+            margin: 0 10px;
+            transition: all 0.2s ease-in-out;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .error-actions a:hover {
+            background-color: #E717EB;
+            color: #000000;
+        }
+
+        .error-footer {
+            font-size: 12px;
+            color: #777777; /* mono-3 */
+            margin-top: 40px;
+            border-top: 1px solid #151515; /* mono-1 */
+            padding-top: 20px;
+            line-height: 1.5;
+        }
+
+        .error-footer a {
+            color: #E717EB;
+            text-decoration: none;
+        }
+
+        .error-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <div class="error-logo">
+        <img src="https://images.scrydex.com/scrydex-logo/logo" alt="Scrydex Logo">
+    </div>
+
+    <h1 class="error-title">Woops! Page Not Found</h1>
+
+    <p class="error-message">
+        We can't seem to find the page you're looking for. It might have been moved, or it never existed.
+    </p>
+
+    <div class="error-actions">
+        <a href="/">Return Home</a>
+    </div>
+
+    <div class="error-footer">
+        <p>&copy; <span id="year"></span> Scrydex. Terminal Session Terminated.</p>
+        <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    </div>
+</div>
+</body>
+</html>

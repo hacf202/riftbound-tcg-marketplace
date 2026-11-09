@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* Headings & .font-cinzel: Sử dụng Playfair Display và Be Vietnam Pro - 100% hỗ trợ đầy đủ ký tự và dấu tiếng Việt không bị lỗi font */
+  h1, h2, h3, h4, h5, h6, .font-cinzel {
+    font-family: 'Playfair Display', 'Be Vietnam Pro', serif;
+  }
+  /* Class dành riêng cho Logo / Tên thương hiệu tiếng Anh thuần túy */
+  .font-brand-en {
+    font-family: 'Cinzel', 'Playfair Display', serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #070a11;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2c45;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334a6e;
+}
+
+/* 3D Card Flip Essentials */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Holographic Foil Card Shimmer */
+.card-foil {
+  position: relative;
+  overflow: hidden;
+}
+.card-foil::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  transform: rotate(-25deg);
+  pointer-events: none;
+  transition: transform 0.6s ease;
+}
+.card-foil:hover::after {
+  transform: rotate(-25deg) translateY(60%);
+}
+
+/* Booster Pack Shake & Tear Animations */
+@keyframes packShake {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  10%, 30%, 50%, 70%, 90% { transform: rotate(-3deg) scale(1.03); }
+  20%, 40%, 60%, 80% { transform: rotate(3deg) scale(1.03); }
+}
+
+@keyframes beamBurst {
+  0% { transform: scaleY(0) scaleX(0.5); opacity: 0; }
+  40% { transform: scaleY(1.3) scaleX(1.1); opacity: 1; }
+  100% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes foilSheen {
+  0% { transform: translateX(-150%) skewX(-25deg); }
+  100% { transform: translateX(250%) skewX(-25deg); }
+}
+
+@keyframes laserTear {
+  0% { width: 0%; left: 0%; opacity: 0; }
+  20% { width: 20%; left: 0%; opacity: 1; }
+  80% { width: 100%; left: 0%; opacity: 1; }
+  100% { width: 100%; left: 0%; opacity: 0; }
+}
+
+@keyframes packPulse {
+  0%, 100% { box-shadow: 0 0 25px rgba(168, 85, 247, 0.4); }
+  50% { box-shadow: 0 0 60px rgba(251, 191, 36, 0.7); }
+}
+
+.animate-pack-shake {
+  animation: packShake 0.45s ease-in-out infinite;
+}
+
+.animate-beam-burst {
+  animation: beamBurst 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float-gentle {
+  animation: floatGentle 3s ease-in-out infinite;
+}
+
+.animate-laser-tear {
+  animation: laserTear 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Authentic Foil Crimp Texture (Top & Bottom of Booster Pack) */
+.foil-crimp {
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(0, 0, 0, 0.4) 2px,
+    rgba(0, 0, 0, 0.4) 4px,
+    rgba(255, 255, 255, 0.12) 4px,
+    rgba(255, 255, 255, 0.12) 6px
+  );
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6), inset 0 -2px 4px rgba(255,255,255,0.05);
+}
+
+/* Holographic Rainbow Sheen for High Tier Packs */
+.holographic-foil {
+  position: relative;
+  overflow: hidden;
+}
+
+.holographic-foil::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 215, 0, 0.12) 50%,
+    rgba(255, 105, 180, 0.12) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+}
+
+.holographic-foil:hover::before {
+  opacity: 1;
+}

@@ -1,0 +1,34 @@
+{
+  "name": "riftbound-contracts",
+  "version": "1.0.0",
+  "description": "Smart Contracts for Riftbound TCG Marketplace & Booster Packs",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "flatten": "node scripts/flatten_all.js",
+    "remixd": "remixd -s . --remix-ide https://app.remix.live",
+    "save": "node scripts/save_deployed.js",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia"
+  },
+  "keywords": [
+    "nft",
+    "erc1155",
+    "erc20",
+    "marketplace",
+    "riftbound",
+    "solidity"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@remix-project/remixd": "^0.6.65",
+    "hardhat": "^2.22.18"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.1.0"
+  }
+}
