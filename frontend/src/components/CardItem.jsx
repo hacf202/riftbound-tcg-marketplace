@@ -11,7 +11,7 @@ export default function CardItem({
   mode = 'marketplace', // 'marketplace' | 'inventory' | 'codex'
   isRecentlyUpdated = false,
 }) {
-  const { viewCardDetail } = useWeb3();
+  const { viewCardDetail, formatEthEquivalent } = useWeb3();
 
   if (!card) return null;
 
@@ -185,6 +185,9 @@ export default function CardItem({
               <div className="text-xs font-black text-amber-400">
                 {listing ? listing.pricePerItem : (card.marketFloorPrice || 10)} $RIFT
               </div>
+              <div className="text-[10px] text-cyan-400/90 font-mono font-medium leading-none mt-0.5">
+                ~{formatEthEquivalent ? formatEthEquivalent(listing ? listing.pricePerItem : (card.marketFloorPrice || 10)) : '0 ETH'}
+              </div>
             </div>
             <div className="flex items-center space-x-1.5">
               <button
@@ -237,9 +240,12 @@ export default function CardItem({
           <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
             <div>
               <span className="text-[9px] text-slate-400 uppercase block">Giá Sàn</span>
-              <strong className="text-amber-400 font-bold">
+              <strong className="text-amber-400 font-bold block">
                 {card.marketFloorPrice || (card.market && card.market.floor_price_rift) || 10} $RIFT
               </strong>
+              <span className="text-[9px] text-cyan-400/90 font-mono font-medium block">
+                ~{formatEthEquivalent ? formatEthEquivalent(card.marketFloorPrice || (card.market && card.market.floor_price_rift) || 10) : '0 ETH'}
+              </span>
             </div>
             <button
               onClick={handleCardClick}

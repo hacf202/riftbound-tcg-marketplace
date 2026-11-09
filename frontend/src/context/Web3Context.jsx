@@ -4,10 +4,24 @@ import { ethers } from 'ethers';
 const Web3Context = createContext();
 
 const LOCAL_STORAGE_ACCOUNT_KEY = 'rift_connected_account';
-const LOCAL_STORAGE_WALLET_TYPE_KEY = 'rift_wallet_type'; // 'metamask' | 'demo'
+const LOCAL_STORAGE_WALLET_TYPE_KEY = 'rift_wallet_type'; // 'metamask' | null
 const LOCAL_STORAGE_ACTIVE_TAB_KEY = 'rift_active_tab';
 const LOCAL_STORAGE_SELECTED_CARD_KEY = 'rift_selected_card_id';
-const DEFAULT_DEMO_ACCOUNT = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+
+// Tỷ giá quy đổi định chuẩn trong hệ sinh thái: 1 ETH = 10,000 $RIFT (1 $RIFT = 0.0001 ETH)
+export const RIFT_PER_ETH = 10000;
+
+export const formatEthEquivalent = (riftAmount) => {
+  const num = Number(riftAmount);
+  if (isNaN(num)) return '0.0000 ETH';
+  return (num / RIFT_PER_ETH).toFixed(4) + ' ETH';
+};
+
+export const formatRiftEquivalent = (ethAmount) => {
+  const num = Number(ethAmount);
+  if (isNaN(num)) return '0 $RIFT';
+  return Math.round(num * RIFT_PER_ETH).toLocaleString() + ' $RIFT';
+};
 
 // Synchronous initializers to persist state across refreshes without any flashing
 const getInitialActiveTab = () => {
@@ -29,23 +43,27 @@ const getInitialSelectedCardId = () => {
 };
 
 export function Web3Provider({ children }) {
-  // 1. Initial State with localStorage persistence
+  // 1. Initial State: Strict MetaMask only, null if not connected
   const [account, setAccount] = useState(() => {
-    return localStorage.getItem(LOCAL_STORAGE_ACCOUNT_KEY) || DEFAULT_DEMO_ACCOUNT;
+    return localStorage.getItem(LOCAL_STORAGE_ACCOUNT_KEY) || null;
   });
   const [walletType, setWalletType] = useState(() => {
-    return localStorage.getItem(LOCAL_STORAGE_WALLET_TYPE_KEY) || 'demo';
+    return localStorage.getItem(LOCAL_STORAGE_WALLET_TYPE_KEY) || null;
   });
   const [activeTab, setActiveTabState] = useState(getInitialActiveTab);
   const [selectedCardId, setSelectedCardIdState] = useState(getInitialSelectedCardId);
   const [dataVersion, setDataVersion] = useState(1); // Global signal for data mutations
 
-  const [balanceRift, setBalanceRift] = useState(1000);
+  const [balanceRift, setBalanceRift] = useState(0);
+  const [balanceEth, setBalanceEth] = useState('0.0000');
   const [chainId, setChainId] = useState(null);
   const [isConnecting, setIsConnecting] = useState(false);
   const [contractsConfig, setContractsConfig] = useState(null);
   const [contractsAbi, setContractsAbi] = useState(null);
   const [toast, setToast] = useState(null);
+
+  // Modal Quy Đổi Tiền Tệ
+  const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
 
   const API_BASE = 'http://localhost:5000/api/v1';
 
@@ -121,7 +139,7 @@ export function Web3Provider({ children }) {
     }
   }, [activeTab, selectedCardId]);
 
-  // Load Smart Contracts config
+  // Load Smart Contracts config from backend
   useEffect(() => {
     fetch(`${API_BASE}/system/contracts`)
       .then((res) => res.json())
@@ -134,34 +152,40 @@ export function Web3Provider({ children }) {
       .catch((err) => console.log('Không thể tải ABI contracts từ backend:', err));
   }, []);
 
-  // Restore or verify MetaMask session if active
+  // Restore or verify MetaMask session on mount
   useEffect(() => {
-    const savedAccount = localStorage.getItem(LOCAL_STORAGE_ACCOUNT_KEY);
-    const savedType = localStorage.getItem(LOCAL_STORAGE_WALLET_TYPE_KEY);
-
-    if (savedType === 'metamask' && window.ethereum) {
+    if (window.ethereum) {
       window.ethereum
         .request({ method: 'eth_accounts' })
         .then((accounts) => {
           if (accounts && accounts.length > 0) {
-            setAccount(accounts[0]);
+            const acc = accounts[0];
+            setAccount(acc);
             setWalletType('metamask');
+            localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, acc);
+            localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'metamask');
             window.ethereum.request({ method: 'eth_chainId' }).then((cid) => {
               setChainId(parseInt(cid, 16));
             });
           } else {
-            setAccount(savedAccount || DEFAULT_DEMO_ACCOUNT);
-            setWalletType('demo');
+            // Not connected to MetaMask
+            setAccount(null);
+            setWalletType(null);
+            localStorage.removeItem(LOCAL_STORAGE_ACCOUNT_KEY);
+            localStorage.removeItem(LOCAL_STORAGE_WALLET_TYPE_KEY);
           }
         })
         .catch(() => {
-          setAccount(savedAccount || DEFAULT_DEMO_ACCOUNT);
-          setWalletType('demo');
+          setAccount(null);
+          setWalletType(null);
         });
+    } else {
+      setAccount(null);
+      setWalletType(null);
     }
   }, []);
 
-  // Listen to MetaMask account switches
+  // Listen to MetaMask account & chain changes
   useEffect(() => {
     if (window.ethereum) {
       const handleAccountsChanged = (accounts) => {
@@ -171,13 +195,16 @@ export function Web3Provider({ children }) {
           setWalletType('metamask');
           localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, newAcc);
           localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'metamask');
-          showToast(`Đã chuyển sang ví: ${newAcc.slice(0, 6)}...${newAcc.slice(-4)}`, 'info');
+          showToast(`Đã kết nối ví MetaMask: ${newAcc.slice(0, 6)}...${newAcc.slice(-4)}`, 'success');
           triggerRefresh();
         } else {
-          setAccount(DEFAULT_DEMO_ACCOUNT);
-          setWalletType('demo');
-          localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, DEFAULT_DEMO_ACCOUNT);
-          localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'demo');
+          setAccount(null);
+          setWalletType(null);
+          setBalanceRift(0);
+          setBalanceEth('0.0000');
+          localStorage.removeItem(LOCAL_STORAGE_ACCOUNT_KEY);
+          localStorage.removeItem(LOCAL_STORAGE_WALLET_TYPE_KEY);
+          showToast('Đã ngắt kết nối ví MetaMask', 'info');
           triggerRefresh();
         }
       };
@@ -197,12 +224,28 @@ export function Web3Provider({ children }) {
     }
   }, [triggerRefresh]);
 
-  // Fetch balance function (from on-chain or backend SQLite)
+  // Fetch balances: cả đồng ETH và đồng $RIFT
   const fetchBalance = useCallback(async () => {
-    const currentAddr = account || DEFAULT_DEMO_ACCOUNT;
-    let onChainBalance = null;
+    if (!account) {
+      setBalanceRift(0);
+      setBalanceEth('0.0000');
+      return;
+    }
 
-    if (walletType === 'metamask' && window.ethereum && contractsConfig?.contracts?.RiftToken && contractsAbi?.RiftToken) {
+    // 1. Lấy số dư ETH trực tiếp từ provider
+    if (window.ethereum) {
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const ethBal = await provider.getBalance(account);
+        setBalanceEth(parseFloat(ethers.formatEther(ethBal)).toFixed(4));
+      } catch (err) {
+        console.log('Lỗi fetch ETH balance:', err);
+      }
+    }
+
+    // 2. Lấy số dư $RIFT (On-Chain từ contract RiftToken)
+    let onChainBalance = null;
+    if (window.ethereum && contractsConfig?.contracts?.RiftToken && contractsAbi?.RiftToken) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const network = await provider.getNetwork();
@@ -212,7 +255,7 @@ export function Web3Provider({ children }) {
             contractsAbi.RiftToken,
             provider
           );
-          const bal = await riftContract.balanceOf(currentAddr);
+          const bal = await riftContract.balanceOf(account);
           onChainBalance = parseFloat(ethers.formatEther(bal));
         }
       } catch (e) {
@@ -220,32 +263,35 @@ export function Web3Provider({ children }) {
       }
     }
 
+    // 3. Đồng bộ với SQLite backend
     try {
-      const res = await fetch(`${API_BASE}/users/${currentAddr}/balance`);
+      const res = await fetch(`${API_BASE}/users/${account}/balance`);
       const data = await res.json();
       if (data.success && data.data) {
         const dbBal = Number(data.data.balance) || 0;
         const finalBal = onChainBalance !== null ? Math.max(onChainBalance, dbBal) : dbBal;
         setBalanceRift(finalBal);
+      } else if (onChainBalance !== null) {
+        setBalanceRift(onChainBalance);
       }
     } catch (err) {
-      console.log('Lỗi fetch balance:', err);
+      if (onChainBalance !== null) {
+        setBalanceRift(onChainBalance);
+      }
     }
-  }, [account, walletType, contractsConfig, contractsAbi]);
+  }, [account, contractsConfig, contractsAbi]);
 
   useEffect(() => {
     fetchBalance();
   }, [fetchBalance, dataVersion]);
 
-  // Switch to MetaMask
+  // Connect to MetaMask
   const connectMetaMask = async () => {
     if (!window.ethereum) {
-      showToast('Không tìm thấy tiện ích MetaMask. Đang dùng ví Demo!', 'warning');
-      setAccount(DEFAULT_DEMO_ACCOUNT);
-      setWalletType('demo');
-      localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, DEFAULT_DEMO_ACCOUNT);
-      localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'demo');
-      triggerRefresh();
+      showToast('⚠️ Không tìm thấy tiện ích MetaMask! Vui lòng cài đặt tại metamask.io.', 'error');
+      if (typeof window !== 'undefined') {
+        window.open('https://metamask.io/download/', '_blank');
+      }
       return;
     }
     try {
@@ -261,7 +307,7 @@ export function Web3Provider({ children }) {
         setChainId(Number(network.chainId));
         localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, acc);
         localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'metamask');
-        showToast('Kết nối ví MetaMask thành công!', 'success');
+        showToast('🎉 Kết nối ví MetaMask thành công!', 'success');
         triggerRefresh();
       }
     } catch (error) {
@@ -272,41 +318,38 @@ export function Web3Provider({ children }) {
     }
   };
 
-  // Switch to Demo Wallet
-  const connectDemoWallet = () => {
-    setAccount(DEFAULT_DEMO_ACCOUNT);
-    setWalletType('demo');
-    localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, DEFAULT_DEMO_ACCOUNT);
-    localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'demo');
-    showToast('Đã kích hoạt Ví Demo (0xf39F...2266)', 'info');
-    triggerRefresh();
-  };
-
-  // Reset Wallet Session
+  // Disconnect MetaMask
   const disconnectWallet = () => {
     localStorage.removeItem(LOCAL_STORAGE_ACCOUNT_KEY);
     localStorage.removeItem(LOCAL_STORAGE_WALLET_TYPE_KEY);
-    setAccount(DEFAULT_DEMO_ACCOUNT);
-    setWalletType('demo');
-    showToast('Đã đưa về chế độ Thử Nghiệm mặc định', 'info');
+    setAccount(null);
+    setWalletType(null);
+    setBalanceRift(0);
+    setBalanceEth('0.0000');
+    showToast('Đã ngắt kết nối ví MetaMask', 'info');
     triggerRefresh();
   };
 
   // Claim Faucet (+1,000 $RIFT)
   const claimFaucet = async () => {
-    const currentAddr = account || DEFAULT_DEMO_ACCOUNT;
-    showToast('🎁 Đang gửi 1,000 $RIFT vào ví của bạn...', 'info');
+    if (!account) {
+      showToast('⚠️ Vui lòng kết nối ví MetaMask trước khi nhận Faucet!', 'warning');
+      connectMetaMask();
+      return;
+    }
+
+    showToast('🎁 Đang gửi 1,000 $RIFT vào ví MetaMask của bạn...', 'info');
 
     // UI instant balance update
     setBalanceRift((prev) => Number(prev) + 1000);
 
     try {
-      await fetch(`${API_BASE}/users/${currentAddr}/faucet`, { method: 'POST' });
+      await fetch(`${API_BASE}/users/${account}/faucet`, { method: 'POST' });
     } catch (err) {
       console.log('Lỗi sync faucet backend:', err);
     }
 
-    if (walletType === 'metamask' && window.ethereum && contractsConfig?.contracts?.RiftToken) {
+    if (window.ethereum && contractsConfig?.contracts?.RiftToken) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
@@ -318,17 +361,22 @@ export function Web3Provider({ children }) {
         const tx = await riftContract.claimFaucet();
         await tx.wait();
       } catch (err) {
-        console.log('On-chain faucet error:', err);
+        console.log('On-chain faucet notice:', err.message);
       }
     }
 
-    showToast('🎉 Nhận thành công 1,000 $RIFT vào ví!', 'success');
+    showToast('🎉 Nhận thành công 1,000 $RIFT vào ví MetaMask!', 'success');
     triggerRefresh();
   };
 
   // Buy Card on Marketplace
   const buyCard = async (listingId, pricePerItem, quantity = 1) => {
-    const currentAddr = account || DEFAULT_DEMO_ACCOUNT;
+    if (!account) {
+      showToast('⚠️ Vui lòng kết nối ví MetaMask để thực hiện mua thẻ bài!', 'warning');
+      connectMetaMask();
+      return false;
+    }
+
     const totalPrice = Number(pricePerItem) * Number(quantity);
 
     if (Number(balanceRift) < totalPrice) {
@@ -344,7 +392,7 @@ export function Web3Provider({ children }) {
       const res = await fetch(`${API_BASE}/marketplace/sync-sale`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId, quantity, buyer: currentAddr }),
+        body: JSON.stringify({ listingId, quantity, buyer: account }),
       });
       const data = await res.json();
       if (!data.success) {
@@ -359,8 +407,8 @@ export function Web3Provider({ children }) {
       return false;
     }
 
-    // 2. Thử giao dịch On-Chain nếu dùng MetaMask và đúng mạng
-    if (walletType === 'metamask' && window.ethereum && contractsConfig?.contracts?.RiftMarketplace) {
+    // 2. Thử giao dịch On-Chain nếu MetaMask kết nối đúng mạng
+    if (window.ethereum && contractsConfig?.contracts?.RiftMarketplace) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
@@ -374,7 +422,7 @@ export function Web3Provider({ children }) {
           const mktContract = new ethers.Contract(mktAddress, contractsAbi.RiftMarketplace, signer);
 
           const totalPriceWei = ethers.parseEther(totalPrice.toString());
-          const currentAllowance = await riftContract.allowance(currentAddr, mktAddress);
+          const currentAllowance = await riftContract.allowance(account, mktAddress);
           if (currentAllowance < totalPriceWei) {
             const approveTx = await riftContract.approve(mktAddress, ethers.MaxUint256);
             await approveTx.wait();
@@ -388,14 +436,18 @@ export function Web3Provider({ children }) {
       }
     }
 
-    showToast('🎉 Mua thẻ bài thành công! Thẻ đã về Bộ Sưu Tập của bạn.', 'success');
+    showToast('🎉 Mua thẻ bài thành công! Thẻ đã về Bộ Sưu Tập ví MetaMask của bạn.', 'success');
     triggerRefresh();
     return true;
   };
 
   // Open Booster Pack (Gacha)
   const openPack = async (packId, price) => {
-    const currentAddr = account || DEFAULT_DEMO_ACCOUNT;
+    if (!account) {
+      showToast('⚠️ Vui lòng kết nối ví MetaMask để bóc gói thẻ bài!', 'warning');
+      connectMetaMask();
+      return null;
+    }
 
     if (Number(balanceRift) < Number(price)) {
       showToast(`Số dư ví (${balanceRift} $RIFT) không đủ mở gói (${price} $RIFT)!`, 'warning');
@@ -407,7 +459,7 @@ export function Web3Provider({ children }) {
     let cardIds = [];
 
     // On-Chain if MetaMask is active
-    if (walletType === 'metamask' && window.ethereum && contractsConfig?.contracts?.RiftBoosterPack) {
+    if (window.ethereum && contractsConfig?.contracts?.RiftBoosterPack) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
@@ -418,7 +470,7 @@ export function Web3Provider({ children }) {
         const packContract = new ethers.Contract(packAddress, contractsAbi.RiftBoosterPack, signer);
 
         const priceWei = ethers.parseEther(price.toString());
-        const allowance = await riftContract.allowance(currentAddr, packAddress);
+        const allowance = await riftContract.allowance(account, packAddress);
         if (allowance < priceWei) {
           const appTx = await riftContract.approve(packAddress, ethers.MaxUint256);
           await appTx.wait();
@@ -460,7 +512,7 @@ export function Web3Provider({ children }) {
     // Save cards won into user's SQLite Inventory
     if (cardIds && cardIds.length > 0) {
       try {
-        await fetch(`${API_BASE}/users/${currentAddr}/pack-rewards`, {
+        await fetch(`${API_BASE}/users/${account}/pack-rewards`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ cardIds, price, packId }),
@@ -477,10 +529,14 @@ export function Web3Provider({ children }) {
 
   // List Card for Sale on Marketplace
   const listCard = async (cardId, quantity, pricePerItem) => {
-    const currentAddr = account || DEFAULT_DEMO_ACCOUNT;
+    if (!account) {
+      showToast('⚠️ Vui lòng kết nối ví MetaMask trước khi đăng bán thẻ bài!', 'warning');
+      connectMetaMask();
+      return false;
+    }
 
     // On-Chain if MetaMask is active
-    if (walletType === 'metamask' && window.ethereum && contractsConfig) {
+    if (window.ethereum && contractsConfig) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
@@ -490,7 +546,7 @@ export function Web3Provider({ children }) {
         const nftContract = new ethers.Contract(nftAddress, contractsAbi.RiftCardNFT, signer);
         const mktContract = new ethers.Contract(mktAddress, contractsAbi.RiftMarketplace, signer);
 
-        const isApproved = await nftContract.isApprovedForAll(currentAddr, mktAddress);
+        const isApproved = await nftContract.isApprovedForAll(account, mktAddress);
         if (!isApproved) {
           const appTx = await nftContract.setApprovalForAll(mktAddress, true);
           await appTx.wait();
@@ -512,7 +568,7 @@ export function Web3Provider({ children }) {
         body: JSON.stringify({
           listingId: Date.now() % 100000,
           cardId,
-          seller: currentAddr,
+          seller: account,
           quantity,
           pricePerItem,
         }),
@@ -528,7 +584,7 @@ export function Web3Provider({ children }) {
 
   const shortAccount = account
     ? `${account.slice(0, 6)}...${account.slice(-4)}`
-    : '0xf39F...2266';
+    : null;
 
   return (
     <Web3Context.Provider
@@ -537,6 +593,12 @@ export function Web3Provider({ children }) {
         shortAccount,
         walletType,
         balanceRift,
+        balanceEth,
+        RIFT_PER_ETH,
+        formatEthEquivalent,
+        formatRiftEquivalent,
+        isExchangeModalOpen,
+        setIsExchangeModalOpen,
         chainId,
         isConnecting,
         activeTab,
@@ -547,7 +609,6 @@ export function Web3Provider({ children }) {
         dataVersion,
         triggerRefresh,
         connectMetaMask,
-        connectDemoWallet,
         disconnectWallet,
         claimFaucet,
         buyCard,

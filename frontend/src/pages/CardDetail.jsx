@@ -20,7 +20,7 @@ import { useWeb3 } from '../context/Web3Context';
 import BuyModal from '../components/BuyModal';
 
 export default function CardDetail({ cardId, onBack }) {
-  const { API_BASE, balanceRift, dataVersion, triggerRefresh } = useWeb3();
+  const { API_BASE, balanceRift, dataVersion, triggerRefresh, formatEthEquivalent } = useWeb3();
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedVariation, setSelectedVariation] = useState('normal'); // 'normal' | 'foil' | 'signature'
@@ -249,8 +249,8 @@ export default function CardDetail({ cardId, onBack }) {
                 <span className="text-2xl md:text-3xl font-black text-amber-400 tracking-tight font-mono">
                   {currentVar.floorPrice} $RIFT
                 </span>
-                <span className="text-xs text-slate-400">
-                  (~${currentVar.usdPrice} USD)
+                <span className="text-xs text-cyan-400 font-mono">
+                  (~{formatEthEquivalent ? formatEthEquivalent(currentVar.floorPrice) : '0 ETH'} • ${currentVar.usdPrice} USD)
                 </span>
               </div>
             </div>

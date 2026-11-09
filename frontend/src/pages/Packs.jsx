@@ -34,7 +34,19 @@ import {
 } from '../utils/soundEffects';
 
 export default function Packs() {
-  const { account, balanceRift, openPack, claimFaucet, API_BASE, showToast, setActiveTab, viewCardDetail } = useWeb3();
+  const {
+    account,
+    balanceRift,
+    balanceEth,
+    formatEthEquivalent,
+    setIsExchangeModalOpen,
+    openPack,
+    claimFaucet,
+    API_BASE,
+    showToast,
+    setActiveTab,
+    viewCardDetail,
+  } = useWeb3();
   const [packs, setPacks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -301,8 +313,23 @@ export default function Packs() {
               <div className="text-sm font-black text-amber-400 leading-tight">
                 {Number(balanceRift).toLocaleString()} <span className="text-[11px] font-semibold text-slate-300">$RIFT</span>
               </div>
+              <div className="text-[10px] text-cyan-400 font-mono font-medium leading-none mt-0.5">
+                {balanceEth} ETH (~{formatEthEquivalent ? formatEthEquivalent(balanceRift) : '0 ETH'})
+              </div>
             </div>
           </div>
+
+          {/* Quick Currency Converter Button */}
+          {setIsExchangeModalOpen && (
+            <button
+              onClick={() => setIsExchangeModalOpen(true)}
+              title="Quy đổi tỷ giá ETH ↔ $RIFT"
+              className="bg-purple-950/40 hover:bg-purple-900/50 border border-purple-500/40 text-purple-300 hover:text-purple-200 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+              <span className="hidden sm:inline">Tỷ Giá ETH</span>
+            </button>
+          )}
 
           {/* Quick Faucet Button */}
           <button
@@ -474,7 +501,7 @@ export default function Packs() {
                   className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-6 py-3.5 rounded-2xl text-xs md:text-sm uppercase tracking-wider transition shadow-xl shadow-amber-500/25 active:scale-95 flex items-center space-x-2"
                 >
                   <Layers className="w-4 h-4 fill-slate-950" />
-                  <span>Xé Gói Thần Khí Ngay ({featuredPack.price} $RIFT)</span>
+                  <span>Xé Gói Thần Khí Ngay ({featuredPack.price} $RIFT ~ {formatEthEquivalent ? formatEthEquivalent(featuredPack.price) : '0 ETH'})</span>
                 </button>
 
                 <button
@@ -1001,8 +1028,11 @@ export default function Packs() {
                     <div className="pt-2 border-t border-rift-border/60 flex items-center justify-between mt-auto">
                       <div>
                         <div className="text-[9px] text-slate-400 uppercase font-bold">Giá Gói</div>
-                        <div className="text-base font-black text-amber-400">
+                        <div className="text-base font-black text-amber-400 leading-tight">
                           {pack.price} <span className="text-[10px] font-bold text-slate-300">$RIFT</span>
+                        </div>
+                        <div className="text-[10px] text-cyan-400/90 font-mono font-medium leading-none mt-0.5">
+                          ~{formatEthEquivalent ? formatEthEquivalent(pack.price) : '0 ETH'}
                         </div>
                       </div>
 
