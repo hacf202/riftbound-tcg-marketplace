@@ -610,7 +610,7 @@ module.exports = {
     return newBal;
   },
 
-  depositEthForRift: async (address, ethAmount, riftAmount, txHash) => {
+  depositEthForRift: async (address, ethAmount, riftAmount, txHash, currency = "ETH") => {
     const addr = (address || "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266").toLowerCase();
     const row = await get(`SELECT balance FROM user_balances WHERE LOWER(address) = LOWER(?)`, [addr]);
     const currentBal = row ? row.balance : 0;
@@ -625,7 +625,7 @@ module.exports = {
         addr,
         Number(ethAmount),
         Number(riftAmount),
-        `Quy đổi ${ethAmount} ETH sang ${Number(riftAmount).toLocaleString()} $RIFT (Tx: ${txHash ? txHash.slice(0, 10) + '...' : 'EVM Localhost'})`
+        `Quy đổi ${ethAmount} ${currency} sang ${Number(riftAmount).toLocaleString()} $RIFT (Tx: ${txHash ? txHash.slice(0, 10) + '...' : 'EVM Web3'})`
       ]
     );
 

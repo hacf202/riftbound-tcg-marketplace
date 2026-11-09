@@ -4,7 +4,6 @@ import CurrencyConverterModal from './CurrencyConverterModal';
 import {
   Sparkles,
   Wallet,
-  Flame,
   Layers,
   BookOpen,
   ShoppingBag,
@@ -15,9 +14,8 @@ import {
   LogOut,
   ShieldCheck,
   Zap,
-  Plus,
   ArrowUpRight,
-  AlertCircle,
+  Flame,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -34,11 +32,10 @@ export default function Navbar() {
     setActiveTab,
     connectMetaMask,
     disconnectWallet,
-    switchNetworkToHardhat,
     getNetworkInfo,
   } = useWeb3();
 
-  const netInfo = getNetworkInfo ? getNetworkInfo(chainId) : { name: `Chain ${chainId}`, isCorrect: Number(chainId) === 31337 };
+  const netInfo = getNetworkInfo ? getNetworkInfo(chainId) : { name: 'Mạng Nội Bộ', badge: 'Mạng Nội Bộ' };
 
   const [walletDropdownOpen, setWalletDropdownOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -51,12 +48,11 @@ export default function Navbar() {
     }
   };
 
+  // Thanh điều hướng chính tinh gọn - 3 mục cốt lõi
   const navItems = [
     { id: 'marketplace', label: 'Sàn Giao Dịch', icon: ShoppingBag },
     { id: 'packs', label: 'Gói Thẻ', icon: Layers },
-    { id: 'inventory', label: 'Bộ Sưu Tập', icon: Flame },
     { id: 'codex', label: 'Codex Thẻ Bài', icon: BookOpen },
-    { id: 'activity', label: 'Lịch Sử GD', icon: History },
   ];
 
   return (
@@ -89,8 +85,8 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* 2. CHUẨN HÓA THANH ĐIỀU HƯỚNG CHÍNH (DESKTOP) */}
-          <nav className="hidden lg:flex items-center space-x-1 bg-slate-900/80 p-1 rounded-xl border border-rift-border shadow-inner">
+          {/* 2. THANH ĐIỀU HƯỚNG CHÍNH ĐƠN GIẢN, DỄ NHÌN (3 MỤC CỐT LÕI) */}
+          <nav className="hidden md:flex items-center space-x-1 bg-slate-900/80 p-1 rounded-xl border border-rift-border shadow-inner">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -98,7 +94,7 @@ export default function Navbar() {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition duration-200 ${
+                  className={`flex items-center space-x-2 px-4 py-1.5 rounded-lg text-xs font-bold transition duration-200 ${
                     isActive
                       ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40 shadow-sm'
                       : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent'
@@ -111,28 +107,16 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* 3. KHU VỰC VÍ WEB3 & TRẠNG THÁI TÀI KHOẢN (RIGHT CONTROLS) */}
-          <div className="flex items-center space-x-2.5">
+          {/* 3. KHU VỰC VÍ & TÀI KHOẢN (GỌN GÀNG, THÂN THIỆN) */}
+          <div className="flex items-center space-x-3">
             
-            {/* THẺ MẠNG BLOCKCHAIN (NETWORK BADGE) */}
-            {account && !netInfo.isCorrect ? (
-              <button
-                onClick={switchNetworkToHardhat}
-                title={`Ví đang ở mạng ${netInfo.name} (${chainId}). Bấm để chuyển về Hardhat Localhost (31337)`}
-                className="hidden sm:flex items-center space-x-1.5 bg-amber-950/70 hover:bg-amber-900/80 border border-amber-500/50 text-amber-300 px-2.5 py-1.5 rounded-xl text-[11px] font-bold transition shadow-sm active:scale-95 animate-pulse"
-              >
-                <AlertCircle className="w-3.5 h-3.5 text-amber-400" />
-                <span>{netInfo.name}</span>
-                <span className="text-[9px] bg-amber-500 text-slate-950 px-1 rounded font-black">➔ 31337</span>
-              </button>
-            ) : (
-              <div className="hidden sm:flex items-center space-x-1.5 bg-slate-900/70 border border-emerald-500/30 px-2.5 py-1.5 rounded-xl text-[11px] text-emerald-400 font-mono">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400 animate-pulse"></span>
-                <span>Hardhat 31337</span>
-              </div>
-            )}
+            {/* BADGE MẠNG NỘI BỘ (ĐƠN GIẢN, KHÔNG GÂY RỐI MẮT) */}
+            <div className="hidden sm:flex items-center space-x-1.5 bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-xl text-[11px] text-slate-300 font-mono">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400"></span>
+              <span>{netInfo.badge || 'Mạng Nội Bộ'}</span>
+            </div>
 
-            {/* VÍ METAMASK */}
+            {/* TRẠNG THÁI VÍ */}
             {!account ? (
               <button
                 onClick={connectMetaMask}
@@ -144,85 +128,52 @@ export default function Navbar() {
               </button>
             ) : (
               <div className="relative">
-                {/* WALLET PROFILE PILL */}
-                <div className="flex items-center bg-slate-900/90 border border-rift-border hover:border-amber-500/50 rounded-xl transition shadow">
-                  
-                  {/* Balance Display with Quick Deposit "+" Button */}
-                  <div
-                    onClick={() => setWalletDropdownOpen(!walletDropdownOpen)}
-                    className="flex items-center space-x-1.5 px-3 py-1.5 cursor-pointer hover:bg-slate-800/40 rounded-l-xl transition"
-                    title="Bấm để xem chi tiết số dư & nạp tiền"
-                  >
+                {/* WALLET / ACCOUNT PILL GỌN GÀNG */}
+                <button
+                  onClick={() => setWalletDropdownOpen(!walletDropdownOpen)}
+                  className="flex items-center space-x-2.5 bg-slate-900/90 border border-rift-border hover:border-amber-500/50 rounded-xl px-3 py-1.5 transition shadow group select-none text-left"
+                >
+                  {/* Số Dư $RIFT */}
+                  <div className="flex items-center space-x-1">
                     <span className="text-xs font-black text-amber-400 font-mono tabular-nums">
                       {Number(balanceRift).toLocaleString()}
                     </span>
                     <span className="text-[10px] text-slate-400 font-bold">$RIFT</span>
                   </div>
 
-                  {/* Nút Nạp Nhanh "+" mở Modal Đổi ETH */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsExchangeModalOpen(true);
-                    }}
-                    title="Nạp thêm $RIFT bằng đồng ETH"
-                    className="p-1 px-1.5 mr-1 bg-purple-600/30 hover:bg-purple-600/60 text-purple-300 hover:text-white rounded-lg border border-purple-500/40 text-[10px] font-bold transition flex items-center space-x-0.5"
-                  >
-                    <Plus className="w-3 h-3" />
-                    <span className="hidden md:inline">Nạp</span>
-                  </button>
+                  <div className="h-4 w-[1px] bg-rift-border"></div>
 
-                  <div className="h-5 w-[1px] bg-rift-border"></div>
-
-                  {/* Account Address & Dropdown Trigger */}
-                  <div
-                    onClick={() => setWalletDropdownOpen(!walletDropdownOpen)}
-                    className="flex items-center space-x-1.5 px-2.5 py-1.5 cursor-pointer hover:bg-slate-800/40 rounded-r-xl transition text-xs select-none"
-                  >
-                    <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-[10px] font-bold text-white shadow-inner">
+                  {/* Địa Chỉ Rút Gọn */}
+                  <div className="flex items-center space-x-1.5">
+                    <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-[10px] shadow-inner">
                       🦊
                     </div>
-                    <span className="font-mono text-[11px] hidden sm:inline font-bold text-slate-200">
+                    <span className="font-mono text-[11px] hidden sm:inline font-bold text-slate-200 group-hover:text-amber-300 transition">
                       {shortAccount}
                     </span>
                     <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${walletDropdownOpen ? 'rotate-180' : ''}`} />
                   </div>
-                </div>
+                </button>
 
-                {/* WALLET PROFILE DROPDOWN (NƠI ĐẶT CÁC TÍNH NĂNG QUẢN LÝ VÍ & QUY ĐỔI TIỀN) */}
+                {/* DROPDOWN MENU TÀI KHOẢN (NƠI CHỨA BỘ SƯU TẬP, QUY ĐỔI TIỀN & NHẬT KÝ GIAO DỊCH) */}
                 {walletDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-80 bg-slate-900 border border-rift-border rounded-2xl p-4 shadow-2xl z-50 animate-fade-in text-xs space-y-3.5">
                     
-                    {/* Header: Address, Status & Copy */}
+                    {/* Header: Thông tin tài khoản ví */}
                     <div className="pb-3 border-b border-rift-border/80">
                       <div className="flex items-center justify-between mb-1.5">
                         <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider flex items-center space-x-1">
                           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                          <span>Ví MetaMask Đã Kết Nối</span>
+                          <span>Tài Khoản Ví Của Bạn</span>
                         </span>
-                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${netInfo.isCorrect ? 'bg-emerald-950/80 text-emerald-300 border-emerald-800' : 'bg-amber-950/80 text-amber-300 border-amber-800'}`}>
-                          {netInfo.badge}
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-800">
+                          {netInfo.badge || 'Mạng Nội Bộ'}
                         </span>
                       </div>
 
-                      {/* Cảnh Báo Nếu Sai Mạng */}
-                      {!netInfo.isCorrect && (
-                        <div className="mb-2 p-2 rounded-xl bg-amber-950/50 border border-amber-500/40 text-amber-200 text-[11px] flex items-center justify-between">
-                          <div>
-                            <div className="font-bold">Đang ở {netInfo.name}</div>
-                            <div className="text-[10px] text-slate-400">Yêu cầu mạng Hardhat (31337)</div>
-                          </div>
-                          <button
-                            onClick={switchNetworkToHardhat}
-                            className="px-2 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[10px] transition"
-                          >
-                            Đổi Mạng
-                          </button>
-                        </div>
-                      )}
-
+                      {/* Địa Chỉ Ví & Nút Sao Chép */}
                       <div className="flex items-center justify-between bg-slate-950 p-2.5 rounded-xl border border-rift-border">
-                        <div className="font-mono text-slate-200 font-bold text-xs truncate max-w-[200px]">
+                        <div className="font-mono text-slate-200 font-bold text-xs truncate max-w-[200px]" title={account}>
                           {account}
                         </div>
                         <button
@@ -239,74 +190,92 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    {/* Tài Sản & Số Dư Trong Ví */}
+                    {/* Số Dư Tài Sản */}
                     <div className="grid grid-cols-2 gap-2 bg-slate-950/80 p-3 rounded-xl border border-rift-border/60">
                       <div>
                         <div className="text-[10px] text-slate-400 uppercase font-semibold">Token Trong Game</div>
-                        <div className="font-black text-amber-400 text-base font-mono">
+                        <div className="font-black text-amber-400 text-sm font-mono truncate">
                           {Number(balanceRift).toLocaleString()} <span className="text-[10px] text-slate-400 font-bold">$RIFT</span>
                         </div>
                       </div>
                       <div>
-                        <div className="text-[10px] text-slate-400 uppercase font-semibold">Ethereum Gas</div>
-                        <div className="font-black text-cyan-400 text-base font-mono">
-                          {balanceEth} <span className="text-[10px] text-slate-400 font-bold">ETH</span>
+                        <div className="text-[10px] text-slate-400 uppercase font-semibold">Gas Khả Dụng</div>
+                        <div className="font-black text-cyan-400 text-sm font-mono truncate">
+                          {balanceEth} <span className="text-[10px] text-slate-400 font-bold">ETH/CRO</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* VỊ TRÍ CHUẨN CỦA NÚT NẠP / QUY ĐỔI TIỀN TỆ WEB3 */}
+                    {/* 1. MỤC BỘ SƯU TẬP CỦA TÔI (CHUYỂN VÀO MỤC TÀI KHOẢN) */}
+                    <button
+                      onClick={() => {
+                        setActiveTab('inventory');
+                        setWalletDropdownOpen(false);
+                      }}
+                      className={`w-full p-2.5 rounded-xl border flex items-center justify-between transition ${
+                        activeTab === 'inventory'
+                          ? 'bg-amber-500/15 border-amber-500/50 text-amber-300 shadow-sm'
+                          : 'bg-slate-950/60 hover:bg-slate-800 border-rift-border/60 text-slate-200 hover:text-white'
+                      }`}
+                    >
+                      <div className="flex items-center space-x-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                          <Flame className="w-4 h-4" />
+                        </div>
+                        <div className="text-left">
+                          <div className="font-bold text-xs flex items-center space-x-1.5">
+                            <span>Bộ Sưu Tập Của Tôi</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-bold">Kho Bài</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400">Quản lý lá bài sở hữu & đăng bán</div>
+                        </div>
+                      </div>
+                      <span className="text-slate-400 text-xs">➔</span>
+                    </button>
+
+                    {/* 2. CỔNG QUY ĐỔI TIỀN TỆ (GỘP TẠI 1 CHỖ DUY NHẤT) */}
                     <button
                       onClick={() => {
                         setIsExchangeModalOpen(true);
                         setWalletDropdownOpen(false);
                       }}
-                      className="w-full p-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 border border-purple-400/40 text-white flex items-center justify-between shadow-lg shadow-purple-600/20 transition active:scale-98"
+                      className="w-full p-2.5 rounded-xl bg-gradient-to-r from-purple-950/70 via-indigo-950/70 to-cyan-950/70 hover:from-purple-900/80 hover:to-cyan-900/80 border border-purple-500/30 text-white flex items-center justify-between transition shadow-sm group"
                     >
-                      <div className="flex items-center space-x-2 text-left">
-                        <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center">
+                      <div className="flex items-center space-x-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-300 group-hover:scale-105 transition-transform">
                           <Zap className="w-4 h-4 fill-amber-300 text-amber-300 animate-pulse" />
                         </div>
-                        <div>
-                          <div className="font-black text-xs">Nạp $RIFT Bằng Đồng ETH</div>
-                          <div className="text-[10px] text-purple-200/80">Tỷ giá: 1 ETH = 10,000 $RIFT</div>
+                        <div className="text-left">
+                          <div className="font-bold text-xs flex items-center space-x-1.5">
+                            <span>Quy Đổi Tiền Tệ</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/30 text-purple-200 font-mono">ETH & TCRO</span>
+                          </div>
+                          <div className="text-[10px] text-purple-200/70">Đổi ETH hoặc Cronos sang $RIFT</div>
                         </div>
                       </div>
-                      <ArrowUpRight className="w-4 h-4 text-purple-200" />
+                      <ArrowUpRight className="w-4 h-4 text-purple-300" />
                     </button>
 
-                    {/* Lối Tắt Nhanh Quản Lý Cá Nhân */}
-                    <div className="space-y-1 pt-1">
-                      <button
-                        onClick={() => {
-                          setActiveTab('inventory');
-                          setWalletDropdownOpen(false);
-                        }}
-                        className="w-full text-left p-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white flex items-center justify-between transition text-xs"
-                      >
-                        <span className="flex items-center space-x-2">
-                          <Flame className="w-3.5 h-3.5 text-cyan-400" />
-                          <span>Bộ Sưu Tập Của Tôi</span>
-                        </span>
-                        <span className="text-[10px] font-mono text-slate-400">Xem kho thẻ →</span>
-                      </button>
+                    {/* 3. NHẬT KÝ GIAO DỊCH */}
+                    <button
+                      onClick={() => {
+                        setActiveTab('activity');
+                        setWalletDropdownOpen(false);
+                      }}
+                      className={`w-full p-2 rounded-xl text-left flex items-center justify-between text-xs transition ${
+                        activeTab === 'activity'
+                          ? 'bg-cyan-500/15 border border-cyan-500/30 text-cyan-300'
+                          : 'hover:bg-slate-800 text-slate-300 hover:text-white'
+                      }`}
+                    >
+                      <span className="flex items-center space-x-2">
+                        <History className="w-3.5 h-3.5 text-cyan-400" />
+                        <span>Nhật Ký Giao Dịch Của Ví</span>
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-400">Xem lịch sử →</span>
+                    </button>
 
-                      <button
-                        onClick={() => {
-                          setActiveTab('activity');
-                          setWalletDropdownOpen(false);
-                        }}
-                        className="w-full text-left p-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white flex items-center justify-between transition text-xs"
-                      >
-                        <span className="flex items-center space-x-2">
-                          <History className="w-3.5 h-3.5 text-emerald-400" />
-                          <span>Nhật Ký Giao Dịch Của Ví</span>
-                        </span>
-                        <span className="text-[10px] font-mono text-slate-400">Xem lịch sử →</span>
-                      </button>
-                    </div>
-
-                    {/* Ngắt Kết Nối Ví */}
+                    {/* 4. NGẮT KẾT NỐI VÍ */}
                     <div className="pt-2 border-t border-rift-border/80">
                       <button
                         onClick={() => {
@@ -328,8 +297,8 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* 4. MOBILE NAVIGATION TABS (GỌN GÀNG, DỄ CUỘN) */}
-        <div className="lg:hidden flex border-t border-rift-border/60 px-2 py-1.5 justify-around bg-slate-950/90 overflow-x-auto">
+        {/* 4. MOBILE NAVIGATION TABS (CHỈ 3 MỤC CHÍNH, GỌN GÀNG) */}
+        <div className="md:hidden flex border-t border-rift-border/60 px-2 py-1.5 justify-around bg-slate-950/90">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -337,11 +306,11 @@ export default function Navbar() {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center space-x-1 text-[11px] font-bold px-2.5 py-1 rounded-lg transition whitespace-nowrap ${
+                className={`flex items-center space-x-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition ${
                   isActive ? 'text-amber-300 bg-amber-500/15 border border-amber-500/30' : 'text-slate-400'
                 }`}
               >
-                <Icon className="w-3 h-3" />
+                <Icon className="w-3.5 h-3.5" />
                 <span>{item.label}</span>
               </button>
             );
@@ -349,7 +318,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Currency Converter Modal Component */}
+      {/* Currency Converter Modal Component (ETH & Cronos TCRO ➔ $RIFT) */}
       <CurrencyConverterModal
         isOpen={isExchangeModalOpen}
         onClose={() => setIsExchangeModalOpen(false)}

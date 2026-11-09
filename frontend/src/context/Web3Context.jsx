@@ -23,22 +23,18 @@ export const formatRiftEquivalent = (ethAmount) => {
   return Math.round(num * RIFT_PER_ETH).toLocaleString() + ' $RIFT';
 };
 
-// Nhận diện tên mạng Blockchain chuẩn theo Chain ID
+// Nhận diện tên mạng Blockchain chuẩn theo Chain ID (Ưu tiên mạng nội bộ)
 export const getNetworkInfo = (chainId) => {
   const cid = Number(chainId);
   switch (cid) {
     case 31337:
-      return { name: 'Hardhat Localhost', isCorrect: true, badge: 'Hardhat 31337' };
+      return { name: 'Mạng Nội Bộ (Hardhat)', isCorrect: true, badge: 'Mạng Nội Bộ' };
     case 338:
-      return { name: 'Cronos Testnet', isCorrect: false, badge: 'Cronos 338' };
+      return { name: 'Cronos Testnet', isCorrect: true, badge: 'Cronos 338' };
     case 11155111:
-      return { name: 'Sepolia Testnet', isCorrect: false, badge: 'Sepolia' };
-    case 84532:
-      return { name: 'Base Sepolia', isCorrect: false, badge: 'Base Sepolia' };
-    case 1:
-      return { name: 'Ethereum Mainnet', isCorrect: false, badge: 'ETH Mainnet' };
+      return { name: 'Sepolia Testnet', isCorrect: true, badge: 'Sepolia' };
     default:
-      return { name: cid ? `Chain ID ${cid}` : 'Chưa Kết Nối', isCorrect: cid === 31337, badge: cid ? `Chain ${cid}` : 'Offline' };
+      return { name: 'Mạng Nội Bộ', isCorrect: true, badge: 'Mạng Nội Bộ' };
   }
 };
 
@@ -359,6 +355,10 @@ export function Web3Provider({ children }) {
       });
       showToast('🎉 Đã chuyển sang mạng Hardhat Localhost (Chain 31337)!', 'success');
     } catch (switchError) {
+      if (switchError.code === -32002 || switchError.message?.includes('already pending')) {
+        showToast('⚠️ Có yêu cầu đang chờ! Vui lòng mở tiện ích MetaMask và xác nhận.', 'warning');
+        return;
+      }
       if (switchError.code === 4902) {
         try {
           await window.ethereum.request({
@@ -374,7 +374,11 @@ export function Web3Provider({ children }) {
           });
           showToast('🎉 Đã thêm và chuyển sang mạng Hardhat Localhost!', 'success');
         } catch (addError) {
-          showToast('Lỗi thêm mạng: ' + addError.message, 'error');
+          if (addError.code === -32002 || addError.message?.includes('already pending')) {
+            showToast('⚠️ Vui lòng mở tiện ích MetaMask để phê duyệt thêm mạng.', 'warning');
+          } else {
+            showToast('Lỗi thêm mạng: ' + addError.message, 'error');
+          }
         }
       } else {
         showToast('Lỗi chuyển mạng: ' + switchError.message, 'error');
@@ -382,31 +386,29 @@ export function Web3Provider({ children }) {
     }
   };
 
-  // Deposit / Swap ETH for $RIFT (1 ETH = 10,000 $RIFT)
-  const depositEthForRift = async (ethAmount) => {
+  // Deposit / Swap Crypto (ETH or Cronos TCRO) for $RIFT
+  const depositCryptoForRift = async (amount, currency = 'ETH') => {
     if (!account) {
       showToast('⚠️ Vui lòng kết nối ví MetaMask trước khi quy đổi!', 'warning');
       connectMetaMask();
       return false;
     }
 
-    const numEth = parseFloat(ethAmount);
-    if (isNaN(numEth) || numEth <= 0) {
-      showToast('⚠️ Số lượng ETH quy đổi phải lớn hơn 0!', 'warning');
+    const numAmount = parseFloat(amount);
+    if (isNaN(numAmount) || numAmount <= 0) {
+      showToast(`⚠️ Số lượng ${currency} quy đổi phải lớn hơn 0!`, 'warning');
       return false;
     }
 
-    if (parseFloat(balanceEth) < numEth) {
-      showToast(`⚠️ Số dư trong ví (${balanceEth} ETH) không đủ để đổi ${numEth} ETH!`, 'warning');
-      return false;
-    }
+    // Tỷ giá: 1 ETH = 10,000 $RIFT; 1 TCRO (Cronos Testnet) = 100 $RIFT
+    const rate = currency === 'TCRO' ? 100 : RIFT_PER_ETH;
+    const riftAmount = Math.round(numAmount * rate);
 
-    const riftAmount = Math.round(numEth * RIFT_PER_ETH);
-    showToast(`⏳ Đang yêu cầu MetaMask ký lệnh chuyển ${numEth} ETH đổi ${riftAmount.toLocaleString()} $RIFT...`, 'info');
+    showToast(`⏳ Đang yêu cầu MetaMask ký lệnh chuyển ${numAmount} ${currency} đổi ${riftAmount.toLocaleString()} $RIFT...`, 'info');
 
     let txHash = null;
 
-    // 1. Thực hiện chuyển ETH thực tế qua MetaMask trên EVM
+    // 1. Thực hiện chuyển tiền qua MetaMask trên EVM
     if (window.ethereum) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
@@ -415,14 +417,14 @@ export function Web3Provider({ children }) {
 
         const tx = await signer.sendTransaction({
           to: recipient,
-          value: ethers.parseEther(numEth.toString()),
+          value: ethers.parseEther(numAmount.toString()),
         });
 
         showToast(`⛓️ Giao dịch đã phát lên Blockchain! Đang chờ xác nhận...`, 'info');
         const receipt = await tx.wait();
         txHash = receipt.hash;
       } catch (err) {
-        console.log('Lỗi ký giao dịch ETH:', err);
+        console.log('Lỗi ký giao dịch:', err);
         if (err.code === 'ACTION_REJECTED' || err.message?.includes('user rejected') || err.message?.includes('denied')) {
           showToast('❌ Người dùng đã từ chối ký giao dịch trên MetaMask.', 'error');
           return false;
@@ -435,7 +437,7 @@ export function Web3Provider({ children }) {
       await fetch(`${API_BASE}/users/${account}/deposit-eth`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ethAmount: numEth, riftAmount, txHash }),
+        body: JSON.stringify({ ethAmount: numAmount, riftAmount, txHash, currency }),
       });
     } catch (err) {
       console.log('Lỗi sync deposit-eth backend:', err);
@@ -443,11 +445,13 @@ export function Web3Provider({ children }) {
 
     // 3. Cập nhật state UI
     setBalanceRift((prev) => Number(prev) + riftAmount);
-    showToast(`🎉 Quy đổi thành công! Nhận được ${riftAmount.toLocaleString()} $RIFT vào ví.`, 'success');
+    showToast(`🎉 Quy đổi thành công! Nhận được ${riftAmount.toLocaleString()} $RIFT từ ${numAmount} ${currency}.`, 'success');
     await fetchBalance();
     triggerRefresh();
     return true;
   };
+
+  const depositEthForRift = (ethAmount) => depositCryptoForRift(ethAmount, 'ETH');
 
   // Claim Faucet (+1,000 $RIFT) (Legacy Fallback)
   const claimFaucet = async () => {
@@ -785,6 +789,7 @@ export function Web3Provider({ children }) {
         switchNetworkToHardhat,
         getNetworkInfo,
         depositEthForRift,
+        depositCryptoForRift,
         claimFaucet,
         buyCard,
         openPack,

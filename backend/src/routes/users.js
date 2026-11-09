@@ -90,15 +90,16 @@ router.post("/:address/faucet", async (req, res) => {
 router.post("/:address/deposit-eth", async (req, res) => {
   try {
     const address = req.params.address;
-    const { ethAmount = 0.1, riftAmount = 1000, txHash = "" } = req.body;
-    const newBalance = await store.depositEthForRift(address, ethAmount, riftAmount, txHash);
+    const { ethAmount = 0.1, riftAmount = 1000, txHash = "", currency = "ETH" } = req.body;
+    const newBalance = await store.depositEthForRift(address, ethAmount, riftAmount, txHash, currency);
 
     return res.status(200).json({
       success: true,
-      message: `Đã quy đổi thành công ${ethAmount} ETH sang ${riftAmount} $RIFT`,
+      message: `Đã quy đổi thành công ${ethAmount} ${currency} sang ${riftAmount} $RIFT`,
       data: {
         address,
         ethAmount,
+        currency,
         riftAmount,
         txHash,
         balance: newBalance,
