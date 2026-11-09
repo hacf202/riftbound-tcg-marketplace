@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { ethers } from 'ethers';
 
 const Web3Context = createContext();
@@ -345,9 +345,17 @@ export function Web3Provider({ children }) {
     triggerRefresh();
   };
 
+  const isSwitchingNetworkRef = useRef(false);
+
   // 1-Click Switch Network to Hardhat Localhost (Chain 31337)
   const switchNetworkToHardhat = async () => {
     if (!window.ethereum) return;
+    if (isSwitchingNetworkRef.current) {
+      showToast('⚠️ Đang có yêu cầu xử lý mạng trong MetaMask. Vui lòng mở tiện ích ví để duyệt!', 'warning');
+      return;
+    }
+
+    isSwitchingNetworkRef.current = true;
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
@@ -359,7 +367,12 @@ export function Web3Provider({ children }) {
         showToast('⚠️ Có yêu cầu đang chờ! Vui lòng mở tiện ích MetaMask và xác nhận.', 'warning');
         return;
       }
-      if (switchError.code === 4902) {
+      // Error code 4902 hoặc message chứa unrecognized chain id
+      if (
+        switchError.code === 4902 ||
+        switchError.message?.toLowerCase().includes('unrecognized chain id') ||
+        switchError.message?.includes('0x7a69')
+      ) {
         try {
           await window.ethereum.request({
             method: 'wallet_addEthereumChain',
@@ -376,13 +389,19 @@ export function Web3Provider({ children }) {
         } catch (addError) {
           if (addError.code === -32002 || addError.message?.includes('already pending')) {
             showToast('⚠️ Vui lòng mở tiện ích MetaMask để phê duyệt thêm mạng.', 'warning');
+          } else if (addError.code === 4001 || addError.message?.includes('User rejected')) {
+            showToast('ℹ️ Người dùng đã hủy thêm mạng Hardhat.', 'info');
           } else {
             showToast('Lỗi thêm mạng: ' + addError.message, 'error');
           }
         }
+      } else if (switchError.code === 4001 || switchError.message?.includes('User rejected')) {
+        showToast('ℹ️ Người dùng đã hủy chuyển mạng.', 'info');
       } else {
         showToast('Lỗi chuyển mạng: ' + switchError.message, 'error');
       }
+    } finally {
+      isSwitchingNetworkRef.current = false;
     }
   };
 
