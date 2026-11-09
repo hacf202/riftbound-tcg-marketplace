@@ -605,6 +605,28 @@ module.exports = {
     return newBal;
   },
 
+  depositEthForRift: async (address, ethAmount, riftAmount, txHash) => {
+    const addr = (address || "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266").toLowerCase();
+    const row = await get(`SELECT balance FROM user_balances WHERE LOWER(address) = LOWER(?)`, [addr]);
+    const currentBal = row ? row.balance : 0;
+    const newBal = currentBal + Number(riftAmount);
+
+    await run(`INSERT OR REPLACE INTO user_balances (address, balance) VALUES (?, ?)`, [addr, newBal]);
+
+    await run(
+      `INSERT INTO transactions (type, user_address, price, total_price, details)
+       VALUES ('EXCHANGE', ?, ?, ?, ?)`,
+      [
+        addr,
+        Number(ethAmount),
+        Number(riftAmount),
+        `Quy đổi ${ethAmount} ETH sang ${Number(riftAmount).toLocaleString()} $RIFT (Tx: ${txHash ? txHash.slice(0, 10) + '...' : 'EVM Localhost'})`
+      ]
+    );
+
+    return newBal;
+  },
+
   deductBalance: async (address, amount) => {
     const addr = (address || "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266").toLowerCase();
     await run(`UPDATE user_balances SET balance = MAX(0, balance - ?) WHERE LOWER(address) = LOWER(?)`, [amount, addr]);

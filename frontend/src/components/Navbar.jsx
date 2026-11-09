@@ -16,13 +16,13 @@ import {
   ArrowLeftRight,
   LogOut,
   ShieldCheck,
+  Zap,
 } from 'lucide-react';
 
 export default function Navbar() {
   const {
     account,
     shortAccount,
-    walletType,
     balanceRift,
     balanceEth,
     chainId,
@@ -33,7 +33,6 @@ export default function Navbar() {
     setActiveTab,
     connectMetaMask,
     disconnectWallet,
-    claimFaucet,
   } = useWeb3();
 
   const [walletDropdownOpen, setWalletDropdownOpen] = useState(false);
@@ -57,9 +56,10 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-rift-dark/95 backdrop-blur-md border-b border-rift-border/80 shadow-lg shadow-black/30">
+      <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-rift-border/80 shadow-lg shadow-black/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
-          {/* Brand Logo */}
+          
+          {/* 1. BRAND LOGO */}
           <div
             onClick={() => setActiveTab('marketplace')}
             className="flex items-center space-x-2.5 cursor-pointer group flex-shrink-0"
@@ -84,8 +84,8 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Navigation Tabs (Desktop) */}
-          <nav className="hidden lg:flex items-center space-x-1 bg-slate-950/80 p-1 rounded-xl border border-rift-border/70 shadow-inner">
+          {/* 2. NAVIGATION TABS (DESKTOP) */}
+          <nav className="hidden lg:flex items-center space-x-1 bg-slate-900/90 p-1 rounded-xl border border-rift-border shadow-inner">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -96,7 +96,7 @@ export default function Navbar() {
                   className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition duration-200 ${
                     isActive
                       ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40 shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent'
                   }`}
                 >
                   <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-amber-400' : 'text-slate-400'}`} />
@@ -106,32 +106,21 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Right Controls: Currency Converter & Faucet & MetaMask Login */}
-          <div className="flex items-center space-x-2">
+          {/* 3. RIGHT CONTROLS: QUY ĐỔI ETH ↔ $RIFT & VÍ METAMASK */}
+          <div className="flex items-center space-x-2.5">
             
-            {/* Quick Currency Converter Button (ETH ↔ $RIFT) */}
+            {/* NÚT QUY ĐỔI TIỀN TỆ BẰNG ĐỒNG ETH (THAY THẾ FAUCET) */}
             <button
               onClick={() => setIsExchangeModalOpen(true)}
-              title="Mở bảng quy đổi tỷ giá ETH ↔ $RIFT"
-              className="flex items-center space-x-1.5 bg-purple-950/40 hover:bg-purple-900/50 border border-purple-500/40 text-purple-300 hover:text-purple-200 px-2.5 py-1.5 rounded-xl text-xs font-bold transition shadow-sm"
+              title="Quy đổi ETH sang $RIFT theo tỷ giá 1 ETH = 10,000 $RIFT"
+              className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-extrabold px-3 py-1.5 rounded-xl text-xs uppercase tracking-wider transition shadow-md shadow-purple-600/25 active:scale-95 border border-purple-400/40"
             >
-              <ArrowLeftRight className="w-3.5 h-3.5 text-purple-400" />
-              <span className="hidden md:inline">Quy Đổi Tiền Tệ</span>
-              <span className="md:hidden text-[11px]">Tỷ Giá</span>
+              <Zap className="w-3.5 h-3.5 fill-amber-300 text-amber-300 animate-pulse" />
+              <span className="hidden sm:inline">Đổi ETH Sang $RIFT</span>
+              <span className="sm:hidden text-[11px]">Đổi ETH</span>
             </button>
 
-            {/* 1-Click Faucet (+1,000 $RIFT) */}
-            <button
-              onClick={claimFaucet}
-              title="Nhận ngay 1,000 $RIFT thử nghiệm"
-              className="flex items-center space-x-1.5 bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/20 hover:from-amber-500/30 hover:to-orange-500/30 border border-amber-500/50 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-sm hover:scale-[1.02] active:scale-95"
-            >
-              <Coins className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden sm:inline">+1,000 $RIFT</span>
-              <span className="sm:hidden text-[11px]">+1K</span>
-            </button>
-
-            {/* Wallet Section: Mandatory MetaMask Only */}
+            {/* VÍ METAMASK (BẮT BUỘC) */}
             {!account ? (
               <button
                 onClick={connectMetaMask}
@@ -143,11 +132,12 @@ export default function Navbar() {
               </button>
             ) : (
               <div className="relative">
+                {/* Account Trigger Button */}
                 <div
                   onClick={() => setWalletDropdownOpen(!walletDropdownOpen)}
-                  className="flex items-center space-x-2.5 bg-slate-950/90 border border-rift-border hover:border-amber-500/50 px-3 py-1.5 rounded-xl cursor-pointer transition select-none shadow"
+                  className="flex items-center space-x-2.5 bg-slate-900 border border-rift-border hover:border-amber-500/50 px-3 py-1.5 rounded-xl cursor-pointer transition select-none shadow"
                 >
-                  {/* Balances Display: Dual ETH & $RIFT */}
+                  {/* Dual Balances Display */}
                   <div className="text-right">
                     <div className="flex items-center justify-end space-x-1 text-xs font-black text-amber-400 tabular-nums">
                       <span>{Number(balanceRift).toLocaleString()}</span>
@@ -160,7 +150,7 @@ export default function Navbar() {
 
                   <div className="h-5 w-[1px] bg-rift-border"></div>
 
-                  {/* Connected Account Badge */}
+                  {/* Connected Status Pill */}
                   <div className="flex items-center space-x-1.5 text-xs font-medium text-slate-300">
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400 animate-pulse" />
                     <span className="font-mono text-[11px] hidden sm:inline font-bold text-slate-200">
@@ -176,7 +166,7 @@ export default function Navbar() {
                     
                     {/* Header: Address and Network */}
                     <div className="pb-2.5 border-b border-rift-border/80">
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center justify-between mb-1.5">
                         <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider flex items-center space-x-1">
                           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                           <span>Ví MetaMask Đã Kết Nối</span>
@@ -220,18 +210,18 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    {/* Quick Link: Converter Modal */}
+                    {/* Quick Link: Exchange Modal */}
                     <button
                       onClick={() => {
                         setIsExchangeModalOpen(true);
                         setWalletDropdownOpen(false);
                       }}
-                      className="w-full text-left p-2 rounded-xl bg-purple-950/30 hover:bg-purple-900/40 border border-purple-500/30 flex items-center space-x-2 text-purple-200 transition"
+                      className="w-full text-left p-2.5 rounded-xl bg-purple-950/40 hover:bg-purple-900/50 border border-purple-500/40 flex items-center space-x-2 text-purple-200 transition"
                     >
-                      <ArrowLeftRight className="w-4 h-4 text-purple-400" />
+                      <ArrowLeftRight className="w-4 h-4 text-purple-400 flex-shrink-0" />
                       <div>
-                        <div className="font-bold text-xs">Mở Bảng Quy Đổi Tỷ Giá</div>
-                        <div className="text-[10px] text-purple-300/70">1 ETH = 10,000 $RIFT Token</div>
+                        <div className="font-bold text-xs">Nạp Thêm $RIFT Bằng ETH</div>
+                        <div className="text-[10px] text-purple-300/70">Tỷ giá: 1 ETH = 10,000 $RIFT</div>
                       </div>
                     </button>
 
@@ -257,7 +247,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Nav Tabs */}
+        {/* 4. MOBILE NAVIGATION TABS */}
         <div className="lg:hidden flex border-t border-rift-border/60 px-2 py-1.5 justify-around bg-slate-950/90 overflow-x-auto">
           {navItems.map((item) => {
             const Icon = item.icon;

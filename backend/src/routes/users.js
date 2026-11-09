@@ -84,6 +84,35 @@ router.post("/:address/faucet", async (req, res) => {
 });
 
 /**
+ * @route   POST /api/v1/users/:address/deposit-eth
+ * @desc    Quy đổi ETH sang $RIFT theo tỷ giá 1 ETH = 10,000 $RIFT
+ */
+router.post("/:address/deposit-eth", async (req, res) => {
+  try {
+    const address = req.params.address;
+    const { ethAmount = 0.1, riftAmount = 1000, txHash = "" } = req.body;
+    const newBalance = await store.depositEthForRift(address, ethAmount, riftAmount, txHash);
+
+    return res.status(200).json({
+      success: true,
+      message: `Đã quy đổi thành công ${ethAmount} ETH sang ${riftAmount} $RIFT`,
+      data: {
+        address,
+        ethAmount,
+        riftAmount,
+        txHash,
+        balance: newBalance,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+/**
  * @route   POST /api/v1/users/:address/pack-rewards
  * @desc    Lưu toàn bộ thẻ bài mở được và trừ tiền trong SQLite DB
  */

@@ -5,7 +5,7 @@ import SellModal from '../components/SellModal';
 import { Wallet, Sparkles, Layers, ShieldCheck, Flame, RefreshCw, ShoppingCart } from 'lucide-react';
 
 export default function Inventory() {
-  const { account, dataVersion, triggerRefresh, API_BASE, setActiveTab } = useWeb3();
+  const { account, dataVersion, triggerRefresh, API_BASE, setActiveTab, formatEthEquivalent, setIsExchangeModalOpen } = useWeb3();
   const [inventory, setInventory] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -67,7 +67,12 @@ export default function Inventory() {
                 </div>
                 <div className="bg-slate-900/80 border border-rift-border px-4 py-3 rounded-2xl flex-1 md:flex-none">
                   <div className="text-[10px] text-slate-400 uppercase font-semibold">Định Giá Portfolio</div>
-                  <div className="text-2xl font-black text-amber-400">{inventory.estimatedPortfolioValueRift} $RIFT</div>
+                  <div className="text-2xl font-black text-amber-400 leading-tight">
+                    {inventory.estimatedPortfolioValueRift} <span className="text-sm font-semibold text-slate-400">$RIFT</span>
+                  </div>
+                  <div className="text-[10px] text-cyan-400 font-mono font-medium leading-none mt-0.5">
+                    ~{formatEthEquivalent ? formatEthEquivalent(inventory.estimatedPortfolioValueRift) : '0 ETH'}
+                  </div>
                 </div>
               </>
             )}
@@ -98,13 +103,20 @@ export default function Inventory() {
           <p className="text-slate-400 text-xs mb-6 max-w-md mx-auto">
             Bạn chưa có thẻ bài trong tài khoản này. Hãy xé các gói thẻ bài tại tab "Gói Thẻ" hoặc mua trực tiếp từ "Sàn Giao Dịch".
           </p>
-          <div className="flex items-center justify-center space-x-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={() => setActiveTab('packs')}
               className="bg-purple-600 hover:bg-purple-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition flex items-center space-x-1.5 shadow-lg shadow-purple-600/20"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Đi Mở Gói Thẻ</span>
+            </button>
+            <button
+              onClick={() => setIsExchangeModalOpen && setIsExchangeModalOpen(true)}
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition flex items-center space-x-1.5 shadow-lg shadow-purple-600/20 border border-purple-400/40"
+            >
+              <Wallet className="w-3.5 h-3.5 text-amber-300" />
+              <span>Đổi ETH Lấy $RIFT</span>
             </button>
             <button
               onClick={() => setActiveTab('marketplace')}

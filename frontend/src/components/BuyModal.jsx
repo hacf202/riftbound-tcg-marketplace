@@ -3,7 +3,7 @@ import { X, ShoppingBag, ShieldCheck, Sparkles } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 
 export default function BuyModal({ listing, card, onClose, onSuccess }) {
-  const { buyCard, balanceRift, setActiveTab } = useWeb3();
+  const { buyCard, balanceRift, setActiveTab, setIsExchangeModalOpen } = useWeb3();
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -122,10 +122,24 @@ export default function BuyModal({ listing, card, onClose, onSuccess }) {
           </div>
         </div>
 
-        {/* Wallet Balance Warning */}
+        {/* Wallet Balance Warning & Quick Swap CTA */}
         {Number(balanceRift) < totalPrice && (
-          <div className="mb-4 p-3 rounded-xl bg-rose-950/50 border border-rose-500/40 text-rose-300 text-xs">
-            ⚠️ Số dư ví của bạn ({balanceRift} $RIFT) không đủ. Hãy bấm nút Faucet trên thanh Navbar để nhận thêm!
+          <div className="mb-4 p-3.5 rounded-2xl bg-purple-950/40 border border-purple-500/40 text-purple-200 text-xs flex flex-col sm:flex-row items-center justify-between gap-2.5">
+            <div>
+              <div className="font-bold text-amber-300">⚠️ Số dư không đủ ({balanceRift} $RIFT)</div>
+              <div className="text-[11px] text-slate-300">Cần thêm {totalPrice - Number(balanceRift)} $RIFT để mua thẻ bài này.</div>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                if (setIsExchangeModalOpen) setIsExchangeModalOpen(true);
+              }}
+              className="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs uppercase tracking-wider transition whitespace-nowrap shadow-md shadow-purple-600/30 active:scale-95 flex items-center space-x-1"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>Đổi ETH Ngay</span>
+            </button>
           </div>
         )}
 

@@ -1,4 +1,4 @@
-/**
+v/**
  * SCRIPT DEPLOY CHUYÊN DỤNG CHO REMIX IDE (https://app.remix.live)
  * 
  * Cách chạy trong Remix IDE:

@@ -93,11 +93,9 @@ Truy cập ngay vào đường link hiển thị trên terminal:
 
 ---
 
-## 3. Cấu Hình Ví MetaMask (Tùy Chọn)
+## 3. Cấu Hình Ví MetaMask (Bắt Buộc Chuẩn Web3)
 
-Dự án hỗ trợ 2 chế độ ví linh hoạt:
-1. **Ví Demo Mặc Định (Instant Play)**: Tích hợp sẵn trong dApp, không cần cài đặt ví, có sẵn số dư và tự động lưu trữ dữ liệu vào SQLite.
-2. **Ví MetaMask (Chuẩn Web3 On-Chain)**: Dành cho giảng viên / người chấm bài muốn kiểm tra giao dịch Blockchain thực tế:
+Hệ thống vận hành theo chuẩn Web3 thực thụ, yêu cầu xác thực bằng ví **MetaMask**:
 
 ### Thêm Mạng Hardhat Localhost Vào MetaMask:
 - **Tên mạng (Network Name)**: `Hardhat Localhost`
@@ -106,7 +104,7 @@ Dự án hỗ trợ 2 chế độ ví linh hoạt:
 - **Ký hiệu tiền tệ (Currency Symbol)**: `ETH`
 
 ### Nhập Tài Khoản Thử Nghiệm Có Sẵn Tiền:
-Bạn có thể import Private Key của tài khoản Deployer/Tester trong Hardhat vào MetaMask để nhận ngay **10,000 ETH** và **1,000,000 $RIFT**:
+Bạn có thể import Private Key của tài khoản Hardhat vào MetaMask để nhận ngay **10,000 ETH** (trả gas & quy đổi $RIFT):
 - **Private Key**: `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
 - **Địa chỉ ví**: `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`
 
@@ -116,9 +114,11 @@ Bạn có thể import Private Key của tài khoản Deployer/Tester trong Hard
 
 Sau khi mở trình duyệt tại `http://localhost:5174`:
 
-### 🎁 1. Nạp Tiền Thử Nghiệm Miễn Phí (Faucet 1-Click)
-- Ở góc trên bên phải thanh Navbar (hoặc trang Mở Gói Thẻ), nhấp vào nút **`+1,000 Faucet`**.
-- Hệ thống sẽ đúc ngay lập tức **1,000 $RIFT** vào số dư ví của bạn.
+### ⚡ 1. Quy Đổi Tiền Tệ Bằng Đồng ETH (Web3 Exchange Modal)
+- Ở góc trên bên phải thanh Navbar (hoặc tại trang Gói Thẻ & Chi Tiết Thẻ), nhấp vào nút **`⚡ Đổi ETH Sang $RIFT`**.
+- Chọn một trong các gói nhanh (`0.05 ETH ➔ 500 $RIFT`, `0.1 ETH ➔ 1,000 $RIFT`, `0.5 ETH ➔ 5,000 $RIFT`...) hoặc nhập số ETH tùy ý.
+- Tỷ giá quy đổi định chuẩn: **1 ETH = 10,000 $RIFT** (tương đương 1 $RIFT = 0.0001 ETH).
+- Nhấp **"Xác Nhận Đổi ETH ➔ $RIFT"**: Ví MetaMask sẽ mở cửa sổ yêu cầu ký duyệt giao dịch chuyển ETH on-chain, sau đó số dư token $RIFT được cộng trực tiếp vào ví của bạn.
 
 ### 🛒 2. Chợ Giao Dịch Thẻ Bài (Marketplace)
 - Chuyển sang tab **"Sàn Giao Dịch"**.

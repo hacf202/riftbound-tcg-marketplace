@@ -101,6 +101,13 @@ export default function Activity() {
           sign: '+',
           color: 'text-cyan-300',
         };
+      case 'EXCHANGE':
+        return {
+          text: 'ĐỔI ETH SANG $RIFT',
+          cls: 'bg-purple-500/20 text-purple-300 border-purple-500/50',
+          sign: '+',
+          color: 'text-amber-400',
+        };
       case 'CANCEL':
         return {
           text: 'HỦY NIÊM YẾT',
@@ -178,7 +185,7 @@ export default function Activity() {
         <div className="text-[11px] text-slate-400 px-2">
           Đang xem:{' '}
           <strong className="text-slate-200 font-mono">
-            {viewScope === 'my' ? account || 'Ví Demo (0xf39F...2266)' : 'Toàn bộ mạng lưới'}
+            {viewScope === 'my' ? (account ? `${account.slice(0, 6)}...${account.slice(-4)}` : 'Chưa kết nối ví') : 'Toàn bộ mạng lưới'}
           </strong>
         </div>
       </div>
@@ -187,10 +194,10 @@ export default function Activity() {
       <div className="flex items-center space-x-2 overflow-x-auto pb-2">
         {[
           { id: 'ALL', label: 'Tất Cả' },
+          { id: 'EXCHANGE', label: '⚡ Quy Đổi ETH' },
           { id: 'SALE', label: 'Mua / Bán Thẻ' },
           { id: 'LISTING', label: 'Rao Bán Sàn' },
           { id: 'PACK_OPEN', label: 'Mở Gói Thẻ' },
-          { id: 'FAUCET', label: 'Faucet' },
           { id: 'CANCEL', label: 'Hủy Niêm Yết' },
         ].map((t) => (
           <button

@@ -330,7 +330,74 @@ export function Web3Provider({ children }) {
     triggerRefresh();
   };
 
-  // Claim Faucet (+1,000 $RIFT)
+  // Deposit / Swap ETH for $RIFT (1 ETH = 10,000 $RIFT)
+  const depositEthForRift = async (ethAmount) => {
+    if (!account) {
+      showToast('⚠️ Vui lòng kết nối ví MetaMask trước khi quy đổi!', 'warning');
+      connectMetaMask();
+      return false;
+    }
+
+    const numEth = parseFloat(ethAmount);
+    if (isNaN(numEth) || numEth <= 0) {
+      showToast('⚠️ Số lượng ETH quy đổi phải lớn hơn 0!', 'warning');
+      return false;
+    }
+
+    if (parseFloat(balanceEth) < numEth) {
+      showToast(`⚠️ Số dư trong ví (${balanceEth} ETH) không đủ để đổi ${numEth} ETH!`, 'warning');
+      return false;
+    }
+
+    const riftAmount = Math.round(numEth * RIFT_PER_ETH);
+    showToast(`⏳ Đang yêu cầu MetaMask ký lệnh chuyển ${numEth} ETH đổi ${riftAmount.toLocaleString()} $RIFT...`, 'info');
+
+    let txHash = null;
+
+    // 1. Thực hiện chuyển ETH thực tế qua MetaMask trên EVM
+    if (window.ethereum) {
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const recipient = contractsConfig?.contracts?.RiftToken || contractsConfig?.deployer || '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+
+        const tx = await signer.sendTransaction({
+          to: recipient,
+          value: ethers.parseEther(numEth.toString()),
+        });
+
+        showToast(`⛓️ Giao dịch đã phát lên Blockchain! Đang chờ xác nhận...`, 'info');
+        const receipt = await tx.wait();
+        txHash = receipt.hash;
+      } catch (err) {
+        console.log('Lỗi ký giao dịch ETH:', err);
+        if (err.code === 'ACTION_REJECTED' || err.message?.includes('user rejected') || err.message?.includes('denied')) {
+          showToast('❌ Người dùng đã từ chối ký giao dịch trên MetaMask.', 'error');
+          return false;
+        }
+      }
+    }
+
+    // 2. Cập nhật số dư trong SQLite Database
+    try {
+      await fetch(`${API_BASE}/users/${account}/deposit-eth`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ethAmount: numEth, riftAmount, txHash }),
+      });
+    } catch (err) {
+      console.log('Lỗi sync deposit-eth backend:', err);
+    }
+
+    // 3. Cập nhật state UI
+    setBalanceRift((prev) => Number(prev) + riftAmount);
+    showToast(`🎉 Quy đổi thành công! Nhận được ${riftAmount.toLocaleString()} $RIFT vào ví.`, 'success');
+    await fetchBalance();
+    triggerRefresh();
+    return true;
+  };
+
+  // Claim Faucet (+1,000 $RIFT) (Legacy Fallback)
   const claimFaucet = async () => {
     if (!account) {
       showToast('⚠️ Vui lòng kết nối ví MetaMask trước khi nhận Faucet!', 'warning');
@@ -610,6 +677,7 @@ export function Web3Provider({ children }) {
         triggerRefresh,
         connectMetaMask,
         disconnectWallet,
+        depositEthForRift,
         claimFaucet,
         buyCard,
         openPack,

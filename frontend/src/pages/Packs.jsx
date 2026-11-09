@@ -139,9 +139,12 @@ export default function Packs() {
   const startOpenPack = async (pack) => {
     if (Number(balanceRift) < pack.price) {
       showToast(
-        `Số dư ví (${balanceRift} $RIFT) không đủ mở gói (${pack.price} $RIFT). Hãy bấm +1,000 Faucet để nhận thêm!`,
+        `Số dư ví (${balanceRift} $RIFT) không đủ mở gói (${pack.price} $RIFT). Vui lòng quy đổi thêm từ ETH sang $RIFT!`,
         'warning'
       );
+      if (setIsExchangeModalOpen) {
+        setIsExchangeModalOpen(true);
+      }
       return;
     }
 
@@ -319,27 +322,17 @@ export default function Packs() {
             </div>
           </div>
 
-          {/* Quick Currency Converter Button */}
+          {/* Button: Đổi ETH sang $RIFT (Thay thế Faucet) */}
           {setIsExchangeModalOpen && (
             <button
               onClick={() => setIsExchangeModalOpen(true)}
-              title="Quy đổi tỷ giá ETH ↔ $RIFT"
-              className="bg-purple-950/40 hover:bg-purple-900/50 border border-purple-500/40 text-purple-300 hover:text-purple-200 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1"
+              title="Quy đổi ETH sang $RIFT theo tỷ giá 1 ETH = 10,000 $RIFT"
+              className="bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-extrabold px-3.5 py-2 rounded-xl text-xs uppercase tracking-wider transition shadow-lg shadow-purple-600/30 active:scale-95 flex items-center space-x-1.5 whitespace-nowrap border border-purple-400/40"
             >
-              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-              <span className="hidden sm:inline">Tỷ Giá ETH</span>
+              <Zap className="w-3.5 h-3.5 fill-amber-300 text-amber-300 animate-pulse" />
+              <span>Đổi ETH Sang $RIFT</span>
             </button>
           )}
-
-          {/* Quick Faucet Button */}
-          <button
-            onClick={claimFaucet}
-            title="Nhận ngay 1,000 $RIFT thử nghiệm"
-            className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs uppercase tracking-wider transition shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center space-x-1.5 whitespace-nowrap"
-          >
-            <Zap className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
-            <span>+1,000 Faucet</span>
-          </button>
 
           {/* Sound Toggle Button */}
           <button
@@ -1037,16 +1030,30 @@ export default function Packs() {
                       </div>
 
                       <button
-                        onClick={() => startOpenPack(pack)}
-                        disabled={!canAfford}
+                        onClick={() => {
+                          if (canAfford) {
+                            startOpenPack(pack);
+                          } else if (setIsExchangeModalOpen) {
+                            setIsExchangeModalOpen(true);
+                          }
+                        }}
                         className={`font-black px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition flex items-center space-x-1.5 active:scale-95 ${
                           canAfford
                             ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
-                            : 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'
+                            : 'bg-purple-950/60 hover:bg-purple-900/70 text-purple-200 border border-purple-500/40 hover:border-purple-400 shadow-md shadow-purple-950/30'
                         }`}
                       >
-                        <Layers className="w-3.5 h-3.5" />
-                        <span>{canAfford ? 'Xé Gói Ngay' : 'Thiếu $RIFT'}</span>
+                        {canAfford ? (
+                          <>
+                            <Layers className="w-3.5 h-3.5" />
+                            <span>Xé Gói Ngay</span>
+                          </>
+                        ) : (
+                          <>
+                            <Zap className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
+                            <span>Đổi Thêm ETH</span>
+                          </>
+                        )}
                       </button>
                     </div>
 

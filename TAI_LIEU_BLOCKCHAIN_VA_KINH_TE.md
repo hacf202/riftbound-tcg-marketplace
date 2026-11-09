@@ -134,10 +134,11 @@ $$1 \text{ ETH} = 10,000 \text{ \$RIFT} \quad \Longleftrightarrow \quad 1 \text{
 * **Giao diện người dùng (Frontend)**: Tích hợp công cụ chuyển đổi tiền tệ tương tác `CurrencyConverterModal` trên thanh điều hướng Navbar và hiển thị giá tương đương ETH bên cạnh toàn bộ thẻ bài và gói thẻ.
 
 ### 4.2. Làm sao để có được tiền $RIFT?
-1. **Môi trường Testnet / Localhost**: Bấm nút **Faucet (+1,000 $RIFT)** trên Navbar để gọi hàm `claimFaucet()`.
-2. **Môi trường Mainnet thực tế**:
-   * Người chơi nạp ETH hoặc USDT vào bể thanh khoản phi tập trung (DEX Liquidity Pool trên Uniswap) để hoán đổi lấy $RIFT.
-   * Kiếm được thông qua phần thưởng leo Rank PVP, nhiệm vụ chiến dịch hoặc bán các thẻ bài quý bóc được trên Marketplace.
+1. **Quy đổi trực tiếp từ đồng ETH qua ví MetaMask**: Bấm nút **"⚡ Đổi ETH Sang $RIFT"** trên Navbar hoặc tại trang Gói Thẻ để mở cổng Swap. Người chơi nạp ETH (ví dụ 0.1 ETH) và nhận về $RIFT (1,000 $RIFT) bằng giao dịch ký duyệt trên MetaMask.
+2. **Thị trường tự do & Play-to-Earn**:
+   * Bán các thẻ bài quý bóc được từ gói bài trên Sàn Giao Dịch P2P để thu về $RIFT từ người chơi khác.
+   * Hoán đổi ETH/USDT qua các bể thanh khoản phi tập trung (DEX Liquidity Pool trên Uniswap).
+   * Kiếm được thông qua phần thưởng leo Rank PVP và hoàn thành chuỗi nhiệm vụ mùa giải.
 
 ### 4.3. Nếu có được dễ dàng thì có gây ra lạm phát không?
 Hệ sinh thái Riftbound TCG kiểm soát lạm phát nghiêm ngặt thông qua mô hình kinh tế **Token Sinks & Burns**:
