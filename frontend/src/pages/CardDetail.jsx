@@ -14,13 +14,15 @@ import {
   CheckCircle2, 
   Coins, 
   Eye, 
-  Share2 
+  Share2,
+  XCircle,
+  UserCheck
 } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 import BuyModal from '../components/BuyModal';
 
 export default function CardDetail({ cardId, onBack }) {
-  const { API_BASE, balanceRift, dataVersion, triggerRefresh, formatEthEquivalent } = useWeb3();
+  const { API_BASE, account, balanceRift, dataVersion, triggerRefresh, formatEthEquivalent, cancelListing } = useWeb3();
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedVariation, setSelectedVariation] = useState('normal'); // 'normal' | 'foil' | 'signature'
@@ -257,13 +259,26 @@ export default function CardDetail({ cardId, onBack }) {
 
             <div className="flex items-center space-x-2 w-full sm:w-auto">
               {activeListings.length > 0 ? (
-                <button
-                  onClick={() => setSelectedListing(activeListings[0])}
-                  className="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-lg shadow-amber-500/25 active:scale-95 flex items-center justify-center space-x-1.5"
-                >
-                  <ShoppingBag className="w-4 h-4" />
-                  <span>Mua Ngay ({activeListings[0].pricePerItem} $RIFT)</span>
-                </button>
+                activeListings[0].seller?.toLowerCase() === account?.toLowerCase() ? (
+                  <button
+                    onClick={async () => {
+                      await cancelListing(activeListings[0].id || activeListings[0].listingId);
+                      if (onBack) onBack();
+                    }}
+                    className="w-full sm:w-auto bg-rose-950/80 hover:bg-rose-900 border border-rose-500/60 text-rose-300 font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-lg active:scale-95 flex items-center justify-center space-x-1.5"
+                  >
+                    <XCircle className="w-4 h-4 text-rose-400" />
+                    <span>Thẻ Của Bạn (Hủy Niêm Yết)</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setSelectedListing(activeListings[0])}
+                    className="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-lg shadow-amber-500/25 active:scale-95 flex items-center justify-center space-x-1.5"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>Mua Ngay ({activeListings[0].pricePerItem} $RIFT)</span>
+                  </button>
+                )
               ) : (
                 <div className="text-xs font-semibold text-slate-400 bg-slate-900 px-3 py-2 rounded-xl border border-rift-border">
                   Hiện chưa có lệnh bán thẻ này
@@ -388,12 +403,21 @@ export default function CardDetail({ cardId, onBack }) {
                           {l.pricePerItem} $RIFT
                         </td>
                         <td className="py-2.5 px-2 text-right">
-                          <button
-                            onClick={() => setSelectedListing(l)}
-                            className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded-lg text-[11px] uppercase transition shadow-sm"
-                          >
-                            Mua
-                          </button>
+                          {l.seller?.toLowerCase() === account?.toLowerCase() ? (
+                            <button
+                              onClick={() => cancelListing && cancelListing(l.id || l.listingId)}
+                              className="bg-rose-950/70 hover:bg-rose-900 border border-rose-500/50 text-rose-300 font-bold px-2.5 py-1 rounded-lg text-[11px] uppercase transition shadow-sm active:scale-95"
+                            >
+                              Hủy Bán
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => setSelectedListing(l)}
+                              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded-lg text-[11px] uppercase transition shadow-sm"
+                            >
+                              Mua
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))}

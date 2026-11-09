@@ -437,22 +437,26 @@ export function Web3Provider({ children }) {
   };
 
   // Buy Card on Marketplace
-  const buyCard = async (listingId, pricePerItem, quantity = 1) => {
+  const buyCard = async (listingId, pricePerItem, quantity = 1, seller = null) => {
     if (!account) {
       showToast('⚠️ Vui lòng kết nối ví MetaMask để thực hiện mua thẻ bài!', 'warning');
       connectMetaMask();
       return false;
     }
 
-    const totalPrice = Number(pricePerItem) * Number(quantity);
-
-    if (Number(balanceRift) < totalPrice) {
-      showToast(`Số dư ví (${balanceRift} $RIFT) không đủ để thanh toán ${totalPrice} $RIFT! Hãy bấm Faucet để nhận thêm.`, 'warning');
+    // Chặn người bán tự mua thẻ của chính mình (Anti Wash Trading)
+    if (seller && account && seller.toLowerCase() === account.toLowerCase()) {
+      showToast('⚠️ Bạn là người bán lá bài này, không thể tự mua thẻ của chính mình! Hãy bấm Hủy Niêm Yết để nhận lại thẻ.', 'warning');
       return false;
     }
 
-    // Instant balance UI deduction
-    setBalanceRift((prev) => Math.max(0, Number(prev) - totalPrice));
+    const totalPrice = Number(pricePerItem) * Number(quantity);
+
+    if (Number(balanceRift) < totalPrice) {
+      showToast(`Số dư ví (${balanceRift} $RIFT) không đủ để thanh toán ${totalPrice} $RIFT! Vui lòng đổi thêm ETH sang $RIFT.`, 'warning');
+      setIsExchangeModalOpen(true);
+      return false;
+    }
 
     // 1. Đồng bộ mua thẻ ngay lập tức với Backend Database (Escrow & Inventory Transfer)
     try {
@@ -473,6 +477,9 @@ export function Web3Provider({ children }) {
       triggerRefresh();
       return false;
     }
+
+    // Instant balance UI deduction sau khi backend xác nhận hợp lệ
+    setBalanceRift((prev) => Math.max(0, Number(prev) - totalPrice));
 
     // 2. Thử giao dịch On-Chain nếu MetaMask kết nối đúng mạng
     if (window.ethereum && contractsConfig?.contracts?.RiftMarketplace) {
@@ -649,6 +656,52 @@ export function Web3Provider({ children }) {
     return true;
   };
 
+  // Cancel Listing (Hủy Niêm Yết Thẻ Bài)
+  const cancelListing = async (listingId) => {
+    if (!account) {
+      showToast('⚠️ Vui lòng kết nối ví MetaMask để hủy niêm yết!', 'warning');
+      connectMetaMask();
+      return false;
+    }
+
+    showToast('⏳ Đang xử lý lệnh hủy niêm yết...', 'info');
+
+    // 1. Giao dịch On-Chain nếu MetaMask kết nối
+    if (window.ethereum && contractsConfig?.contracts?.RiftMarketplace) {
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const mktAddress = contractsConfig.contracts.RiftMarketplace;
+        const mktContract = new ethers.Contract(mktAddress, contractsAbi.RiftMarketplace, signer);
+
+        const tx = await mktContract.cancelListing(listingId);
+        await tx.wait();
+      } catch (err) {
+        console.log('On-chain cancel notice:', err.message);
+      }
+    }
+
+    // 2. Đồng bộ với SQLite backend
+    try {
+      const res = await fetch(`${API_BASE}/marketplace/sync-cancel`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ listingId, seller: account }),
+      });
+      const data = await res.json();
+      if (!data.success) {
+        showToast(data.message || 'Lỗi khi hủy niêm yết!', 'error');
+        return false;
+      }
+    } catch (err) {
+      console.log('Lỗi sync cancel backend:', err);
+    }
+
+    showToast('🎉 Đã hủy niêm yết thành công! Thẻ bài đã được trả lại vào Bộ Sưu Tập của bạn.', 'success');
+    triggerRefresh();
+    return true;
+  };
+
   const shortAccount = account
     ? `${account.slice(0, 6)}...${account.slice(-4)}`
     : null;
@@ -682,6 +735,7 @@ export function Web3Provider({ children }) {
         buyCard,
         openPack,
         listCard,
+        cancelListing,
         showToast,
         contractsConfig,
         API_BASE,

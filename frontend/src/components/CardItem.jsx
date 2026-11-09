@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Eye, ShoppingCart, Tag } from 'lucide-react';
+import { Sparkles, Eye, ShoppingCart, Tag, XCircle, UserCheck } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 
 export default function CardItem({
@@ -11,7 +11,7 @@ export default function CardItem({
   mode = 'marketplace', // 'marketplace' | 'inventory' | 'codex'
   isRecentlyUpdated = false,
 }) {
-  const { viewCardDetail, formatEthEquivalent } = useWeb3();
+  const { viewCardDetail, formatEthEquivalent, account, cancelListing } = useWeb3();
 
   if (!card) return null;
 
@@ -71,6 +71,9 @@ export default function CardItem({
   const printedNum = card.public_code || (card.printed_number ? `#${card.printed_number}` : `#${String(card.id).padStart(3, '0')}`);
   const cardIdRef = card.scrydex_id || card.id;
   const isBattlefield = card.type === 'Battlefield';
+  const isOwnListing = Boolean(
+    listing?.seller && account && listing.seller.toLowerCase() === account.toLowerCase()
+  );
 
   const handleCardClick = () => {
     if (viewCardDetail) {
@@ -91,6 +94,14 @@ export default function CardItem({
         onClick={handleCardClick}
         className="relative cursor-pointer aspect-[744/1039] rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center p-1 group/img select-none"
       >
+        {/* Own Listing Badge */}
+        {isOwnListing && (
+          <div className="absolute top-2 left-2 z-20 px-2 py-0.5 rounded-md bg-purple-950/90 text-purple-200 border border-purple-500/60 text-[9px] font-black uppercase tracking-wider shadow-lg flex items-center space-x-1 backdrop-blur-md">
+            <UserCheck className="w-3 h-3 text-purple-400" />
+            <span>Thẻ Của Bạn</span>
+          </div>
+        )}
+
         <img
           src={cardImageSrc}
           alt={card.name}
@@ -196,14 +207,25 @@ export default function CardItem({
               >
                 Chi Tiết
               </button>
-              {listing && onBuy && (
+              {isOwnListing ? (
                 <button
-                  onClick={() => onBuy(listing, card)}
-                  className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-3 py-1.5 rounded-xl text-xs uppercase tracking-wider transition shadow-md shadow-amber-500/20 active:scale-95 flex items-center space-x-1"
+                  onClick={() => cancelListing && cancelListing(listing.id || listing.listingId)}
+                  title="Bạn là người bán lá bài này. Bấm để hủy niêm yết và nhận lại thẻ."
+                  className="bg-rose-950/70 hover:bg-rose-900 border border-rose-500/50 text-rose-300 font-bold px-2.5 py-1.5 rounded-xl text-xs uppercase tracking-wider transition active:scale-95 flex items-center space-x-1 shadow-md shadow-rose-950/30"
                 >
-                  <ShoppingCart className="w-3.5 h-3.5" />
-                  <span>Mua</span>
+                  <XCircle className="w-3.5 h-3.5 text-rose-400" />
+                  <span>Hủy Bán</span>
                 </button>
+              ) : (
+                listing && onBuy && (
+                  <button
+                    onClick={() => onBuy(listing, card)}
+                    className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-3 py-1.5 rounded-xl text-xs uppercase tracking-wider transition shadow-md shadow-amber-500/20 active:scale-95 flex items-center space-x-1"
+                  >
+                    <ShoppingCart className="w-3.5 h-3.5" />
+                    <span>Mua</span>
+                  </button>
+                )
               )}
             </div>
           </div>

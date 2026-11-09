@@ -162,6 +162,21 @@ router.post("/sync-sale", async (req, res) => {
       });
     }
 
+    const listing = await store.getListingById(listingId);
+    if (!listing) {
+      return res.status(404).json({
+        success: false,
+        message: "Niêm yết không tồn tại hoặc đã hết hàng",
+      });
+    }
+
+    if (listing.seller && buyer && listing.seller.toLowerCase() === buyer.toLowerCase()) {
+      return res.status(400).json({
+        success: false,
+        message: "Bạn không thể tự mua thẻ bài do chính mình đăng bán! Hãy bấm 'Hủy Niêm Yết' để nhận lại thẻ.",
+      });
+    }
+
     const result = await store.buyListing(listingId, quantity, buyer);
     if (!result) {
       return res.status(404).json({
@@ -176,8 +191,9 @@ router.post("/sync-sale", async (req, res) => {
       data: result,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(400).json({
       success: false,
+      message: error.message || "Lỗi xử lý giao dịch",
       error: error.message,
     });
   }

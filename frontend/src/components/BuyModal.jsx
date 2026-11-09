@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { X, ShoppingBag, ShieldCheck, Sparkles } from 'lucide-react';
+import { X, ShoppingBag, ShieldCheck, Sparkles, XCircle, AlertTriangle } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 
 export default function BuyModal({ listing, card, onClose, onSuccess }) {
-  const { buyCard, balanceRift, setActiveTab, setIsExchangeModalOpen } = useWeb3();
+  const { buyCard, balanceRift, setActiveTab, setIsExchangeModalOpen, account, cancelListing } = useWeb3();
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   if (!listing || !card) return null;
+
+  const isOwnListing = Boolean(
+    listing.seller && account && listing.seller.toLowerCase() === account.toLowerCase()
+  );
 
   const maxQty = listing.quantity || 1;
   const totalPrice = Number(listing.pricePerItem) * quantity;
@@ -16,9 +20,10 @@ export default function BuyModal({ listing, card, onClose, onSuccess }) {
   const sellerPayout = (totalPrice - protocolFee - royaltyFee).toFixed(2);
 
   const handleBuy = async () => {
+    if (isOwnListing) return;
     setIsLoading(true);
     const listingIdToBuy = listing.id || listing.listingId;
-    const success = await buyCard(listingIdToBuy, listing.pricePerItem, quantity);
+    const success = await buyCard(listingIdToBuy, listing.pricePerItem, quantity, listing.seller);
     setIsLoading(false);
     if (success) {
       if (onSuccess) onSuccess();
@@ -122,8 +127,21 @@ export default function BuyModal({ listing, card, onClose, onSuccess }) {
           </div>
         </div>
 
-        {/* Wallet Balance Warning & Quick Swap CTA */}
-        {Number(balanceRift) < totalPrice && (
+        {/* Own Listing Warning */}
+        {isOwnListing && (
+          <div className="mb-4 p-3.5 rounded-2xl bg-rose-950/60 border border-rose-500/50 text-rose-200 text-xs space-y-1.5">
+            <div className="font-bold flex items-center space-x-1.5 text-rose-300">
+              <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+              <span>Bạn Là Người Đăng Bán Lá Bài Này!</span>
+            </div>
+            <p className="text-[11px] text-slate-300 leading-relaxed">
+              Theo quy tắc chống thao túng thị trường (Wash Trading), bạn không thể tự mua thẻ bài của chính mình. Nếu bạn muốn rút lại thẻ về ví, vui lòng bấm nút <strong>Hủy Niêm Yết</strong> bên dưới.
+            </p>
+          </div>
+        )}
+
+        {/* Wallet Balance Warning & Quick Swap CTA (chỉ hiện nếu không phải thẻ của mình) */}
+        {!isOwnListing && Number(balanceRift) < totalPrice && (
           <div className="mb-4 p-3.5 rounded-2xl bg-purple-950/40 border border-purple-500/40 text-purple-200 text-xs flex flex-col sm:flex-row items-center justify-between gap-2.5">
             <div>
               <div className="font-bold text-amber-300">⚠️ Số dư không đủ ({balanceRift} $RIFT)</div>
@@ -143,21 +161,48 @@ export default function BuyModal({ listing, card, onClose, onSuccess }) {
           </div>
         )}
 
-        {/* Action Button */}
-        <button
-          onClick={handleBuy}
-          disabled={isLoading || Number(balanceRift) < totalPrice}
-          className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 disabled:opacity-40 text-slate-950 font-bold py-3.5 rounded-2xl text-sm uppercase tracking-wider transition shadow-lg shadow-amber-500/25 active:scale-[0.99] flex items-center justify-center space-x-2"
-        >
-          {isLoading ? (
-            <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div>
-          ) : (
-            <>
-              <ShieldCheck className="w-4 h-4" />
-              <span>Xác Nhận Thanh Toán ({totalPrice} $RIFT)</span>
-            </>
-          )}
-        </button>
+        {/* Action Button: Hủy Niêm Yết hoặc Thanh Toán */}
+        {isOwnListing ? (
+          <button
+            type="button"
+            onClick={async () => {
+              setIsLoading(true);
+              const listingIdToCancel = listing.id || listing.listingId;
+              const ok = await cancelListing(listingIdToCancel);
+              setIsLoading(false);
+              if (ok) {
+                if (onSuccess) onSuccess();
+                onClose();
+              }
+            }}
+            disabled={isLoading}
+            className="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider transition shadow-lg shadow-rose-600/30 active:scale-[0.99] flex items-center justify-center space-x-2"
+          >
+            {isLoading ? (
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <>
+                <XCircle className="w-4 h-4" />
+                <span>Hủy Niêm Yết & Rút Thẻ Về Ví</span>
+              </>
+            )}
+          </button>
+        ) : (
+          <button
+            onClick={handleBuy}
+            disabled={isLoading || Number(balanceRift) < totalPrice}
+            className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 disabled:opacity-40 text-slate-950 font-bold py-3.5 rounded-2xl text-sm uppercase tracking-wider transition shadow-lg shadow-amber-500/25 active:scale-[0.99] flex items-center justify-center space-x-2"
+          >
+            {isLoading ? (
+              <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <>
+                <ShieldCheck className="w-4 h-4" />
+                <span>Xác Nhận Thanh Toán ({totalPrice} $RIFT)</span>
+              </>
+            )}
+          </button>
+        )}
       </div>
     </div>
   );

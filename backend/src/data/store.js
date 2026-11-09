@@ -473,15 +473,20 @@ module.exports = {
     }
     if (!l) return null;
 
+    const buyerLower = (buyer || "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266").toLowerCase();
+    const sellerLower = (l.seller || "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266").toLowerCase();
+
+    // CHỐNG TỰ MUA BÁN THẺ CỦA CHÍNH MÌNH (WASH TRADING PREVENTION)
+    if (buyerLower === sellerLower) {
+      throw new Error("Bạn không thể tự mua thẻ bài do chính mình đăng bán! Hãy bấm 'Hủy Niêm Yết' để nhận lại thẻ.");
+    }
+
     const boughtQty = Math.min(Number(quantity), l.quantity);
     const newQty = l.quantity - boughtQty;
     const isActive = newQty > 0 ? 1 : 0;
 
     // Cập nhật listing
     await run(`UPDATE listings SET quantity = ?, is_active = ? WHERE id = ?`, [newQty, isActive, l.id]);
-
-    const buyerLower = (buyer || "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266").toLowerCase();
-    const sellerLower = (l.seller || "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266").toLowerCase();
     const totalPrice = l.price_per_item * boughtQty;
     const protocolFee = totalPrice * 0.02;
     const royaltyFee = totalPrice * 0.025;
