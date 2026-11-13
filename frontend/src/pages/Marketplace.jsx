@@ -5,7 +5,7 @@ import BuyModal from '../components/BuyModal';
 import { useWeb3 } from '../context/Web3Context';
 
 export default function Marketplace() {
-  const { API_BASE, dataVersion, fetchMarketplaceData } = useWeb3();
+  const { API_BASE, dataVersion } = useWeb3();
   const [listings, setListings] = useState([]);
   const [stats, setStats] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -74,34 +74,44 @@ export default function Marketplace() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
-      {/* 1. HERO BANNER - GỌN GÀNG, BỎ GRADIENT VIỀN, GIẢM BO GÓC */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 md:p-6 mb-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
+      {/* 1. HERO BANNER - CÓ ẢNH NỀN FANTASY TCG KÈM LỚP PHỦ TỐI GIẢN */}
+      <div className="relative bg-slate-900 border border-slate-800 rounded-xl p-5 md:p-6 mb-6 overflow-hidden shadow-sm">
+        {/* Ảnh Nền Banner (Reaver's Row - Bilgewater Port) */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25 pointer-events-none"
+          style={{
+            backgroundImage: `url('https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/364af10bac81e6ffb8658b0dc0db551608d207ce-1038x744.png')`,
+          }}
+        />
+        {/* Lớp phủ chuyển sắc tối giúp chữ nổi bật và sắc nét */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/65 pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
           <div>
             <h1 className="font-cinzel text-2xl md:text-3xl font-black text-slate-100 tracking-wide">
               Sàn Giao Dịch <span className="text-amber-400">RIFTBOUND</span>
             </h1>
-            <p className="text-xs md:text-sm text-slate-400 mt-1 max-w-lg">
+            <p className="text-xs md:text-sm text-slate-300 mt-1 max-w-lg font-medium">
               Mua bán, chuyển nhượng thẻ bài NFT chuẩn ERC-1155 và ký gửi Escrow on-chain.
             </p>
           </div>
 
-          {/* Market Stats Counters - Gọn gàng, số liệu rõ ràng */}
+          {/* Market Stats Counters - Tinh gọn, số liệu trực quan */}
           {stats && (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <div className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
+              <div className="bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
                 <div className="text-[10px] text-slate-400 uppercase font-medium">Giá Sàn</div>
                 <div className="text-sm md:text-base font-black text-amber-400 font-mono">{stats.floorPrice} $RIFT</div>
               </div>
-              <div className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
+              <div className="bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
                 <div className="text-[10px] text-slate-400 uppercase font-medium">Đang Rao Bán</div>
                 <div className="text-sm md:text-base font-black text-slate-200 font-mono">{stats.activeListingsCount} Thẻ</div>
               </div>
-              <div className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
+              <div className="bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
                 <div className="text-[10px] text-slate-400 uppercase font-medium">Volume Sàn</div>
                 <div className="text-sm md:text-base font-black text-cyan-400 font-mono">{stats.totalVolumeRift} $RIFT</div>
               </div>
-              <div className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
+              <div className="bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
                 <div className="text-[10px] text-slate-400 uppercase font-medium">Phí Bản Quyền</div>
                 <div className="text-sm md:text-base font-black text-emerald-400 font-mono">{stats.royaltyFeeBps / 100}%</div>
               </div>
