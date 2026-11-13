@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Eye, ShoppingCart, Tag, XCircle, UserCheck } from 'lucide-react';
+import { Eye, ShoppingCart, XCircle, UserCheck } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 
 export default function CardItem({
@@ -18,30 +18,15 @@ export default function CardItem({
   const getRarityBadge = (rarity) => {
     switch (rarity) {
       case 'Mythic':
-        return 'bg-rose-500/20 text-rose-300 border-rose-500/50 shadow-rose-500/20';
+        return 'bg-rose-950/80 text-rose-300 border-rose-800';
       case 'Legendary':
-        return 'bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-amber-500/20';
+        return 'bg-amber-950/80 text-amber-300 border-amber-800';
       case 'Epic':
-        return 'bg-purple-500/20 text-purple-300 border-purple-500/50 shadow-purple-500/20';
+        return 'bg-purple-950/80 text-purple-300 border-purple-800';
       case 'Rare':
-        return 'bg-sky-500/20 text-sky-300 border-sky-500/50 shadow-sky-500/20';
+        return 'bg-sky-950/80 text-sky-300 border-sky-800';
       default:
-        return 'bg-slate-700/40 text-slate-300 border-slate-600/40';
-    }
-  };
-
-  const getBorderGlow = (rarity) => {
-    switch (rarity) {
-      case 'Mythic':
-        return 'hover:border-rose-500/80 hover:shadow-xl hover:shadow-rose-500/20 border-slate-800';
-      case 'Legendary':
-        return 'hover:border-amber-500/80 hover:shadow-xl hover:shadow-amber-500/20 border-slate-800';
-      case 'Epic':
-        return 'hover:border-purple-500/80 hover:shadow-xl hover:shadow-purple-500/20 border-slate-800';
-      case 'Rare':
-        return 'hover:border-sky-500/80 hover:shadow-lg hover:shadow-sky-500/20 border-slate-800';
-      default:
-        return 'border-slate-800/80 hover:border-slate-600';
+        return 'bg-slate-800 text-slate-300 border-slate-700';
     }
   };
 
@@ -49,28 +34,26 @@ export default function CardItem({
     switch (domain) {
       case 'Fury':
       case 'Inferno':
-        return 'text-rose-400 bg-rose-950/60 border-rose-500/40';
+        return 'text-rose-400 bg-rose-950/50 border-rose-900';
       case 'Mind':
       case 'Calm':
       case 'Astral':
-        return 'text-cyan-400 bg-cyan-950/60 border-cyan-500/40';
+        return 'text-cyan-400 bg-cyan-950/50 border-cyan-900';
       case 'Body':
       case 'Abyssal':
-        return 'text-emerald-400 bg-emerald-950/60 border-emerald-500/40';
+        return 'text-emerald-400 bg-emerald-950/50 border-emerald-900';
       case 'Chaos':
       case 'Void':
-        return 'text-purple-400 bg-purple-950/60 border-purple-500/40';
+        return 'text-purple-400 bg-purple-950/50 border-purple-900';
       case 'Order':
-        return 'text-amber-400 bg-amber-950/60 border-amber-500/40';
+        return 'text-amber-400 bg-amber-950/50 border-amber-900';
       default:
-        return 'text-slate-400 bg-slate-900 border-slate-700';
+        return 'text-slate-400 bg-slate-950 border-slate-800';
     }
   };
 
-  // Printed card number: e.g. "OGN-251/298"
   const printedNum = card.public_code || (card.printed_number ? `#${card.printed_number}` : `#${String(card.id).padStart(3, '0')}`);
   const cardIdRef = card.scrydex_id || card.id;
-  const isBattlefield = card.type === 'Battlefield';
   const isOwnListing = Boolean(
     listing?.seller && account && listing.seller.toLowerCase() === account.toLowerCase()
   );
@@ -84,28 +67,25 @@ export default function CardItem({
   const cardImageSrc = card.image || (card.images && (card.images.medium || card.images.front || card.images.small));
 
   return (
-    <div
-      className={`group relative bg-slate-900/90 rounded-2xl border ${getBorderGlow(
-        card.rarity
-      )} overflow-hidden transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between p-2.5 shadow-lg shadow-black/40`}
-    >
-      {/* 1. TCG Card Art Frame - 100% Full Uncropped View */}
+    <div className="group relative bg-slate-900 rounded-lg border border-slate-800 hover:border-slate-700 transition duration-150 flex flex-col justify-between p-2 shadow-sm">
+      
+      {/* 1. TCG Card Art Frame - Hiển Thị Đầy Đủ Ảnh Không Bị Cắt */}
       <div
         onClick={handleCardClick}
-        className="relative cursor-pointer aspect-[744/1039] rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center p-1 group/img select-none"
+        className="relative cursor-pointer aspect-[744/1039] w-full rounded-md overflow-hidden bg-slate-950 flex items-center justify-center group/img select-none"
       >
         {/* Own Listing Badge */}
         {isOwnListing && (
-          <div className="absolute top-2 left-2 z-20 px-2 py-0.5 rounded-md bg-purple-950/90 text-purple-200 border border-purple-500/60 text-[9px] font-black uppercase tracking-wider shadow-lg flex items-center space-x-1 backdrop-blur-md">
-            <UserCheck className="w-3 h-3 text-purple-400" />
-            <span>Thẻ Của Bạn</span>
+          <div className="absolute top-1.5 left-1.5 z-20 px-1.5 py-0.5 rounded bg-purple-950/90 text-purple-200 border border-purple-800 text-[9px] font-bold uppercase tracking-wider flex items-center space-x-1">
+            <UserCheck className="w-2.5 h-2.5 text-purple-400" />
+            <span>Của bạn</span>
           </div>
         )}
 
         <img
           src={cardImageSrc}
           alt={card.name}
-          className="w-full h-full object-contain object-center rounded-lg group-hover/img:scale-[1.03] transition-transform duration-300 drop-shadow-md"
+          className="w-full h-full object-contain rounded"
           loading="lazy"
           onError={(e) => {
             e.currentTarget.onerror = null;
@@ -114,115 +94,79 @@ export default function CardItem({
         />
 
         {/* Hover Quick-View Overlay */}
-        <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-2 rounded-xl">
-          <div className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/60 flex items-center justify-center text-amber-300 shadow-lg">
-            <Eye className="w-5 h-5" />
+        <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex flex-col items-center justify-center gap-1.5 rounded">
+          <div className="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-300">
+            <Eye className="w-4 h-4" />
           </div>
-          <span className="text-xs font-bold text-amber-300 tracking-wide uppercase">
-            Xem Chi Tiết Thẻ
-          </span>
-          <span className="text-[10px] text-slate-300 font-mono">
-            Bilgewater Market Spec
+          <span className="text-xs font-bold text-amber-300">
+            Xem Chi Tiết
           </span>
         </div>
-
-        {/* Battlefield badge if landscape */}
-        {isBattlefield && (
-          <div className="absolute top-2 left-2 bg-slate-900/90 border border-purple-500/50 text-purple-300 text-[9px] font-black uppercase px-2 py-0.5 rounded shadow">
-            Battlefield
-          </div>
-        )}
-
-        {/* Recently Updated / Acquired Badge */}
-        {isRecentlyUpdated && (
-          <div className="absolute top-2 left-2 bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 text-slate-950 text-[9px] font-black uppercase px-2 py-0.5 rounded-md shadow-lg shadow-amber-500/30 animate-pulse z-10 flex items-center space-x-1">
-            <Sparkles className="w-2.5 h-2.5" />
-            <span>Mới Nhận</span>
-          </div>
-        )}
-
-        {/* Foil Shimmer Badge */}
-        {card.foilAvailable && (
-          <div className="absolute top-2 right-2 bg-gradient-to-r from-amber-400/30 to-purple-400/30 backdrop-blur-sm p-1 rounded-md border border-white/30 text-amber-200 shadow">
-            <Sparkles className="w-3.5 h-3.5" />
-          </div>
-        )}
       </div>
 
-      {/* 2. Sleek Card Meta Info */}
-      <div className="pt-2.5 px-0.5">
+      {/* 2. Card Meta Info */}
+      <div className="pt-2 px-0.5">
         {/* Name & Collector Number */}
         <div className="flex items-center justify-between gap-1 mb-1">
           <h3
             onClick={handleCardClick}
             title={card.name}
-            className="font-cinzel text-sm font-bold text-slate-100 hover:text-amber-400 transition cursor-pointer truncate flex-1"
+            className="font-cinzel text-xs font-bold text-slate-100 hover:text-amber-400 transition cursor-pointer truncate flex-1"
           >
             {card.name}
           </h3>
-          <span className="text-[10px] font-mono text-slate-400 font-bold bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800 flex-shrink-0">
+          <span className="text-[9px] font-mono text-slate-400 font-semibold bg-slate-950 px-1 py-0.2 rounded border border-slate-800 flex-shrink-0">
             {printedNum}
           </span>
         </div>
 
         {/* Rarity & Domain Pill */}
-        <div className="flex items-center space-x-1.5 mb-2.5">
-          <span
-            className={`text-[9px] uppercase font-black px-2 py-0.5 rounded-md border ${getRarityBadge(
-              card.rarity
-            )}`}
-          >
+        <div className="flex items-center space-x-1 mb-2">
+          <span className={`text-[9px] uppercase font-bold px-1.5 py-0.2 rounded border ${getRarityBadge(card.rarity)}`}>
             {card.rarity}
           </span>
-          <span
-            className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border ${getDomainColor(
-              card.domain
-            )}`}
-          >
+          <span className={`text-[9px] font-semibold uppercase px-1.5 py-0.2 rounded border ${getDomainColor(card.domain)}`}>
             {card.domain}
           </span>
           {card.cost !== undefined && (
-            <span className="text-[9px] font-bold text-amber-300 bg-amber-950/50 px-1.5 py-0.5 rounded border border-amber-500/40 ml-auto">
-              ⚡ {card.cost} Mana
+            <span className="text-[9px] font-bold text-amber-300 bg-amber-950/40 px-1 py-0.2 rounded border border-amber-800/40 ml-auto font-mono">
+              ⚡ {card.cost}
             </span>
           )}
         </div>
 
-        {/* 3. Action Section Depending on Mode */}
+        {/* 3. Action Section */}
         {mode === 'marketplace' && (
-          <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
+          <div className="pt-1.5 border-t border-slate-800 flex items-center justify-between gap-2">
             <div>
-              <div className="text-[9px] text-slate-400 uppercase font-semibold">Giá Bán Sàn</div>
-              <div className="text-xs font-black text-amber-400">
+              <div className="text-[9px] text-slate-400 uppercase font-medium">Giá Sàn</div>
+              <div className="text-xs font-bold text-amber-400 font-mono">
                 {listing ? listing.pricePerItem : (card.marketFloorPrice || 10)} $RIFT
               </div>
-              <div className="text-[10px] text-cyan-400/90 font-mono font-medium leading-none mt-0.5">
-                ~{formatEthEquivalent ? formatEthEquivalent(listing ? listing.pricePerItem : (card.marketFloorPrice || 10)) : '0 ETH'}
-              </div>
             </div>
-            <div className="flex items-center space-x-1.5">
+            <div className="flex items-center space-x-1">
               <button
                 onClick={handleCardClick}
-                className="px-2 py-1.5 rounded-xl text-[11px] font-bold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition"
+                className="px-2 py-1 rounded-md text-[11px] font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition"
               >
                 Chi Tiết
               </button>
               {isOwnListing ? (
                 <button
                   onClick={() => cancelListing && cancelListing(listing.id || listing.listingId)}
-                  title="Bạn là người bán lá bài này. Bấm để hủy niêm yết và nhận lại thẻ."
-                  className="bg-rose-950/70 hover:bg-rose-900 border border-rose-500/50 text-rose-300 font-bold px-2.5 py-1.5 rounded-xl text-xs uppercase tracking-wider transition active:scale-95 flex items-center space-x-1 shadow-md shadow-rose-950/30"
+                  title="Bạn là người bán lá bài này. Bấm để hủy niêm yết."
+                  className="bg-rose-950 border border-rose-800 text-rose-300 font-bold px-2 py-1 rounded-md text-xs transition flex items-center space-x-1"
                 >
-                  <XCircle className="w-3.5 h-3.5 text-rose-400" />
-                  <span>Hủy Bán</span>
+                  <XCircle className="w-3 h-3 text-rose-400" />
+                  <span>Hủy</span>
                 </button>
               ) : (
                 listing && onBuy && (
                   <button
                     onClick={() => onBuy(listing, card)}
-                    className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-3 py-1.5 rounded-xl text-xs uppercase tracking-wider transition shadow-md shadow-amber-500/20 active:scale-95 flex items-center space-x-1"
+                    className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-2.5 py-1 rounded-md text-xs transition flex items-center space-x-1"
                   >
-                    <ShoppingCart className="w-3.5 h-3.5" />
+                    <ShoppingCart className="w-3 h-3" />
                     <span>Mua</span>
                   </button>
                 )
@@ -232,24 +176,24 @@ export default function CardItem({
         )}
 
         {mode === 'inventory' && (
-          <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
+          <div className="pt-1.5 border-t border-slate-800 flex items-center justify-between gap-2">
             <div>
-              <div className="text-[9px] text-slate-400 uppercase font-semibold">Sở Hữu</div>
+              <div className="text-[9px] text-slate-400 uppercase font-medium">Sở Hữu</div>
               <div className="text-xs font-bold text-slate-200">
-                x{quantity || 1} Thẻ Bài
+                x{quantity || 1}
               </div>
             </div>
-            <div className="flex items-center space-x-1.5">
+            <div className="flex items-center space-x-1">
               <button
                 onClick={handleCardClick}
-                className="px-2 py-1.5 rounded-xl text-[11px] font-bold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition"
+                className="px-2 py-1 rounded-md text-[11px] font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition"
               >
                 Chi Tiết
               </button>
               {onSell && (
                 <button
                   onClick={() => onSell(card, quantity)}
-                  className="bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:border-amber-500/70 font-bold px-2.5 py-1.5 rounded-xl text-xs transition"
+                  className="bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 font-semibold px-2 py-1 rounded-md text-xs transition"
                 >
                   Rao Bán
                 </button>
@@ -259,22 +203,18 @@ export default function CardItem({
         )}
 
         {mode === 'codex' && (
-          <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+          <div className="pt-1.5 border-t border-slate-800 flex items-center justify-between text-[11px]">
             <div>
-              <span className="text-[9px] text-slate-400 uppercase block">Giá Sàn</span>
-              <strong className="text-amber-400 font-bold block">
+              <span className="text-[9px] text-slate-400 uppercase block font-medium">Giá Sàn</span>
+              <strong className="text-amber-400 font-bold block font-mono">
                 {card.marketFloorPrice || (card.market && card.market.floor_price_rift) || 10} $RIFT
               </strong>
-              <span className="text-[9px] text-cyan-400/90 font-mono font-medium block">
-                ~{formatEthEquivalent ? formatEthEquivalent(card.marketFloorPrice || (card.market && card.market.floor_price_rift) || 10) : '0 ETH'}
-              </span>
             </div>
             <button
               onClick={handleCardClick}
-              className="text-amber-400 hover:text-amber-300 text-xs font-bold transition flex items-center space-x-1"
+              className="text-amber-400 hover:text-amber-300 text-xs font-bold transition"
             >
-              <span>Xem Specs</span>
-              <span>→</span>
+              Xem Chi Tiết →
             </button>
           </div>
         )}
