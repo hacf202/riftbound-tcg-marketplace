@@ -29,12 +29,17 @@ export default function Marketplace() {
     {
       id: 'marketplace',
       tag: 'SÀN GIAO DỊCH ON-CHAIN',
-      tagColor: 'text-amber-300 bg-amber-500/15 border-amber-500/30',
+      tagColor: 'text-amber-300 bg-amber-500/20 border-amber-500/40',
       titleMain: 'Sàn Giao Dịch',
       titleAccent: 'RIFTBOUND',
       accentColor: 'text-amber-400',
       description: 'Mua bán, chuyển nhượng 200+ lá bài NFT chuẩn ERC-1155. Ký quỹ Escrow 100% minh bạch trên mạng blockchain EVM.',
-      bgImage: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/364af10bac81e6ffb8658b0dc0db551608d207ce-1038x744.png', // Reaver's Row
+      // Reaver's Row - Cảng Bilgewater rực rỡ
+      bgImage: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/364af10bac81e6ffb8658b0dc0db551608d207ce-1038x744.png',
+      // Thẻ bài Huyền thoại nổi bật
+      showcaseImg: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5b9a904048b7fb936377844ec2d31564b7fedf81-744x1039.png',
+      showcaseLabel: 'Thẻ Huyền Thoại',
+      showcaseBorder: 'border-amber-400/80 shadow-amber-500/30',
       buttonLabel: 'Khám Phá Sàn Thẻ Bài',
       buttonIcon: ArrowRight,
       buttonAction: () => {
@@ -46,12 +51,17 @@ export default function Marketplace() {
     {
       id: 'packs',
       tag: 'TÍNH NĂNG MỞ GÓI THẺ',
-      tagColor: 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30',
+      tagColor: 'text-cyan-300 bg-cyan-500/20 border-cyan-500/40',
       titleMain: 'Khai Mở Gói Thẻ',
       titleAccent: 'BOOSTER PACKS',
       accentColor: 'text-cyan-400',
       description: 'Nhận ngay 5 lá bài ngẫu nhiên từ 12 bộ gói chủ đề. Tỉ lệ trúng thẻ Epic, Legendary & Mythic được bảo chứng trên Smart Contract.',
-      bgImage: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2392529560dc9af72596c6fc65b4c0356bbc44d1-1038x744.png', // Altar to Unity
+      // The Grand Plaza - Cung điện ánh sáng kỳ ảo
+      bgImage: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f9ca8d04cb269ad99bca7e6dae874cad1bec336a-1038x744.png',
+      // Gói thẻ bài rực sáng
+      showcaseImg: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/822b8bc7987a47498550708b18ef166b121fd620-744x1039.png',
+      showcaseLabel: 'Gói Tiếng Vọng',
+      showcaseBorder: 'border-cyan-400/80 shadow-cyan-500/30',
       buttonLabel: 'Mở Gói Thẻ Ngay',
       buttonIcon: Package,
       buttonAction: () => setActiveTab('packs'),
@@ -60,12 +70,17 @@ export default function Marketplace() {
     {
       id: 'exchange',
       tag: 'THANH KHOẢN CRYPTO TỨC THÌ',
-      tagColor: 'text-purple-300 bg-purple-500/15 border-purple-500/30',
+      tagColor: 'text-purple-300 bg-purple-500/20 border-purple-500/40',
       titleMain: 'Cổng Quy Đổi',
       titleAccent: 'ETH & CRONOS',
       accentColor: 'text-purple-400',
       description: 'Đổi đồng ETH hoặc Cronos Testnet (TCRO) sang token $RIFT tức thì. Tỷ giá định chuẩn: 1 ETH = 10,000 $RIFT, 1 TCRO = 100 $RIFT.',
-      bgImage: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3e9f659a32e390b45bc87a01bdd6af4a8a3565f7-1038x744.png', // Back-Alley Bar
+      // Targon's Peak - Đỉnh núi vũ trụ huyền bí
+      bgImage: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6ff1b34ad231645910f670496e1662de0b545a44-1038x744.png',
+      // Quán rượu Back-Alley Bar
+      showcaseImg: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3e9f659a32e390b45bc87a01bdd6af4a8a3565f7-1038x744.png',
+      showcaseLabel: 'Cổng Nạp Token',
+      showcaseBorder: 'border-purple-400/80 shadow-purple-500/30',
       buttonLabel: 'Quy Đổi Tiền Tệ Ngay',
       buttonIcon: Zap,
       buttonAction: () => setIsExchangeModalOpen(true),
@@ -141,44 +156,47 @@ export default function Marketplace() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
-      {/* 1. HERO BANNER SECTION CAROUSEL (TỰ ĐỘNG CHUYỂN MỖI 10S) */}
+      {/* 1. HERO BANNER SECTION - HÌNH ẢNH SỐNG ĐỘNG, NỔI BẬT & TỰ ĐỘNG CHUYỂN 10S */}
       <div
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
-        className="relative bg-slate-900 border border-slate-800 rounded-xl mb-6 overflow-hidden shadow-sm group select-none transition-all duration-300"
+        className="relative bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-2xl mb-6 overflow-hidden shadow-2xl group select-none transition-all duration-300"
       >
-        {/* Background Image Layer with Smooth Fade */}
+        {/* Background Image Layer - TĂNG ĐỘ NỔI BẬT LÊN 75% ĐỂ HÌNH ẢNH RỰC RỠ */}
         <div
           key={slide.id}
-          className="absolute inset-0 bg-cover bg-center opacity-25 pointer-events-none transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
+          className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-85 pointer-events-none transition-all duration-700 ease-out scale-100 group-hover:scale-105"
           style={{ backgroundImage: `url('${slide.bgImage}')` }}
         />
-        {/* Dark Vignette Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/65 pointer-events-none" />
+        
+        {/* Directional Mask: Lớp phủ đen có độ dốc từ trái sang phải */}
+        {/* Bên trái (nơi có chữ) tối màu để chữ cực kỳ sắc nét; bên phải để hình ảnh tỏa sáng tự nhiên */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 md:via-slate-950/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/30 pointer-events-none" />
 
         {/* Content Container */}
-        <div className="relative z-10 p-5 md:p-7 min-h-[200px] flex flex-col justify-between">
+        <div className="relative z-10 p-5 md:p-8 min-h-[250px] flex flex-col justify-between">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             
             {/* Left Content Column */}
             <div className="max-w-xl animate-fade-in">
-              <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-md border text-[10px] font-bold uppercase tracking-wider mb-2.5 backdrop-blur-sm">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-md border text-[10px] font-black uppercase tracking-wider mb-3 backdrop-blur-md bg-slate-950/60">
                 <span className={`px-1.5 py-0.5 rounded ${slide.tagColor}`}>{slide.tag}</span>
-                <span className="text-slate-400 font-mono text-[9px] hidden sm:inline">Tự động chuyển mỗi 10s</span>
+                <span className="text-slate-300 font-mono text-[10px]">Tự động chuyển mỗi 10s</span>
               </div>
 
-              <h1 className="font-cinzel text-2xl md:text-3xl font-black text-slate-100 tracking-wide leading-tight">
+              <h1 className="font-cinzel text-2xl sm:text-3xl md:text-4xl font-black text-slate-100 tracking-wide leading-tight drop-shadow-md">
                 {slide.titleMain} <span className={slide.accentColor}>{slide.titleAccent}</span>
               </h1>
               
-              <p className="text-xs md:text-sm text-slate-300 mt-2 font-medium leading-relaxed">
+              <p className="text-xs md:text-sm text-slate-200 mt-2 font-medium leading-relaxed drop-shadow">
                 {slide.description}
               </p>
 
-              <div className="mt-4 flex items-center space-x-3">
+              <div className="mt-5 flex items-center space-x-3">
                 <button
                   onClick={slide.buttonAction}
-                  className="inline-flex items-center space-x-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-1.5 rounded-lg text-xs uppercase tracking-wider transition active:scale-95 shadow-sm"
+                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition active:scale-95 shadow-lg shadow-amber-500/20 border border-amber-400/40"
                 >
                   <ButtonIcon className="w-3.5 h-3.5" />
                   <span>{slide.buttonLabel}</span>
@@ -186,65 +204,73 @@ export default function Marketplace() {
               </div>
             </div>
 
-            {/* Right Metric Cards / Features Column */}
-            <div className="flex-shrink-0 animate-fade-in">
+            {/* Right Visual Showcase & Metric Panels */}
+            <div className="flex items-center gap-4 flex-shrink-0 animate-fade-in">
+              
+              {/* Featured Visual Artwork Card - Khối hình ảnh nổi bật trực quan */}
+              {slide.showcaseImg && (
+                <div className="relative group/showcase hidden lg:block">
+                  <div className={`w-28 h-40 rounded-xl overflow-hidden border-2 ${slide.showcaseBorder} shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-300 bg-slate-950/90 backdrop-blur-sm`}>
+                    <img
+                      src={slide.showcaseImg}
+                      alt={slide.titleAccent}
+                      className="w-full h-full object-cover object-center group-hover/showcase:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent flex items-end p-2">
+                      <span className="text-[9px] font-black text-white uppercase tracking-wider">{slide.showcaseLabel}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Stats/Badges Strip */}
               {slide.type === 'stats' && stats && (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Giá Sàn</div>
-                    <div className="text-sm md:text-base font-black text-amber-400 font-mono">{stats.floorPrice} $RIFT</div>
+                <div className="grid grid-cols-2 gap-2 text-center sm:text-left">
+                  <div className="bg-slate-950/85 backdrop-blur-md border border-slate-800 hover:border-amber-500/40 rounded-xl p-2.5 shadow-xl transition">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Giá Sàn</div>
+                    <div className="text-base font-black text-amber-400 font-mono">{stats.floorPrice} $RIFT</div>
                   </div>
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Đang Rao Bán</div>
-                    <div className="text-sm md:text-base font-black text-slate-200 font-mono">{stats.activeListingsCount} Thẻ</div>
+                  <div className="bg-slate-950/85 backdrop-blur-md border border-slate-800 hover:border-amber-500/40 rounded-xl p-2.5 shadow-xl transition">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Đang Bán</div>
+                    <div className="text-base font-black text-slate-200 font-mono">{stats.activeListingsCount} Thẻ</div>
                   </div>
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Volume Sàn</div>
-                    <div className="text-sm md:text-base font-black text-cyan-400 font-mono">{stats.totalVolumeRift} $RIFT</div>
+                  <div className="bg-slate-950/85 backdrop-blur-md border border-slate-800 hover:border-cyan-500/40 rounded-xl p-2.5 shadow-xl transition">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Volume Sàn</div>
+                    <div className="text-base font-black text-cyan-400 font-mono">{stats.totalVolumeRift} $RIFT</div>
                   </div>
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-lg px-3 py-2 text-center sm:text-left">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Phí Bản Quyền</div>
-                    <div className="text-sm md:text-base font-black text-emerald-400 font-mono">{stats.royaltyFeeBps / 100}%</div>
+                  <div className="bg-slate-950/85 backdrop-blur-md border border-slate-800 hover:border-emerald-500/40 rounded-xl p-2.5 shadow-xl transition">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Phí Bản Quyền</div>
+                    <div className="text-base font-black text-emerald-400 font-mono">{stats.royaltyFeeBps / 100}%</div>
                   </div>
                 </div>
               )}
 
               {slide.type === 'packs' && (
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-cyan-500/20 rounded-lg p-2.5">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Bộ Gói</div>
-                    <div className="text-base font-black text-cyan-300 font-mono">12 Gói</div>
-                    <div className="text-[9px] text-slate-500 mt-0.5">Origins & Special</div>
+                <div className="grid grid-cols-2 gap-2 text-center">
+                  <div className="bg-slate-950/85 backdrop-blur-md border border-cyan-500/30 rounded-xl p-3 shadow-xl">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Bộ Gói</div>
+                    <div className="text-lg font-black text-cyan-300 font-mono">12 Gói</div>
+                    <div className="text-[9px] text-cyan-400/80 font-medium">Chủ Đề Đa Dạng</div>
                   </div>
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-cyan-500/20 rounded-lg p-2.5">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Giá Từ</div>
-                    <div className="text-base font-black text-amber-400 font-mono">50 $RIFT</div>
-                    <div className="text-[9px] text-slate-500 mt-0.5">5 Thẻ / Gói</div>
-                  </div>
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-cyan-500/20 rounded-lg p-2.5">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Tỉ Lệ Hiếm</div>
-                    <div className="text-base font-black text-emerald-400 font-mono">100%</div>
-                    <div className="text-[9px] text-slate-500 mt-0.5">Minh Bạch On-Chain</div>
+                  <div className="bg-slate-950/85 backdrop-blur-md border border-cyan-500/30 rounded-xl p-3 shadow-xl">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Giá Từ</div>
+                    <div className="text-lg font-black text-amber-400 font-mono">50 $RIFT</div>
+                    <div className="text-[9px] text-slate-400 font-medium">5 Thẻ / Gói</div>
                   </div>
                 </div>
               )}
 
               {slide.type === 'exchange' && (
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-purple-500/20 rounded-lg p-2.5">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Ethereum</div>
-                    <div className="text-sm md:text-base font-black text-purple-300 font-mono">1 ETH</div>
-                    <div className="text-[9px] text-slate-400 font-bold mt-0.5">= 10,000 $RIFT</div>
+                <div className="grid grid-cols-2 gap-2 text-center">
+                  <div className="bg-slate-950/85 backdrop-blur-md border border-purple-500/30 rounded-xl p-3 shadow-xl">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Ethereum Gas</div>
+                    <div className="text-base font-black text-purple-300 font-mono">1 ETH</div>
+                    <div className="text-[10px] text-purple-200 font-bold">= 10,000 $RIFT</div>
                   </div>
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-purple-500/20 rounded-lg p-2.5">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Cronos Testnet</div>
-                    <div className="text-sm md:text-base font-black text-cyan-300 font-mono">1 TCRO</div>
-                    <div className="text-[9px] text-slate-400 font-bold mt-0.5">= 100 $RIFT</div>
-                  </div>
-                  <div className="bg-slate-900/90 backdrop-blur-sm border border-purple-500/20 rounded-lg p-2.5">
-                    <div className="text-[10px] text-slate-400 uppercase font-medium">Phí Đổi</div>
-                    <div className="text-base font-black text-emerald-400 font-mono">0%</div>
-                    <div className="text-[9px] text-slate-500 mt-0.5">Nhận Ngay Tức Thì</div>
+                  <div className="bg-slate-950/85 backdrop-blur-md border border-purple-500/30 rounded-xl p-3 shadow-xl">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Cronos Testnet</div>
+                    <div className="text-base font-black text-cyan-300 font-mono">1 TCRO</div>
+                    <div className="text-[10px] text-cyan-200 font-bold">= 100 $RIFT</div>
                   </div>
                 </div>
               )}
@@ -253,7 +279,7 @@ export default function Marketplace() {
           </div>
 
           {/* Carousel Footer: Prev/Next & Dots Indicator */}
-          <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+          <div className="mt-6 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
             
             {/* Dots navigation */}
             <div className="flex items-center space-x-2">
@@ -262,9 +288,9 @@ export default function Marketplace() {
                   key={s.id}
                   onClick={() => setCurrentSlide(idx)}
                   title={`Chuyển đến: ${s.titleMain}`}
-                  className={`h-1.5 transition-all duration-300 rounded-full ${
+                  className={`h-2 transition-all duration-300 rounded-full ${
                     currentSlide === idx
-                      ? 'w-6 bg-amber-400 shadow-sm shadow-amber-400/50'
+                      ? 'w-7 bg-amber-400 shadow-md shadow-amber-400/50'
                       : 'w-2 bg-slate-700 hover:bg-slate-500'
                   }`}
                 />
@@ -279,16 +305,16 @@ export default function Marketplace() {
               <button
                 onClick={prevSlide}
                 title="Phiên trước"
-                className="p-1 rounded-md bg-slate-950/80 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-white transition"
+                className="p-1.5 rounded-lg bg-slate-950/90 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-slate-300 hover:text-white transition shadow"
               >
-                <ChevronLeft className="w-3.5 h-3.5" />
+                <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={nextSlide}
                 title="Phiên tiếp theo"
-                className="p-1 rounded-md bg-slate-950/80 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-white transition"
+                className="p-1.5 rounded-lg bg-slate-950/90 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-slate-300 hover:text-white transition shadow"
               >
-                <ChevronRight className="w-3.5 h-3.5" />
+                <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -296,7 +322,7 @@ export default function Marketplace() {
       </div>
 
       {/* 2. BỘ LỌC & TÌM KIẾM */}
-      <div id="search-filter-section" className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 mb-6 space-y-3">
+      <div id="search-filter-section" className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 mb-6 space-y-3 shadow-sm">
         <div className="flex flex-col md:flex-row gap-2.5 items-center justify-between">
           
           {/* Ô Tìm Kiếm */}
