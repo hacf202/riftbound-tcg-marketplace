@@ -34,6 +34,15 @@
   background: #334a6e;
 }
 
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* 3D Card Flip Essentials */
 .perspective-1000 {
   perspective: 1000px;
