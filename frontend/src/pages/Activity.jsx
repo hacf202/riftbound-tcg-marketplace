@@ -112,6 +112,26 @@ export default function Activity() {
     }
   };
 
+  const formatTxTime = (timeStr) => {
+    if (!timeStr) return '—';
+    try {
+      const d = new Date(timeStr);
+      if (isNaN(d.getTime())) return timeStr;
+      const diffSec = Math.floor((Date.now() - d.getTime()) / 1000);
+      if (diffSec < 60) return 'Vừa xong';
+      if (diffSec < 3600) return `${Math.floor(diffSec / 60)} phút trước`;
+      if (diffSec < 86400) return `${Math.floor(diffSec / 3600)} giờ trước`;
+      return d.toLocaleDateString('vi-VN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        day: '2-digit',
+        month: '2-digit',
+      });
+    } catch {
+      return timeStr;
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-5 animate-fade-in space-y-4">
       {/* Header */}
@@ -260,8 +280,11 @@ export default function Activity() {
                         {tx.total_price || tx.price || 0} $RIFT
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 text-right text-slate-400 font-mono text-[11px]">
-                      {tx.created_at}
+                    <td
+                      className="py-2.5 px-3 text-right text-slate-400 font-mono text-[11px]"
+                      title={tx.created_at ? new Date(tx.created_at).toLocaleString('vi-VN') : ''}
+                    >
+                      {formatTxTime(tx.created_at)}
                     </td>
                   </tr>
                 );

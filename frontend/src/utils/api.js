@@ -14,6 +14,179 @@ export const API_BASE = isLocalhost
 const getInvKey = (addr) => `rift_inv_${addr?.toLowerCase() || 'default'}`;
 const getBalKey = (addr) => `rift_bal_${addr?.toLowerCase() || 'default'}`;
 const MKT_LISTINGS_KEY = 'rift_mkt_listings';
+const ACTIVITIES_KEY = 'rift_activities';
+
+export const getDefaultActivities = (userAddr) => {
+  const myAddr = (userAddr || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase();
+  return [
+    {
+      id: 108,
+      type: 'SALE',
+      user_address: myAddr,
+      seller_address: '0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc',
+      card_id: 25,
+      card_name: 'Relentless Storm',
+      quantity: 1,
+      price: 220,
+      total_price: 220,
+      details: 'Khớp lệnh mua thẻ Relentless Storm',
+      created_at: new Date(Date.now() - 3 * 60 * 1000).toISOString(),
+    },
+    {
+      id: 107,
+      type: 'EXCHANGE',
+      user_address: myAddr,
+      seller_address: null,
+      card_id: null,
+      card_name: 'Token $RIFT',
+      quantity: null,
+      price: 10,
+      total_price: 1000,
+      details: 'Quy đổi 10 TCRO (Cronos Testnet) sang 1,000 $RIFT',
+      created_at: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
+    },
+    {
+      id: 106,
+      type: 'FAUCET',
+      user_address: myAddr,
+      seller_address: null,
+      card_id: null,
+      card_name: 'Token $RIFT',
+      quantity: null,
+      price: 1000,
+      total_price: 1000,
+      details: 'Nhận 1,000 $RIFT miễn phí từ Faucet',
+      created_at: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
+    },
+    {
+      id: 105,
+      type: 'LISTING',
+      user_address: '0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc',
+      seller_address: '0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc',
+      card_id: 25,
+      card_name: 'Relentless Storm',
+      quantity: 1,
+      price: 220,
+      total_price: 220,
+      details: 'Niêm yết thẻ lên sàn giao dịch',
+      created_at: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
+    },
+    {
+      id: 104,
+      type: 'PACK_OPEN',
+      user_address: '0x15d34aaf54267db7d7c367839aaf71a00a2c6a65',
+      seller_address: null,
+      card_id: null,
+      card_name: 'Origins Core Pack',
+      quantity: 1,
+      price: 100,
+      total_price: 100,
+      details: 'Mở gói Origins Core Pack nhận 5 thẻ bài',
+      created_at: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
+    },
+    {
+      id: 103,
+      type: 'SALE',
+      user_address: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+      seller_address: '0x15d34aaf54267db7d7c367839aaf71a00a2c6a65',
+      card_id: 1,
+      card_name: "Doran's Blade",
+      quantity: 1,
+      price: 25,
+      total_price: 25,
+      details: 'Khớp lệnh mua thẻ bài thành công trên sàn',
+      created_at: new Date(Date.now() - 4 * 3600 * 1000).toISOString(),
+    },
+    {
+      id: 102,
+      type: 'LISTING',
+      user_address: '0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc',
+      seller_address: '0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc',
+      card_id: 3,
+      card_name: 'Strikers Epiphany',
+      quantity: 2,
+      price: 45,
+      total_price: 90,
+      details: 'Niêm yết thẻ lên sàn giao dịch',
+      created_at: new Date(Date.now() - 6 * 3600 * 1000).toISOString(),
+    },
+    {
+      id: 101,
+      type: 'SALE',
+      user_address: '0x90f79bf6eb2c4f870365e785982e1f101e93b906',
+      seller_address: '0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc',
+      card_id: 2,
+      card_name: 'Void Gate',
+      quantity: 1,
+      price: 60,
+      total_price: 60,
+      details: 'Khớp lệnh mua thẻ bài thành công trên sàn',
+      created_at: new Date(Date.now() - 12 * 3600 * 1000).toISOString(),
+    },
+    {
+      id: 100,
+      type: 'CANCEL',
+      user_address: '0x15d34aaf54267db7d7c367839aaf71a00a2c6a65',
+      seller_address: '0x15d34aaf54267db7d7c367839aaf71a00a2c6a65',
+      card_id: 5,
+      card_name: 'Might of Demacia - Starter',
+      quantity: 1,
+      price: 35,
+      total_price: 35,
+      details: 'Hủy niêm yết thẻ bài trên sàn',
+      created_at: new Date(Date.now() - 18 * 3600 * 1000).toISOString(),
+    },
+  ];
+};
+
+export const getStoredActivities = (userAddr) => {
+  if (typeof window === 'undefined') return getDefaultActivities(userAddr);
+  const stored = localStorage.getItem(ACTIVITIES_KEY);
+  if (!stored) {
+    const defaults = getDefaultActivities(userAddr);
+    localStorage.setItem(ACTIVITIES_KEY, JSON.stringify(defaults));
+    return defaults;
+  }
+  try {
+    const parsed = JSON.parse(stored);
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      if (userAddr) {
+        const uLower = userAddr.toLowerCase();
+        const hasUserTx = parsed.some(
+          (t) =>
+            (t.user_address && t.user_address.toLowerCase() === uLower) ||
+            (t.seller_address && t.seller_address.toLowerCase() === uLower)
+        );
+        if (!hasUserTx) {
+          const userSeed = getDefaultActivities(userAddr).filter(
+            (t) => t.user_address?.toLowerCase() === uLower
+          );
+          const combined = [...userSeed, ...parsed];
+          localStorage.setItem(ACTIVITIES_KEY, JSON.stringify(combined));
+          return combined;
+        }
+      }
+      return parsed;
+    }
+  } catch {}
+  const defaults = getDefaultActivities(userAddr);
+  localStorage.setItem(ACTIVITIES_KEY, JSON.stringify(defaults));
+  return defaults;
+};
+
+export const recordActivity = (activity) => {
+  if (typeof window === 'undefined') return;
+  const list = getStoredActivities(activity.user_address);
+  const maxId = list.reduce((max, item) => Math.max(max, Number(item.id) || 0), 108);
+  const newTx = {
+    id: maxId + 1,
+    created_at: new Date().toISOString(),
+    ...activity,
+  };
+  list.unshift(newTx);
+  localStorage.setItem(ACTIVITIES_KEY, JSON.stringify(list.slice(0, 100)));
+  return newTx;
+};
 
 // Initialize mock store in localStorage if needed
 export const initLocalStore = (address) => {
@@ -211,6 +384,31 @@ export const mockApiHandler = async (url, options = {}) => {
     };
   }
 
+  // 6b. Marketplace Activities
+  if (pathname.startsWith('/marketplace/activities')) {
+    const queryString = url.includes('?') ? url.split('?')[1] : '';
+    const params = new URLSearchParams(queryString);
+    const user = params.get('user') || params.get('address') || '';
+    const limit = parseInt(params.get('limit') || '50', 10);
+
+    const list = getStoredActivities(user);
+    let filtered = list;
+    if (user && user.trim()) {
+      const uLower = user.toLowerCase();
+      filtered = list.filter(
+        (tx) =>
+          (tx.user_address && tx.user_address.toLowerCase() === uLower) ||
+          (tx.seller_address && tx.seller_address.toLowerCase() === uLower)
+      );
+    }
+    return {
+      success: true,
+      status: 'success',
+      total: filtered.length,
+      data: filtered.slice(0, limit),
+    };
+  }
+
   // 7. Marketplace Actions
   if (pathname.startsWith('/marketplace/sync-listing') && method === 'POST') {
     const stored = localStorage.getItem(MKT_LISTINGS_KEY);
@@ -226,6 +424,19 @@ export const mockApiHandler = async (url, options = {}) => {
     };
     listings.unshift(newListing);
     localStorage.setItem(MKT_LISTINGS_KEY, JSON.stringify(listings));
+
+    recordActivity({
+      type: 'LISTING',
+      user_address: (body.seller || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase(),
+      seller_address: (body.seller || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase(),
+      card_id: card.id,
+      card_name: card.name,
+      quantity: Number(body.quantity || 1),
+      price: Number(body.pricePerItem),
+      total_price: Number(body.pricePerItem) * Number(body.quantity || 1),
+      details: `Niêm yết ${body.quantity || 1} thẻ ${card.name} với giá ${body.pricePerItem} $RIFT/thẻ`,
+    });
+
     return { success: true, message: 'Niêm yết thành công', data: newListing };
   }
 
@@ -301,6 +512,21 @@ export const mockApiHandler = async (url, options = {}) => {
     }
     localStorage.setItem(MKT_LISTINGS_KEY, JSON.stringify(listings));
 
+    recordActivity({
+      type: 'SALE',
+      user_address: buyer,
+      seller_address: (target.seller || '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc').toLowerCase(),
+      card_id: cardObj.id,
+      card_name: cardObj.name,
+      quantity: qty,
+      price: Number(target.pricePerItem),
+      total_price: totalPrice,
+      protocol_fee: totalPrice * 0.02,
+      royalty_fee: totalPrice * 0.025,
+      seller_payout: totalPrice * 0.955,
+      details: `Khớp lệnh mua ${qty} thẻ ${cardObj.name}`,
+    });
+
     return {
       success: true,
       message: 'Mua thẻ thành công',
@@ -352,6 +578,18 @@ export const mockApiHandler = async (url, options = {}) => {
         inv.uniqueCards = inv.cards.length;
         localStorage.setItem(getInvKey(seller), JSON.stringify(inv));
       }
+
+      recordActivity({
+        type: 'CANCEL',
+        user_address: (body.seller || target.seller || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase(),
+        seller_address: (body.seller || target.seller || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase(),
+        card_id: target.cardId || 0,
+        card_name: (target.card && target.card.name) || 'Thẻ bài',
+        quantity: Number(target.quantity || 1),
+        price: Number(target.pricePerItem || 0),
+        total_price: Number(target.pricePerItem || 0) * Number(target.quantity || 1),
+        details: 'Hủy niêm yết thẻ bài trên sàn',
+      });
     }
     return { success: true, message: 'Hủy niêm yết thành công' };
   }
@@ -371,6 +609,19 @@ export const mockApiHandler = async (url, options = {}) => {
     const current = Number(localStorage.getItem(getBalKey(addr)) || '1000');
     const updated = current + 1000;
     localStorage.setItem(getBalKey(addr), updated.toString());
+
+    recordActivity({
+      type: 'FAUCET',
+      user_address: addr,
+      seller_address: null,
+      card_id: null,
+      card_name: 'Token $RIFT',
+      quantity: null,
+      price: 1000,
+      total_price: 1000,
+      details: 'Nhận 1,000 $RIFT miễn phí từ Faucet',
+    });
+
     return { success: true, message: 'Nhận 1,000 $RIFT thành công', data: { balance: updated } };
   }
 
@@ -382,6 +633,19 @@ export const mockApiHandler = async (url, options = {}) => {
     const riftAmount = Number(body.riftAmount || 1000);
     const updated = current + riftAmount;
     localStorage.setItem(getBalKey(addr), updated.toString());
+
+    recordActivity({
+      type: 'EXCHANGE',
+      user_address: addr,
+      seller_address: null,
+      card_id: null,
+      card_name: 'Token $RIFT',
+      quantity: null,
+      price: Number(body.ethAmount || 0),
+      total_price: riftAmount,
+      details: `Quy đổi ${body.ethAmount || 0} ${body.currency || 'Crypto'} sang ${riftAmount.toLocaleString()} $RIFT`,
+    });
+
     return { success: true, message: 'Quy đổi thành công', data: { balance: updated } };
   }
 
@@ -443,6 +707,19 @@ export const mockApiHandler = async (url, options = {}) => {
     }
     inv.uniqueCards = inv.cards.length;
     localStorage.setItem(getInvKey(addr), JSON.stringify(inv));
+
+    recordActivity({
+      type: 'PACK_OPEN',
+      user_address: addr,
+      seller_address: null,
+      card_id: null,
+      card_name: body.packId ? `Gói Bài #${body.packId}` : 'Gói Thẻ Bài',
+      quantity: 1,
+      price: Number(body.price || 100),
+      total_price: Number(body.price || 100),
+      details: `Mở gói nhận ${cardIds.length} thẻ bài mới vào Túi đồ`,
+    });
+
     return { success: true, message: 'Đã nhận thưởng gói bài' };
   }
 
