@@ -20,13 +20,22 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
     RIFT_PER_ETH,
     depositCryptoForRift,
     connectMetaMask,
+    chainId,
   } = useWeb3();
 
   // Currency Selection: 'ETH' (Ethereum / Localhost) hoặc 'TCRO' (Cronos Testnet)
-  const [currency, setCurrency] = useState('ETH');
-  const [inputVal, setInputVal] = useState('0.1');
+  const [currency, setCurrency] = useState(() => (Number(chainId) === 338 ? 'TCRO' : 'ETH'));
+  const [inputVal, setInputVal] = useState(() => (Number(chainId) === 338 ? '10' : '0.1'));
   const [riftInput, setRiftInput] = useState('1000');
   const [isSwapping, setIsSwapping] = useState(false);
+
+  React.useEffect(() => {
+    if (Number(chainId) === 338) {
+      setCurrency('TCRO');
+      setInputVal('10');
+      setRiftInput('1000');
+    }
+  }, [chainId]);
 
   if (!isOpen) return null;
 

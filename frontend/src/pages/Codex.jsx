@@ -24,7 +24,12 @@ export default function Codex() {
           setCards(data.data);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error('Lỗi tải API cards, sử dụng dữ liệu dự phòng:', err);
+        import('../data/defaultData').then((m) => {
+          if (m && m.DEFAULT_CARDS) setCards(m.DEFAULT_CARDS);
+        });
+      });
   }, [scope]);
 
   const filteredCards = cards.filter((c) => {

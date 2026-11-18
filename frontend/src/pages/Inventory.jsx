@@ -23,7 +23,22 @@ export default function Inventory() {
           setInventory(data.data);
         }
       })
-      .catch((err) => console.error('Lỗi tải túi đồ:', err))
+      .catch((err) => {
+        console.error('Lỗi tải túi đồ, sử dụng dữ liệu dự phòng:', err);
+        const storedInventory = localStorage.getItem(`rift_inv_${address}`);
+        if (storedInventory) {
+          try {
+            setInventory(JSON.parse(storedInventory));
+            return;
+          } catch {}
+        }
+        import('../data/defaultData').then((m) => {
+          if (m && m.DEFAULT_CARDS) {
+            const sampleCards = m.DEFAULT_CARDS.slice(0, 6).map((c) => ({ ...c, quantity: 2 }));
+            setInventory({ totalCards: 12, uniqueCards: 6, items: sampleCards });
+          }
+        });
+      })
       .finally(() => setIsLoading(false));
   };
 

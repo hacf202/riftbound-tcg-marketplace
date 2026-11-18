@@ -23,18 +23,18 @@ export const formatRiftEquivalent = (ethAmount) => {
   return Math.round(num * RIFT_PER_ETH).toLocaleString() + ' $RIFT';
 };
 
-// Nhận diện tên mạng Blockchain chuẩn theo Chain ID (Ưu tiên mạng nội bộ)
+// Nhận diện tên mạng Blockchain chuẩn theo Chain ID (Hỗ trợ Cronos Testnet & Hardhat)
 export const getNetworkInfo = (chainId) => {
   const cid = Number(chainId);
   switch (cid) {
     case 31337:
-      return { name: 'Mạng Nội Bộ (Hardhat)', isCorrect: true, badge: 'Mạng Nội Bộ' };
+      return { name: 'Mạng Nội Bộ (Hardhat)', isCorrect: true, badge: 'Hardhat 31337', symbol: 'ETH', isCronos: false };
     case 338:
-      return { name: 'Cronos Testnet', isCorrect: true, badge: 'Cronos 338' };
+      return { name: 'Cronos Testnet', isCorrect: true, badge: 'Cronos Testnet (338)', symbol: 'tCRO', isCronos: true };
     case 11155111:
-      return { name: 'Sepolia Testnet', isCorrect: true, badge: 'Sepolia' };
+      return { name: 'Sepolia Testnet', isCorrect: true, badge: 'Sepolia', symbol: 'SepoliaETH', isCronos: false };
     default:
-      return { name: 'Mạng Nội Bộ', isCorrect: true, badge: 'Mạng Nội Bộ' };
+      return { name: `Mạng Chain ${cid || 'N/A'}`, isCorrect: true, badge: `Chain ${cid || 'N/A'}`, symbol: 'ETH', isCronos: false };
   }
 };
 
@@ -405,6 +405,67 @@ export function Web3Provider({ children }) {
     }
   };
 
+  // 1-Click Switch Network to Cronos Testnet (Chain 338)
+  const switchNetworkToCronosTestnet = async () => {
+    if (!window.ethereum) {
+      showToast('⚠️ Vui lòng cài đặt ví MetaMask!', 'warning');
+      return;
+    }
+    if (isSwitchingNetworkRef.current) {
+      showToast('⚠️ Đang có yêu cầu xử lý mạng trong MetaMask. Vui lòng mở tiện ích ví để duyệt!', 'warning');
+      return;
+    }
+
+    isSwitchingNetworkRef.current = true;
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x152' }], // 338 in hex
+      });
+      showToast('🎉 Đã chuyển sang mạng Cronos Testnet (Chain 338)!', 'success');
+    } catch (switchError) {
+      if (switchError.code === -32002 || switchError.message?.includes('already pending')) {
+        showToast('⚠️ Có yêu cầu đang chờ! Vui lòng mở tiện ích MetaMask và xác nhận.', 'warning');
+        return;
+      }
+      if (
+        switchError.code === 4902 ||
+        switchError.message?.toLowerCase().includes('unrecognized chain id') ||
+        switchError.message?.includes('0x152')
+      ) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: '0x152',
+                chainName: 'Cronos Testnet',
+                rpcUrls: ['https://evm-t3.cronos.org'],
+                nativeCurrency: { name: 'Cronos Test Token', symbol: 'tCRO', decimals: 18 },
+                blockExplorerUrls: ['https://explorer.cronos.org/testnet'],
+              },
+            ],
+          });
+          showToast('🎉 Đã thêm và chuyển sang mạng Cronos Testnet!', 'success');
+        } catch (addError) {
+          if (addError.code === -32002 || addError.message?.includes('already pending')) {
+            showToast('⚠️ Vui lòng mở tiện ích MetaMask để phê duyệt thêm mạng.', 'warning');
+          } else if (addError.code === 4001 || addError.message?.includes('User rejected')) {
+            showToast('ℹ️ Người dùng đã hủy thêm mạng Cronos Testnet.', 'info');
+          } else {
+            showToast('Lỗi thêm mạng: ' + addError.message, 'error');
+          }
+        }
+      } else if (switchError.code === 4001 || switchError.message?.includes('User rejected')) {
+        showToast('ℹ️ Người dùng đã hủy chuyển mạng.', 'info');
+      } else {
+        showToast('Lỗi chuyển mạng: ' + switchError.message, 'error');
+      }
+    } finally {
+      isSwitchingNetworkRef.current = false;
+    }
+  };
+
   // Deposit / Swap Crypto (ETH or Cronos TCRO) for $RIFT
   const depositCryptoForRift = async (amount, currency = 'ETH') => {
     if (!account) {
@@ -658,6 +719,12 @@ export function Web3Provider({ children }) {
       }
     }
 
+    // Dự phòng offline khi chạy trên Vercel: sinh ngẫu nhiên các lá bài từ 1 đến 50
+    if (!cardIds || cardIds.length === 0) {
+      const count = Number(packId) === 1 ? 3 : 5;
+      cardIds = Array.from({ length: count }, () => Math.floor(Math.random() * 48) + 1);
+    }
+
     // Save cards won into user's SQLite Inventory
     if (cardIds && cardIds.length > 0) {
       try {
@@ -806,6 +873,7 @@ export function Web3Provider({ children }) {
         connectMetaMask,
         disconnectWallet,
         switchNetworkToHardhat,
+        switchNetworkToCronosTestnet,
         getNetworkInfo,
         depositEthForRift,
         depositCryptoForRift,

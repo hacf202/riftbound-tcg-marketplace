@@ -29,6 +29,8 @@ export default function Navbar() {
     setActiveTab,
     connectMetaMask,
     disconnectWallet,
+    switchNetworkToHardhat,
+    switchNetworkToCronosTestnet,
     getNetworkInfo,
   } = useWeb3();
 
@@ -119,11 +121,16 @@ export default function Navbar() {
           {/* 3. KHU VỰC VÍ & TÀI KHOẢN (GỌN GÀNG, BO GÓC THÂN THIỆN) */}
           <div className="flex items-center space-x-2.5">
             
-            {/* BADGE MẠNG NỘI BỘ (TỐI GIẢN & THÂN THIỆN) */}
-            <div className="hidden sm:flex items-center space-x-1.5 bg-slate-900/90 border border-slate-800 px-2.5 py-1 rounded-lg text-[11px] text-slate-300 font-mono">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400"></span>
-              <span>{netInfo.badge || 'Mạng Nội Bộ'}</span>
-            </div>
+            {/* NÚT CHUYỂN MẠNG CRONOS TESTNET / HARDHAT */}
+            <button
+              onClick={Number(chainId) === 338 ? switchNetworkToHardhat : switchNetworkToCronosTestnet}
+              title={Number(chainId) === 338 ? "Đang ở Cronos Testnet (Chain 338). Bấm để chuyển về Hardhat Localhost" : "Bấm để kết nối sang mạng Cronos Testnet (Chain 338)"}
+              className="hidden sm:flex items-center space-x-1.5 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 px-2.5 py-1 rounded-lg text-[11px] text-slate-300 font-mono transition cursor-pointer group shadow-sm"
+            >
+              <span className={`w-2 h-2 rounded-full ${Number(chainId) === 338 ? 'bg-cyan-400 shadow-sm shadow-cyan-400 animate-pulse' : 'bg-emerald-400 shadow-sm shadow-emerald-400'}`}></span>
+              <span className="group-hover:text-amber-300 transition">{netInfo.badge || 'Mạng Nội Bộ'}</span>
+              <span className="text-[9px] text-slate-500 group-hover:text-cyan-400 transition">⇄</span>
+            </button>
 
             {/* TRẠNG THÁI VÍ */}
             {!account ? (
@@ -284,7 +291,26 @@ export default function Navbar() {
                       <span className="text-[10px] font-mono text-slate-400">Xem →</span>
                     </button>
 
-                    {/* 4. NGẮT KẾT NỐI VÍ */}
+                    {/* 4. CHUYỂN MẠNG BLOCKCHAIN NHANH */}
+                    <button
+                      onClick={() => {
+                        if (Number(chainId) === 338) {
+                          switchNetworkToHardhat();
+                        } else {
+                          switchNetworkToCronosTestnet();
+                        }
+                        setWalletDropdownOpen(false);
+                      }}
+                      className="w-full p-2 rounded-xl text-left flex items-center justify-between text-xs bg-slate-950/60 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-slate-300 transition"
+                    >
+                      <span className="flex items-center space-x-2">
+                        <span className={`w-2 h-2 rounded-full ${Number(chainId) === 338 ? 'bg-cyan-400' : 'bg-emerald-400'}`}></span>
+                        <span>{Number(chainId) === 338 ? 'Chuyển Về Mạng Hardhat (31337)' : 'Chuyển Sang Cronos Testnet (338)'}</span>
+                      </span>
+                      <span className="text-[10px] font-mono text-cyan-400 font-bold">⇄</span>
+                    </button>
+
+                    {/* 5. NGẮT KẾT NỐI VÍ */}
                     <div className="pt-2 border-t border-slate-800">
                       <button
                         onClick={() => {

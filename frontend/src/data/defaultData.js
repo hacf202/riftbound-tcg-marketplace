@@ -1,0 +1,5698 @@
+export const DEFAULT_PACKS = [
+  {
+    "id": 1,
+    "name": "Tập Sự Vết Nứt",
+    "subtitle": "Novice Rift Pack",
+    "description": "Gói tân thủ khám phá không gian vết nứt. Chứa 3 lá bài phổ biến, cơ hội mở được các thẻ Rare hỗ trợ.",
+    "price": 50,
+    "cardCount": 3,
+    "tier": "Tân Thủ",
+    "domainFocus": "Đa Tộc",
+    "color": "#64748b",
+    "glowColor": "rgba(148, 163, 184, 0.4)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "75%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "25%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "0%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "0%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8231ced23eaf22ca3bf62ec8cb86b83a3e222da6-744x1039.png",
+    "popular": false
+  },
+  {
+    "id": 2,
+    "name": "Tiếng Vọng Tinh Tú",
+    "subtitle": "Astral Echoes Pack",
+    "description": "Hào quang của các chòm sao hộ thể. Chứa 4 lá bài chuyên về Phép Thuật, Khiên Bảo Vệ và Hồi Máu.",
+    "price": 150,
+    "cardCount": 4,
+    "tier": "Phép Thuật",
+    "domainFocus": "Calm",
+    "color": "#06b6d4",
+    "glowColor": "rgba(6, 182, 212, 0.4)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "50%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "35%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "12%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "3%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/822b8bc7987a47498550708b18ef166b121fd620-744x1039.png",
+    "popular": false
+  },
+  {
+    "id": 3,
+    "name": "Hỏa Ngục Rực Cháy",
+    "subtitle": "Infernal Pyre Pack",
+    "description": "Sức mạnh thiêu đốt từ lò rèn nham thạch. Chứa 4 lá bài chuyên về Sát Thương Công Kích cực đại (High ATK).",
+    "price": 200,
+    "cardCount": 4,
+    "tier": "Chiến Tranh",
+    "domainFocus": "Fury",
+    "color": "#ef4444",
+    "glowColor": "rgba(239, 68, 68, 0.4)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "40%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "40%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "15%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "5%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/532d75dc36a16eb5954253a77366fcceac7aec62-744x1039.png",
+    "popular": false
+  },
+  {
+    "id": 4,
+    "name": "Bí Mật Vực Sâu",
+    "subtitle": "Abyssal Depths Pack",
+    "description": "Kho báu nguyền rủa từ rãnh biển Bilgewater. Chứa 5 lá bài hải tặc, quái vật biển và hiệu ứng cướp bóc.",
+    "price": 300,
+    "cardCount": 5,
+    "tier": "Thần Bí",
+    "domainFocus": "Body",
+    "color": "#10b981",
+    "glowColor": "rgba(168, 185, 129, 0.4)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "35%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "35%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "22%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "8%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ab71d92c94bf609e2fa6efc8fec06fe1e8b10108-744x1039.png",
+    "popular": true
+  },
+  {
+    "id": 5,
+    "name": "Bá Chủ Hư Không",
+    "subtitle": "Void Sovereign Pack",
+    "description": "Sức mạnh bẻ gãy không gian chiều thứ tư. Chứa 5 lá bài hắc ám với tỷ lệ thẻ Legendary cao vượt trội.",
+    "price": 500,
+    "cardCount": 5,
+    "tier": "Huyền Thoại",
+    "domainFocus": "Colorless",
+    "color": "#a855f7",
+    "glowColor": "rgba(168, 85, 247, 0.5)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "20%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "35%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "30%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "15%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png",
+    "popular": true
+  },
+  {
+    "id": 6,
+    "name": "Thần Khí Tối Thượng",
+    "subtitle": "Godpack of the Ancients",
+    "description": "Gói bài Hoàng Gia Cực Hiếm: Cam kết 100% các lá bài từ cấp Sử Thi (Epic) trở lên, cơ hội trúng Thần Khí Mythic cực cao!",
+    "price": 1000,
+    "cardCount": 6,
+    "tier": "Hoàng Gia",
+    "domainFocus": "Toàn Năng (All-Stars)",
+    "color": "#fbbf24",
+    "glowColor": "rgba(251, 191, 36, 0.6)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "0%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "0%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "50%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "50%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ae8e68af43400f61f7391c0a6ee339fd718a7540-1488x2078.png",
+    "popular": true
+  },
+  {
+    "id": 7,
+    "name": "Cuồng Nộ Hỏa Long",
+    "subtitle": "Fury Dragonfire Booster",
+    "description": "Được tôi luyện từ lửa rồng cuồng bạo. Chứa 4 lá bài chuyên hệ Fury với khả năng xuyên giáp và hủy diệt bàn đấu.",
+    "price": 220,
+    "cardCount": 4,
+    "tier": "Chiến Trận",
+    "domainFocus": "Fury",
+    "color": "#f97316",
+    "glowColor": "rgba(249, 115, 22, 0.4)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "40%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "40%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "15%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "5%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9019c449004f246de6607bf1829f4f3cabcda200-744x1039.png",
+    "popular": false
+  },
+  {
+    "id": 8,
+    "name": "Tâm Trí Bí Thuật",
+    "subtitle": "Mind Arcane Academy",
+    "description": "Bí mật tri thức từ học viện pháp thuật tối cao. Chứa 4 lá bài hệ Mind với khả năng bốc thêm bài và kiểm soát năng lượng.",
+    "price": 260,
+    "cardCount": 4,
+    "tier": "Học Giả",
+    "domainFocus": "Mind",
+    "color": "#3b82f6",
+    "glowColor": "rgba(59, 130, 246, 0.4)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "35%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "45%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "15%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "5%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/913236dabf1e4f71650bbba46870fff8163e2eff-744x1039.png",
+    "popular": false
+  },
+  {
+    "id": 9,
+    "name": "Hoa Linh Lục Địa",
+    "subtitle": "Calm Spirit Blossom",
+    "description": "Vũ điệu của những linh hồn thanh tịnh tại Ionia. Chứa 4 lá bài hệ Calm đem lại khả năng phản đòn và né tránh tuyệt đỉnh.",
+    "price": 280,
+    "cardCount": 4,
+    "tier": "Tâm Linh",
+    "domainFocus": "Calm",
+    "color": "#ec4899",
+    "glowColor": "rgba(236, 72, 153, 0.4)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "30%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "45%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "18%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "7%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/dc89c6a2415debd5bf504ed46843f5dcc1d9b815-1488x2078.png",
+    "popular": false
+  },
+  {
+    "id": 10,
+    "name": "Tiên Phong Demacia",
+    "subtitle": "Demacia Vanguard Cache",
+    "description": "Giáp kháng ma thuật và ý chí bất khuất. Chứa 5 lá bài hệ Body với chỉ số Phòng Thủ (DEF) và lượng Máu cực khủng.",
+    "price": 350,
+    "cardCount": 5,
+    "tier": "Thiết Giáp",
+    "domainFocus": "Body",
+    "color": "#eab308",
+    "glowColor": "rgba(234, 179, 8, 0.4)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "30%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "40%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "20%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "10%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/cbf2c12d69a86566e4cda07050b2d4495e40187e-744x1039.png",
+    "popular": true
+  },
+  {
+    "id": 11,
+    "name": "Hải Trình Bilgewater",
+    "subtitle": "Bilgewater Buccaneer Stash",
+    "description": "Rương vàng vớt lên từ đáy biển sâu Bilgewater Market. Cơ hội cực cao trúng thẻ tướng hải tặc và thẻ lấp lánh (Foil).",
+    "price": 450,
+    "cardCount": 5,
+    "tier": "Hải Tặc",
+    "domainFocus": "Body",
+    "color": "#14b8a6",
+    "glowColor": "rgba(20, 184, 166, 0.4)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "25%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "40%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "25%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "10%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8a7dbbed04133926e58843f1d586f51178ef2ebd-1488x2078.png",
+    "popular": true
+  },
+  {
+    "id": 12,
+    "name": "Bản Giao Hưởng Origins",
+    "subtitle": "Origins Collector Edition",
+    "description": "Bộ sưu tập tối thượng 7 lá bài cao cấp nhất từ set Origins OGN. Đảm bảo 100% trúng tối thiểu 2 thẻ Epic và 1 thẻ Mythic Showcase!",
+    "price": 850,
+    "cardCount": 7,
+    "tier": "Collector",
+    "domainFocus": "Toàn Năng (All-Stars)",
+    "color": "#8b5cf6",
+    "glowColor": "rgba(139, 92, 246, 0.6)",
+    "dropRates": [
+      {
+        "rarity": "Common",
+        "rate": "10%"
+      },
+      {
+        "rarity": "Rare",
+        "rate": "25%"
+      },
+      {
+        "rarity": "Epic",
+        "rate": "40%"
+      },
+      {
+        "rarity": "Mythic",
+        "rate": "25%"
+      }
+    ],
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+    "popular": true
+  }
+];
+
+export const DEFAULT_CARDS = [
+  {
+    "id": 1,
+    "name": "Void Gate",
+    "title": "Colorless Battlefield",
+    "domain": "Colorless",
+    "thematicDomain": "Void",
+    "type": "Battlefield",
+    "rarity": "Uncommon",
+    "cost": 3,
+    "power": 3,
+    "might": 6,
+    "artist": "Envar Studio",
+    "lore": "Riftbound Battlefield: Void Gate. Spells and abilities affecting units here each deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+    "ability": "Spells and abilities affecting units here each deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png",
+    "color": "#311A34",
+    "foilAvailable": true,
+    "totalMinted": 3500,
+    "marketFloorPrice": 25,
+    "scrydex_id": "OGN-296",
+    "public_code": "OGN-296/298",
+    "number": 296,
+    "printed_number": "296/298",
+    "rules": [
+      "Spells and abilities affecting units here each deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)"
+    ],
+    "flavor_text": "Spells and abilities affecting units here each deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+    "stats": {
+      "cost": 3,
+      "power": 3,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 2.63,
+            "market": 3.75,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 5.63,
+            "market": 8.25,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 25,
+      "usd_price": 3.75,
+      "eur_price": 3.5,
+      "foil_available": true,
+      "total_minted": 3500,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Dark Child - Starter",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 4,
+    "power": 3,
+    "might": 8,
+    "artist": "Six More Vodka",
+    "lore": "Riftbound Legend: Dark Child - Starter. At the end of your turn, ready 2 runes.",
+    "ability": "At the end of your turn, ready 2 runes.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/89963e1d1cffd69c620fb5d6b037f50d5c334463-744x1039.png",
+    "color": "#351C1A",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGS-017",
+    "public_code": "OGS-017/024",
+    "number": 17,
+    "printed_number": "017/024",
+    "rules": [
+      "At the end of your turn, ready 2 runes."
+    ],
+    "flavor_text": "At the end of your turn, ready 2 runes.",
+    "stats": {
+      "cost": 4,
+      "power": 3,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/89963e1d1cffd69c620fb5d6b037f50d5c334463-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/89963e1d1cffd69c620fb5d6b037f50d5c334463-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/89963e1d1cffd69c620fb5d6b037f50d5c334463-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/89963e1d1cffd69c620fb5d6b037f50d5c334463-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGS",
+      "name": "Proving Grounds",
+      "code": "OGS",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Wuju Bladesman - Starter",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 2,
+    "power": 3,
+    "might": 5,
+    "artist": "Grafit Studio/Quy Ho",
+    "lore": "Riftbound Legend: Wuju Bladesman - Starter. While a friendly unit defends alone, it gets +2 [S].",
+    "ability": "While a friendly unit defends alone, it gets +2 [Might].",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8231ced23eaf22ca3bf62ec8cb86b83a3e222da6-744x1039.png",
+    "color": "#272814",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGS-019",
+    "public_code": "OGS-019/024",
+    "number": 19,
+    "printed_number": "019/024",
+    "rules": [
+      "While a friendly unit defends alone, it gets +2 [Might]."
+    ],
+    "flavor_text": "While a friendly unit defends alone, it gets +2 [S].",
+    "stats": {
+      "cost": 2,
+      "power": 3,
+      "might": 5
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8231ced23eaf22ca3bf62ec8cb86b83a3e222da6-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8231ced23eaf22ca3bf62ec8cb86b83a3e222da6-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8231ced23eaf22ca3bf62ec8cb86b83a3e222da6-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8231ced23eaf22ca3bf62ec8cb86b83a3e222da6-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGS",
+      "name": "Proving Grounds",
+      "code": "OGS",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Lady of Luminosity - Starter",
+    "title": "Mind Legend",
+    "domain": "Mind",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 1,
+    "power": 3,
+    "might": 3,
+    "artist": "Grafit Studio/Maki Planas Mata",
+    "lore": "Riftbound Legend: Lady of Luminosity - Starter. When you play a spell that costs [5] or more, draw 1.",
+    "ability": "When you play a spell that costs [5 Energy] or more, draw 1.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44885d811b70621b188d9813b2b10b5cff1b81e6-744x1039.png",
+    "color": "#181020",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGS-021",
+    "public_code": "OGS-021/024",
+    "number": 21,
+    "printed_number": "021/024",
+    "rules": [
+      "When you play a spell that costs [5 Energy] or more, draw 1."
+    ],
+    "flavor_text": "When you play a spell that costs [5] or more, draw 1.",
+    "stats": {
+      "cost": 1,
+      "power": 3,
+      "might": 3
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44885d811b70621b188d9813b2b10b5cff1b81e6-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44885d811b70621b188d9813b2b10b5cff1b81e6-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44885d811b70621b188d9813b2b10b5cff1b81e6-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44885d811b70621b188d9813b2b10b5cff1b81e6-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGS",
+      "name": "Proving Grounds",
+      "code": "OGS",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Might of Demacia - Starter",
+    "title": "Body Legend",
+    "domain": "Body",
+    "thematicDomain": "Abyssal",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 3,
+    "power": 3,
+    "might": 6,
+    "artist": "Six More Vodka",
+    "lore": "Riftbound Legend: Might of Demacia - Starter. When you conquer, if you have 4+ units at that battlefield, draw 2.",
+    "ability": "When you conquer, if you have 4+ units at that battlefield, draw 2.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+    "color": "#3D291E",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGS-023",
+    "public_code": "OGS-023/024",
+    "number": 23,
+    "printed_number": "023/024",
+    "rules": [
+      "When you conquer, if you have 4+ units at that battlefield, draw 2."
+    ],
+    "flavor_text": "When you conquer, if you have 4+ units at that battlefield, draw 2.",
+    "stats": {
+      "cost": 3,
+      "power": 3,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGS",
+      "name": "Proving Grounds",
+      "code": "OGS",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Glorious Executioner",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 4,
+    "power": 3,
+    "might": 8,
+    "artist": "Pandart Studio",
+    "lore": "Riftbound Legend: Glorious Executioner. When you win a combat, draw 1. (You win if only your units remain after combat.)",
+    "ability": "When you win a combat, draw 1. (You win if only your units remain after combat.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b01b2d0454ceeffdc106c4c64a390b275ebf390b-744x1039.png",
+    "color": "#271418",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "SFD-185",
+    "public_code": "SFD-185/221",
+    "number": 185,
+    "printed_number": "185/221",
+    "rules": [
+      "When you win a combat, draw 1. (You win if only your units remain after combat.)"
+    ],
+    "flavor_text": "When you win a combat, draw 1. (You win if only your units remain after combat.)",
+    "stats": {
+      "cost": 4,
+      "power": 3,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b01b2d0454ceeffdc106c4c64a390b275ebf390b-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b01b2d0454ceeffdc106c4c64a390b275ebf390b-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b01b2d0454ceeffdc106c4c64a390b275ebf390b-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b01b2d0454ceeffdc106c4c64a390b275ebf390b-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "SFD",
+      "name": "SFD",
+      "code": "SFD",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Blade Dancer",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 3,
+    "power": 3,
+    "might": 6,
+    "artist": "Pandart Studio",
+    "lore": "Riftbound Legend: Blade Dancer. When you choose a friendly unit, you may exhaust me and pay [A] to ready it.\nWhen you conquer, you may pay [1] to ready me.",
+    "ability": "When you choose a friendly unit, you may exhaust me and pay [rainbow Rune] to ready it.When you conquer, you may pay [1 Energy] to ready me.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/656ef2d1724b818e9e737ec5dcce923de067a316-744x1039.png",
+    "color": "#21182F",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "SFD-195",
+    "public_code": "SFD-195/221",
+    "number": 195,
+    "printed_number": "195/221",
+    "rules": [
+      "When you choose a friendly unit, you may exhaust me and pay [rainbow Rune] to ready it.When you conquer, you may pay [1 Energy] to ready me."
+    ],
+    "flavor_text": "When you choose a friendly unit, you may exhaust me and pay [A] to ready it.\nWhen you conquer, you may pay [1] to ready me.",
+    "stats": {
+      "cost": 3,
+      "power": 3,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/656ef2d1724b818e9e737ec5dcce923de067a316-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/656ef2d1724b818e9e737ec5dcce923de067a316-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/656ef2d1724b818e9e737ec5dcce923de067a316-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/656ef2d1724b818e9e737ec5dcce923de067a316-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "SFD",
+      "name": "SFD",
+      "code": "SFD",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Emperor of the Sands",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 1,
+    "power": 3,
+    "might": 3,
+    "artist": "蛋费鸡丁",
+    "lore": "Riftbound Legend: Emperor of the Sands. Your Sand Soldiers have [Weaponmaster].\n[1], [T]: Play a 2 [S] Sand Soldier unit token to your base. Use only if you've played an Equipment this turn.",
+    "ability": "Your Sand Soldiers have [Weaponmaster].[1 Energy], :rb_exhaust:: Play a 2 [Might] Sand Soldier unit token to your base. Use only if you've played an Equipment this turn.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0472274c49f6540858758ebf9bd2f107a601541a-744x1039.png",
+    "color": "#3A331D",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "SFD-197",
+    "public_code": "SFD-197/221",
+    "number": 197,
+    "printed_number": "197/221",
+    "rules": [
+      "Your Sand Soldiers have [Weaponmaster].[1 Energy], :rb_exhaust:: Play a 2 [Might] Sand Soldier unit token to your base. Use only if you've played an Equipment this turn."
+    ],
+    "flavor_text": "Your Sand Soldiers have [Weaponmaster].\n[1], [T]: Play a 2 [S] Sand Soldier unit token to your base. Use only if you've played an Equipment this turn.",
+    "stats": {
+      "cost": 1,
+      "power": 3,
+      "might": 3
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0472274c49f6540858758ebf9bd2f107a601541a-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0472274c49f6540858758ebf9bd2f107a601541a-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0472274c49f6540858758ebf9bd2f107a601541a-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0472274c49f6540858758ebf9bd2f107a601541a-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "SFD",
+      "name": "SFD",
+      "code": "SFD",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Chem-Baroness",
+    "title": "Mind Legend",
+    "domain": "Mind",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 1,
+    "power": 3,
+    "might": 3,
+    "artist": "Pandart Studio",
+    "lore": "Riftbound Legend: Chem-Baroness. When you or an ally hold, you may exhaust me to play a Gold gear token exhausted.\nWhile your score is within 3 points of the Victory Score, your Gold [ADD] an additional [1].",
+    "ability": "When you or an ally hold, you may exhaust me to play a Gold gear token exhausted.While your score is within 3 points of the Victory Score, your Gold [ADD] an additional [1 Energy].",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4bd289c281ad64229061ff909abf88c12a574833-744x1039.png",
+    "color": "#121225",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "SFD-201",
+    "public_code": "SFD-201/221",
+    "number": 201,
+    "printed_number": "201/221",
+    "rules": [
+      "When you or an ally hold, you may exhaust me to play a Gold gear token exhausted.While your score is within 3 points of the Victory Score, your Gold [ADD] an additional [1 Energy]."
+    ],
+    "flavor_text": "When you or an ally hold, you may exhaust me to play a Gold gear token exhausted.\nWhile your score is within 3 points of the Victory Score, your Gold [ADD] an additional [1].",
+    "stats": {
+      "cost": 1,
+      "power": 3,
+      "might": 3
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4bd289c281ad64229061ff909abf88c12a574833-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4bd289c281ad64229061ff909abf88c12a574833-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4bd289c281ad64229061ff909abf88c12a574833-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4bd289c281ad64229061ff909abf88c12a574833-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "SFD",
+      "name": "SFD",
+      "code": "SFD",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Battle Mistress",
+    "title": "Body Legend",
+    "domain": "Body",
+    "thematicDomain": "Abyssal",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 2,
+    "power": 3,
+    "might": 5,
+    "artist": "Zhongqi Li",
+    "lore": "Riftbound Legend: Battle Mistress. When you recycle a rune, you may exhaust me to play a Gold gear token exhausted.\nWhen one or more enemy units die, ready me.",
+    "ability": "When you recycle a rune, you may exhaust me to play a Gold gear token exhausted.When one or more enemy units die, ready me.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+    "color": "#261319",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "SFD-203",
+    "public_code": "SFD-203/221",
+    "number": 203,
+    "printed_number": "203/221",
+    "rules": [
+      "When you recycle a rune, you may exhaust me to play a Gold gear token exhausted.When one or more enemy units die, ready me."
+    ],
+    "flavor_text": "When you recycle a rune, you may exhaust me to play a Gold gear token exhausted.\nWhen one or more enemy units die, ready me.",
+    "stats": {
+      "cost": 2,
+      "power": 3,
+      "might": 5
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "SFD",
+      "name": "SFD",
+      "code": "SFD",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Daughter of the Void",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 4,
+    "power": 3,
+    "might": 8,
+    "artist": "Kudos Productions",
+    "lore": "Riftbound Legend: Daughter of the Void. [T]: [Reaction] — [Add] [C]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "ability": ":rb_exhaust:: [Reaction] — [Add] [rainbow Rune]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3ea826277086945a2cdfda4e41b771075aa8b15b-744x1039.png",
+    "color": "#231217",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-247",
+    "public_code": "OGN-247/298",
+    "number": 247,
+    "printed_number": "247/298",
+    "rules": [
+      ":rb_exhaust:: [Reaction] — [Add] [rainbow Rune]. Use only to play spells. (Abilities that add resources can't be reacted to.)"
+    ],
+    "flavor_text": "[T]: [Reaction] — [Add] [C]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "stats": {
+      "cost": 4,
+      "power": 3,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3ea826277086945a2cdfda4e41b771075aa8b15b-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3ea826277086945a2cdfda4e41b771075aa8b15b-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3ea826277086945a2cdfda4e41b771075aa8b15b-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3ea826277086945a2cdfda4e41b771075aa8b15b-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Relentless Storm",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 2,
+    "power": 3,
+    "might": 5,
+    "artist": "Grafit Studio",
+    "lore": "Riftbound Legend: Relentless Storm. When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [S].)",
+    "ability": "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [Might].)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8ef9c1827ccbba313d4591275e831854afffa5b1-744x1039.png",
+    "color": "#3F202A",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-249",
+    "public_code": "OGN-249/298",
+    "number": 249,
+    "printed_number": "249/298",
+    "rules": [
+      "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [Might].)"
+    ],
+    "flavor_text": "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [S].)",
+    "stats": {
+      "cost": 2,
+      "power": 3,
+      "might": 5
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8ef9c1827ccbba313d4591275e831854afffa5b1-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8ef9c1827ccbba313d4591275e831854afffa5b1-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8ef9c1827ccbba313d4591275e831854afffa5b1-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8ef9c1827ccbba313d4591275e831854afffa5b1-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Loose Cannon",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 2,
+    "power": 3,
+    "might": 5,
+    "artist": "Sugar Free",
+    "lore": "Riftbound Legend: Loose Cannon. At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+    "ability": "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f57c14381b126e9f5a7b5bc4913151cb24c14fc3-744x1039.png",
+    "color": "#211122",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-251",
+    "public_code": "OGN-251/298",
+    "number": 251,
+    "printed_number": "251/298",
+    "rules": [
+      "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand."
+    ],
+    "flavor_text": "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+    "stats": {
+      "cost": 2,
+      "power": 3,
+      "might": 5
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f57c14381b126e9f5a7b5bc4913151cb24c14fc3-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f57c14381b126e9f5a7b5bc4913151cb24c14fc3-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f57c14381b126e9f5a7b5bc4913151cb24c14fc3-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f57c14381b126e9f5a7b5bc4913151cb24c14fc3-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Hand of Noxus",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 1,
+    "power": 3,
+    "might": 3,
+    "artist": "Six More Vodka",
+    "lore": "Riftbound Legend: Hand of Noxus. [T]: [Reaction], [Legion] — [Add] [1]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+    "ability": ":rb_exhaust:: [Reaction], [Legion] — [Add] [1 Energy]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5b9a904048b7fb936377844ec2d31564b7fedf81-744x1039.png",
+    "color": "#1E140F",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-253",
+    "public_code": "OGN-253/298",
+    "number": 253,
+    "printed_number": "253/298",
+    "rules": [
+      ":rb_exhaust:: [Reaction], [Legion] — [Add] [1 Energy]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)"
+    ],
+    "flavor_text": "[T]: [Reaction], [Legion] — [Add] [1]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+    "stats": {
+      "cost": 1,
+      "power": 3,
+      "might": 3
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5b9a904048b7fb936377844ec2d31564b7fedf81-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5b9a904048b7fb936377844ec2d31564b7fedf81-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5b9a904048b7fb936377844ec2d31564b7fedf81-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5b9a904048b7fb936377844ec2d31564b7fedf81-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Nine-Tailed Fox",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 2,
+    "power": 3,
+    "might": 5,
+    "artist": "Envar Studio",
+    "lore": "Riftbound Legend: Nine-Tailed Fox. When an enemy unit attacks a battlefield you control, give it -1 [S] this turn, to a minimum of 1 [S].",
+    "ability": "When an enemy unit attacks a battlefield you control, give it -1 [Might] this turn, to a minimum of 1 [Might].",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/56457c7986d3f140b7123a988149cc30a83493a7-744x1039.png",
+    "color": "#613136",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-255",
+    "public_code": "OGN-255/298",
+    "number": 255,
+    "printed_number": "255/298",
+    "rules": [
+      "When an enemy unit attacks a battlefield you control, give it -1 [Might] this turn, to a minimum of 1 [Might]."
+    ],
+    "flavor_text": "When an enemy unit attacks a battlefield you control, give it -1 [S] this turn, to a minimum of 1 [S].",
+    "stats": {
+      "cost": 2,
+      "power": 3,
+      "might": 5
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/56457c7986d3f140b7123a988149cc30a83493a7-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/56457c7986d3f140b7123a988149cc30a83493a7-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/56457c7986d3f140b7123a988149cc30a83493a7-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/56457c7986d3f140b7123a988149cc30a83493a7-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Blind Monk",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 1,
+    "power": 3,
+    "might": 3,
+    "artist": "Six More Vodka",
+    "lore": "Riftbound Legend: Blind Monk. [1], [T]: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "ability": "[1 Energy], :rb_exhaust:: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ffe064e002d3b9a366748eb85102a769b2545835-744x1039.png",
+    "color": "#523429",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-257",
+    "public_code": "OGN-257/298",
+    "number": 257,
+    "printed_number": "257/298",
+    "rules": [
+      "[1 Energy], :rb_exhaust:: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)"
+    ],
+    "flavor_text": "[1], [T]: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "stats": {
+      "cost": 1,
+      "power": 3,
+      "might": 3
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ffe064e002d3b9a366748eb85102a769b2545835-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ffe064e002d3b9a366748eb85102a769b2545835-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ffe064e002d3b9a366748eb85102a769b2545835-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ffe064e002d3b9a366748eb85102a769b2545835-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 17,
+    "name": "Unforgiven",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 3,
+    "power": 3,
+    "might": 6,
+    "artist": "TSWCK逍",
+    "lore": "Riftbound Legend: Unforgiven. [2], [T]: Move a friendly unit to or from its base.",
+    "ability": "[2 Energy], :rb_exhaust:: Move a friendly unit to or from its base.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+    "color": "#181830",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-259",
+    "public_code": "OGN-259/298",
+    "number": 259,
+    "printed_number": "259/298",
+    "rules": [
+      "[2 Energy], :rb_exhaust:: Move a friendly unit to or from its base."
+    ],
+    "flavor_text": "[2], [T]: Move a friendly unit to or from its base.",
+    "stats": {
+      "cost": 3,
+      "power": 3,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Radiant Dawn",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 4,
+    "power": 3,
+    "might": 8,
+    "artist": "Six More Vodka",
+    "lore": "Riftbound Legend: Radiant Dawn. When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "ability": "When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/822b8bc7987a47498550708b18ef166b121fd620-744x1039.png",
+    "color": "#4F3C27",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-261",
+    "public_code": "OGN-261/298",
+    "number": 261,
+    "printed_number": "261/298",
+    "rules": [
+      "When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)"
+    ],
+    "flavor_text": "When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "stats": {
+      "cost": 4,
+      "power": 3,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/822b8bc7987a47498550708b18ef166b121fd620-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/822b8bc7987a47498550708b18ef166b121fd620-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/822b8bc7987a47498550708b18ef166b121fd620-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/822b8bc7987a47498550708b18ef166b121fd620-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Swift Scout",
+    "title": "Mind Legend",
+    "domain": "Mind",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 2,
+    "power": 3,
+    "might": 5,
+    "artist": "Shawn Lee",
+    "lore": "Riftbound Legend: Swift Scout. You may pay [1] to hide a card with [Hidden] instead of [C].\n[1], [T]: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+    "ability": "You may pay [1 Energy] to hide a card with [Hidden] instead of [rainbow Rune].[1 Energy], :rb_exhaust:: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9723181e3392bb61c2aabc804a44f7b0558cedf1-744x1039.png",
+    "color": "#121A23",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-263",
+    "public_code": "OGN-263/298",
+    "number": 263,
+    "printed_number": "263/298",
+    "rules": [
+      "You may pay [1 Energy] to hide a card with [Hidden] instead of [rainbow Rune].[1 Energy], :rb_exhaust:: Put a Teemo unit you own into your hand from your Champion Zone or the board."
+    ],
+    "flavor_text": "You may pay [1] to hide a card with [Hidden] instead of [C].\n[1], [T]: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+    "stats": {
+      "cost": 2,
+      "power": 3,
+      "might": 5
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9723181e3392bb61c2aabc804a44f7b0558cedf1-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9723181e3392bb61c2aabc804a44f7b0558cedf1-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9723181e3392bb61c2aabc804a44f7b0558cedf1-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9723181e3392bb61c2aabc804a44f7b0558cedf1-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 20,
+    "name": "Herald of the Arcane",
+    "title": "Mind Legend",
+    "domain": "Mind",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 3,
+    "power": 3,
+    "might": 6,
+    "artist": "Fortiche Production",
+    "lore": "Riftbound Legend: Herald of the Arcane. [1], [T]: Play a 1 [S] Recruit unit token.",
+    "ability": "[1 Energy], :rb_exhaust:: Play a 1 [Might] Recruit unit token.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/913236dabf1e4f71650bbba46870fff8163e2eff-744x1039.png",
+    "color": "#101A1F",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-265",
+    "public_code": "OGN-265/298",
+    "number": 265,
+    "printed_number": "265/298",
+    "rules": [
+      "[1 Energy], :rb_exhaust:: Play a 1 [Might] Recruit unit token."
+    ],
+    "flavor_text": "[1], [T]: Play a 1 [S] Recruit unit token.",
+    "stats": {
+      "cost": 3,
+      "power": 3,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/913236dabf1e4f71650bbba46870fff8163e2eff-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/913236dabf1e4f71650bbba46870fff8163e2eff-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/913236dabf1e4f71650bbba46870fff8163e2eff-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/913236dabf1e4f71650bbba46870fff8163e2eff-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 21,
+    "name": "Bounty Hunter",
+    "title": "Body Legend",
+    "domain": "Body",
+    "thematicDomain": "Abyssal",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 3,
+    "power": 3,
+    "might": 6,
+    "artist": "Six More Vodka",
+    "lore": "Riftbound Legend: Bounty Hunter. [T]: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+    "ability": ":rb_exhaust:: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e0635cebc3dd8ee5355dbbc090ca27ebeacebad7-744x1039.png",
+    "color": "#452823",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-267",
+    "public_code": "OGN-267/298",
+    "number": 267,
+    "printed_number": "267/298",
+    "rules": [
+      ":rb_exhaust:: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)"
+    ],
+    "flavor_text": "[T]: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+    "stats": {
+      "cost": 3,
+      "power": 3,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e0635cebc3dd8ee5355dbbc090ca27ebeacebad7-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e0635cebc3dd8ee5355dbbc090ca27ebeacebad7-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e0635cebc3dd8ee5355dbbc090ca27ebeacebad7-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e0635cebc3dd8ee5355dbbc090ca27ebeacebad7-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 22,
+    "name": "The Boss",
+    "title": "Body Legend",
+    "domain": "Body",
+    "thematicDomain": "Abyssal",
+    "type": "Legend",
+    "rarity": "Rare",
+    "cost": 3,
+    "power": 3,
+    "might": 6,
+    "artist": "Envar Studio",
+    "lore": "Riftbound Legend: The Boss. When a buffed unit you control would die, you may pay [C] and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)\nWhen you conquer, ready me.",
+    "ability": "When a buffed unit you control would die, you may pay [rainbow Rune] and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)When you conquer, ready me.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b132becb843b2cf418cb110ead64758f49f51554-744x1039.png",
+    "color": "#624231",
+    "foilAvailable": true,
+    "totalMinted": 2000,
+    "marketFloorPrice": 60,
+    "scrydex_id": "OGN-269",
+    "public_code": "OGN-269/298",
+    "number": 269,
+    "printed_number": "269/298",
+    "rules": [
+      "When a buffed unit you control would die, you may pay [rainbow Rune] and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)When you conquer, ready me."
+    ],
+    "flavor_text": "When a buffed unit you control would die, you may pay [C] and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)\nWhen you conquer, ready me.",
+    "stats": {
+      "cost": 3,
+      "power": 3,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b132becb843b2cf418cb110ead64758f49f51554-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b132becb843b2cf418cb110ead64758f49f51554-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b132becb843b2cf418cb110ead64758f49f51554-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b132becb843b2cf418cb110ead64758f49f51554-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 6.3,
+            "market": 9,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 13.5,
+            "market": 19.8,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 60,
+      "usd_price": 9,
+      "eur_price": 8.4,
+      "foil_available": true,
+      "total_minted": 2000,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 23,
+    "name": "Daughter of the Void",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 3,
+    "power": 10,
+    "might": 9,
+    "artist": "Jason Chan",
+    "lore": "Riftbound Legend: Daughter of the Void. [T]: [Reaction] — [Add] [C]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "ability": ":rb_exhaust:: [Reaction] — [Add] [rainbow Rune]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ae8e68af43400f61f7391c0a6ee339fd718a7540-1488x2078.png",
+    "color": "#110811",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-299*",
+    "public_code": "OGN-299*/298",
+    "number": 299,
+    "printed_number": "299*/298",
+    "rules": [
+      ":rb_exhaust:: [Reaction] — [Add] [rainbow Rune]. Use only to play spells. (Abilities that add resources can't be reacted to.)"
+    ],
+    "flavor_text": "[T]: [Reaction] — [Add] [C]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "stats": {
+      "cost": 3,
+      "power": 10,
+      "might": 9
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ae8e68af43400f61f7391c0a6ee339fd718a7540-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ae8e68af43400f61f7391c0a6ee339fd718a7540-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ae8e68af43400f61f7391c0a6ee339fd718a7540-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/ae8e68af43400f61f7391c0a6ee339fd718a7540-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 24,
+    "name": "Daughter of the Void",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 1,
+    "power": 10,
+    "might": 6,
+    "artist": "Jason Chan",
+    "lore": "Riftbound Legend: Daughter of the Void. [T]: [Reaction] — [Add] [C]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "ability": ":rb_exhaust:: [Reaction] — [Add] [rainbow Rune]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/57e13462b8fea9a5cfa1b424d3ad3005f37b00ad-1488x2078.png",
+    "color": "#0F0811",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-299",
+    "public_code": "OGN-299/298",
+    "number": 299,
+    "printed_number": "299/298",
+    "rules": [
+      ":rb_exhaust:: [Reaction] — [Add] [rainbow Rune]. Use only to play spells. (Abilities that add resources can't be reacted to.)"
+    ],
+    "flavor_text": "[T]: [Reaction] — [Add] [C]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "stats": {
+      "cost": 1,
+      "power": 10,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/57e13462b8fea9a5cfa1b424d3ad3005f37b00ad-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/57e13462b8fea9a5cfa1b424d3ad3005f37b00ad-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/57e13462b8fea9a5cfa1b424d3ad3005f37b00ad-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/57e13462b8fea9a5cfa1b424d3ad3005f37b00ad-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 25,
+    "name": "Relentless Storm",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 3,
+    "power": 10,
+    "might": 9,
+    "artist": "Alex Flores",
+    "lore": "Riftbound Legend: Relentless Storm. When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [S].)",
+    "ability": "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [Might].)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+    "color": "#1A1A33",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-300",
+    "public_code": "OGN-300/298",
+    "number": 300,
+    "printed_number": "300/298",
+    "rules": [
+      "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [Might].)"
+    ],
+    "flavor_text": "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [S].)",
+    "stats": {
+      "cost": 3,
+      "power": 10,
+      "might": 9
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 26,
+    "name": "Relentless Storm",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 2,
+    "power": 10,
+    "might": 8,
+    "artist": "Alex Flores",
+    "lore": "Riftbound Legend: Relentless Storm. When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [S].)",
+    "ability": "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [Might].)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d5a629ce373a6add09bfacc4b584e509c6332334-1488x2078.png",
+    "color": "#1F1A33",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-300*",
+    "public_code": "OGN-300*/298",
+    "number": 300,
+    "printed_number": "300*/298",
+    "rules": [
+      "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [Might].)"
+    ],
+    "flavor_text": "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [S].)",
+    "stats": {
+      "cost": 2,
+      "power": 10,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d5a629ce373a6add09bfacc4b584e509c6332334-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d5a629ce373a6add09bfacc4b584e509c6332334-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d5a629ce373a6add09bfacc4b584e509c6332334-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d5a629ce373a6add09bfacc4b584e509c6332334-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 27,
+    "name": "Loose Cannon",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 3,
+    "power": 10,
+    "might": 9,
+    "artist": "Sean Yang",
+    "lore": "Riftbound Legend: Loose Cannon. At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+    "ability": "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/30bed82f66ce9e4eae260d029d92c9d8cb1588ab-1488x2078.png",
+    "color": "#341A2F",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-301*",
+    "public_code": "OGN-301*/298",
+    "number": 301,
+    "printed_number": "301*/298",
+    "rules": [
+      "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand."
+    ],
+    "flavor_text": "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+    "stats": {
+      "cost": 3,
+      "power": 10,
+      "might": 9
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/30bed82f66ce9e4eae260d029d92c9d8cb1588ab-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/30bed82f66ce9e4eae260d029d92c9d8cb1588ab-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/30bed82f66ce9e4eae260d029d92c9d8cb1588ab-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/30bed82f66ce9e4eae260d029d92c9d8cb1588ab-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 28,
+    "name": "Loose Cannon",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 2,
+    "power": 10,
+    "might": 8,
+    "artist": "Sean Yang",
+    "lore": "Riftbound Legend: Loose Cannon. At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+    "ability": "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8a7dbbed04133926e58843f1d586f51178ef2ebd-1488x2078.png",
+    "color": "#2C162C",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-301",
+    "public_code": "OGN-301/298",
+    "number": 301,
+    "printed_number": "301/298",
+    "rules": [
+      "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand."
+    ],
+    "flavor_text": "At start of your Beginning Phase, draw 1 if you have one or fewer cards in your hand.",
+    "stats": {
+      "cost": 2,
+      "power": 10,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8a7dbbed04133926e58843f1d586f51178ef2ebd-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8a7dbbed04133926e58843f1d586f51178ef2ebd-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8a7dbbed04133926e58843f1d586f51178ef2ebd-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8a7dbbed04133926e58843f1d586f51178ef2ebd-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 29,
+    "name": "Hand of Noxus",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 2,
+    "power": 10,
+    "might": 8,
+    "artist": "Peter Kim",
+    "lore": "Riftbound Legend: Hand of Noxus. [T]: [Reaction], [Legion] — [Add] [1]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+    "ability": ":rb_exhaust:: [Reaction], [Legion] — [Add] [1 Energy]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/31f3c975c6f5693f6567b0ebdb66bd4dd92d730b-744x1039.png",
+    "color": "#382C1C",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-302*",
+    "public_code": "OGN-302*/298",
+    "number": 302,
+    "printed_number": "302*/298",
+    "rules": [
+      ":rb_exhaust:: [Reaction], [Legion] — [Add] [1 Energy]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)"
+    ],
+    "flavor_text": "[T]: [Reaction], [Legion] — [Add] [1]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+    "stats": {
+      "cost": 2,
+      "power": 10,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/31f3c975c6f5693f6567b0ebdb66bd4dd92d730b-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/31f3c975c6f5693f6567b0ebdb66bd4dd92d730b-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/31f3c975c6f5693f6567b0ebdb66bd4dd92d730b-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/31f3c975c6f5693f6567b0ebdb66bd4dd92d730b-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 30,
+    "name": "Hand of Noxus",
+    "title": "Fury Legend",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 1,
+    "power": 10,
+    "might": 6,
+    "artist": "Peter Kim",
+    "lore": "Riftbound Legend: Hand of Noxus. [T]: [Reaction], [Legion] — [Add] [1]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+    "ability": ":rb_exhaust:: [Reaction], [Legion] — [Add] [1 Energy]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+    "color": "#312518",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-302",
+    "public_code": "OGN-302/298",
+    "number": 302,
+    "printed_number": "302/298",
+    "rules": [
+      ":rb_exhaust:: [Reaction], [Legion] — [Add] [1 Energy]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)"
+    ],
+    "flavor_text": "[T]: [Reaction], [Legion] — [Add] [1]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+    "stats": {
+      "cost": 1,
+      "power": 10,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 31,
+    "name": "Nine-Tailed Fox",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 2,
+    "power": 10,
+    "might": 8,
+    "artist": "Airi Pan",
+    "lore": "Riftbound Legend: Nine-Tailed Fox. When an enemy unit attacks a battlefield you control, give it -1 [S] this turn, to a minimum of 1 [S].",
+    "ability": "When an enemy unit attacks a battlefield you control, give it -1 [Might] this turn, to a minimum of 1 [Might].",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/dc89c6a2415debd5bf504ed46843f5dcc1d9b815-1488x2078.png",
+    "color": "#463123",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-303",
+    "public_code": "OGN-303/298",
+    "number": 303,
+    "printed_number": "303/298",
+    "rules": [
+      "When an enemy unit attacks a battlefield you control, give it -1 [Might] this turn, to a minimum of 1 [Might]."
+    ],
+    "flavor_text": "When an enemy unit attacks a battlefield you control, give it -1 [S] this turn, to a minimum of 1 [S].",
+    "stats": {
+      "cost": 2,
+      "power": 10,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/dc89c6a2415debd5bf504ed46843f5dcc1d9b815-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/dc89c6a2415debd5bf504ed46843f5dcc1d9b815-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/dc89c6a2415debd5bf504ed46843f5dcc1d9b815-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/dc89c6a2415debd5bf504ed46843f5dcc1d9b815-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 32,
+    "name": "Nine-Tailed Fox",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 2,
+    "power": 10,
+    "might": 8,
+    "artist": "Airi Pan",
+    "lore": "Riftbound Legend: Nine-Tailed Fox. When an enemy unit attacks a battlefield you control, give it -1 [S] this turn, to a minimum of 1 [S].",
+    "ability": "When an enemy unit attacks a battlefield you control, give it -1 [Might] this turn, to a minimum of 1 [Might].",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e5fe571a8f09c0a9e76345ec32b446480f54617c-1488x2078.png",
+    "color": "#422E21",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-303*",
+    "public_code": "OGN-303*/298",
+    "number": 303,
+    "printed_number": "303*/298",
+    "rules": [
+      "When an enemy unit attacks a battlefield you control, give it -1 [Might] this turn, to a minimum of 1 [Might]."
+    ],
+    "flavor_text": "When an enemy unit attacks a battlefield you control, give it -1 [S] this turn, to a minimum of 1 [S].",
+    "stats": {
+      "cost": 2,
+      "power": 10,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e5fe571a8f09c0a9e76345ec32b446480f54617c-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e5fe571a8f09c0a9e76345ec32b446480f54617c-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e5fe571a8f09c0a9e76345ec32b446480f54617c-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e5fe571a8f09c0a9e76345ec32b446480f54617c-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 33,
+    "name": "Blind Monk",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 3,
+    "power": 10,
+    "might": 9,
+    "artist": "Loiza Chen",
+    "lore": "Riftbound Legend: Blind Monk. [1], [T]: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "ability": "[1 Energy], :rb_exhaust:: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b4dfd543b1cfcdefba4568fe78146e0d6e46add7-1488x2078.png",
+    "color": "#B8A18A",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-304*",
+    "public_code": "OGN-304*/298",
+    "number": 304,
+    "printed_number": "304*/298",
+    "rules": [
+      "[1 Energy], :rb_exhaust:: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)"
+    ],
+    "flavor_text": "[1], [T]: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "stats": {
+      "cost": 3,
+      "power": 10,
+      "might": 9
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b4dfd543b1cfcdefba4568fe78146e0d6e46add7-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b4dfd543b1cfcdefba4568fe78146e0d6e46add7-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b4dfd543b1cfcdefba4568fe78146e0d6e46add7-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b4dfd543b1cfcdefba4568fe78146e0d6e46add7-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 34,
+    "name": "Blind Monk",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 2,
+    "power": 10,
+    "might": 8,
+    "artist": "Loiza Chen",
+    "lore": "Riftbound Legend: Blind Monk. [1], [T]: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "ability": "[1 Energy], :rb_exhaust:: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fb6316c39ad2a00d65f4b6cc823cbdd61cadda3b-1488x2078.png",
+    "color": "#B8A284",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-304",
+    "public_code": "OGN-304/298",
+    "number": 304,
+    "printed_number": "304/298",
+    "rules": [
+      "[1 Energy], :rb_exhaust:: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)"
+    ],
+    "flavor_text": "[1], [T]: Buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "stats": {
+      "cost": 2,
+      "power": 10,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fb6316c39ad2a00d65f4b6cc823cbdd61cadda3b-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fb6316c39ad2a00d65f4b6cc823cbdd61cadda3b-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fb6316c39ad2a00d65f4b6cc823cbdd61cadda3b-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fb6316c39ad2a00d65f4b6cc823cbdd61cadda3b-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 35,
+    "name": "Unforgiven",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 2,
+    "power": 10,
+    "might": 8,
+    "artist": "Quy Ho",
+    "lore": "Riftbound Legend: Unforgiven. [2], [T]: Move a friendly unit to or from its base.",
+    "ability": "[2 Energy], :rb_exhaust:: Move a friendly unit to or from its base.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2c804ec513085702763a9145fac93a8adb6c4783-1488x2078.png",
+    "color": "#0E0F1C",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-305",
+    "public_code": "OGN-305/298",
+    "number": 305,
+    "printed_number": "305/298",
+    "rules": [
+      "[2 Energy], :rb_exhaust:: Move a friendly unit to or from its base."
+    ],
+    "flavor_text": "[2], [T]: Move a friendly unit to or from its base.",
+    "stats": {
+      "cost": 2,
+      "power": 10,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2c804ec513085702763a9145fac93a8adb6c4783-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2c804ec513085702763a9145fac93a8adb6c4783-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2c804ec513085702763a9145fac93a8adb6c4783-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2c804ec513085702763a9145fac93a8adb6c4783-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 36,
+    "name": "Unforgiven",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 4,
+    "power": 10,
+    "might": 11,
+    "artist": "Quy Ho",
+    "lore": "Riftbound Legend: Unforgiven. [2], [T]: Move a friendly unit to or from its base.",
+    "ability": "[2 Energy], :rb_exhaust:: Move a friendly unit to or from its base.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6a06599a299b15175984c1e38d27a3be21258fbe-1488x2078.png",
+    "color": "#131021",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-305*",
+    "public_code": "OGN-305*/298",
+    "number": 305,
+    "printed_number": "305*/298",
+    "rules": [
+      "[2 Energy], :rb_exhaust:: Move a friendly unit to or from its base."
+    ],
+    "flavor_text": "[2], [T]: Move a friendly unit to or from its base.",
+    "stats": {
+      "cost": 4,
+      "power": 10,
+      "might": 11
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6a06599a299b15175984c1e38d27a3be21258fbe-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6a06599a299b15175984c1e38d27a3be21258fbe-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6a06599a299b15175984c1e38d27a3be21258fbe-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6a06599a299b15175984c1e38d27a3be21258fbe-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 37,
+    "name": "Radiant Dawn",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 1,
+    "power": 10,
+    "might": 6,
+    "artist": "Su Ke",
+    "lore": "Riftbound Legend: Radiant Dawn. When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "ability": "When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/496d173b74d036a9e28ca1b4383551be0148f13d-1488x2078.png",
+    "color": "#0E0C07",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-306",
+    "public_code": "OGN-306/298",
+    "number": 306,
+    "printed_number": "306/298",
+    "rules": [
+      "When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)"
+    ],
+    "flavor_text": "When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "stats": {
+      "cost": 1,
+      "power": 10,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/496d173b74d036a9e28ca1b4383551be0148f13d-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/496d173b74d036a9e28ca1b4383551be0148f13d-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/496d173b74d036a9e28ca1b4383551be0148f13d-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/496d173b74d036a9e28ca1b4383551be0148f13d-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 38,
+    "name": "Radiant Dawn",
+    "title": "Calm Legend",
+    "domain": "Calm",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 2,
+    "power": 10,
+    "might": 8,
+    "artist": "Su Ke",
+    "lore": "Riftbound Legend: Radiant Dawn. When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "ability": "When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bd526a0f9177aaa9ec575add7d02e72b46520070-744x1039.png",
+    "color": "#110E08",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-306*",
+    "public_code": "OGN-306*/298",
+    "number": 306,
+    "printed_number": "306*/298",
+    "rules": [
+      "When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [Might] buff.)"
+    ],
+    "flavor_text": "When you stun one or more enemy units, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [S] buff.)",
+    "stats": {
+      "cost": 2,
+      "power": 10,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bd526a0f9177aaa9ec575add7d02e72b46520070-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bd526a0f9177aaa9ec575add7d02e72b46520070-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bd526a0f9177aaa9ec575add7d02e72b46520070-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bd526a0f9177aaa9ec575add7d02e72b46520070-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 39,
+    "name": "Swift Scout",
+    "title": "Mind Legend",
+    "domain": "Mind",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 4,
+    "power": 10,
+    "might": 11,
+    "artist": "Jordan Yoon",
+    "lore": "Riftbound Legend: Swift Scout. You may pay [1] to hide a card with [Hidden] instead of [C].\n[1], [T]: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+    "ability": "You may pay [1 Energy] to hide a card with [Hidden] instead of [rainbow Rune].[1 Energy], :rb_exhaust:: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4fd9e82cbd96010e2556430970d433022b541a51-1488x2078.png",
+    "color": "#482432",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-307*",
+    "public_code": "OGN-307*/298",
+    "number": 307,
+    "printed_number": "307*/298",
+    "rules": [
+      "You may pay [1 Energy] to hide a card with [Hidden] instead of [rainbow Rune].[1 Energy], :rb_exhaust:: Put a Teemo unit you own into your hand from your Champion Zone or the board."
+    ],
+    "flavor_text": "You may pay [1] to hide a card with [Hidden] instead of [C].\n[1], [T]: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+    "stats": {
+      "cost": 4,
+      "power": 10,
+      "might": 11
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4fd9e82cbd96010e2556430970d433022b541a51-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4fd9e82cbd96010e2556430970d433022b541a51-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4fd9e82cbd96010e2556430970d433022b541a51-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/4fd9e82cbd96010e2556430970d433022b541a51-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 40,
+    "name": "Swift Scout",
+    "title": "Mind Legend",
+    "domain": "Mind",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 4,
+    "power": 10,
+    "might": 11,
+    "artist": "Jordan Yoon",
+    "lore": "Riftbound Legend: Swift Scout. You may pay [1] to hide a card with [Hidden] instead of [C].\n[1], [T]: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+    "ability": "You may pay [1 Energy] to hide a card with [Hidden] instead of [rainbow Rune].[1 Energy], :rb_exhaust:: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e2fbf10efaddbabe9241bd2c7b4d059accd1d5a7-1488x2078.png",
+    "color": "#3F202B",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-307",
+    "public_code": "OGN-307/298",
+    "number": 307,
+    "printed_number": "307/298",
+    "rules": [
+      "You may pay [1 Energy] to hide a card with [Hidden] instead of [rainbow Rune].[1 Energy], :rb_exhaust:: Put a Teemo unit you own into your hand from your Champion Zone or the board."
+    ],
+    "flavor_text": "You may pay [1] to hide a card with [Hidden] instead of [C].\n[1], [T]: Put a Teemo unit you own into your hand from your Champion Zone or the board.",
+    "stats": {
+      "cost": 4,
+      "power": 10,
+      "might": 11
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e2fbf10efaddbabe9241bd2c7b4d059accd1d5a7-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e2fbf10efaddbabe9241bd2c7b4d059accd1d5a7-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e2fbf10efaddbabe9241bd2c7b4d059accd1d5a7-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e2fbf10efaddbabe9241bd2c7b4d059accd1d5a7-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 41,
+    "name": "Herald of the Arcane",
+    "title": "Mind Legend",
+    "domain": "Mind",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 3,
+    "power": 10,
+    "might": 9,
+    "artist": "Rudy Siswanto",
+    "lore": "Riftbound Legend: Herald of the Arcane. [1], [T]: Play a 1 [S] Recruit unit token.",
+    "ability": "[1 Energy], :rb_exhaust:: Play a 1 [Might] Recruit unit token.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e345a5fc347e6a5835f2afa33492058fdbfcb169-744x1039.png",
+    "color": "#445A2D",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-308*",
+    "public_code": "OGN-308*/298",
+    "number": 308,
+    "printed_number": "308*/298",
+    "rules": [
+      "[1 Energy], :rb_exhaust:: Play a 1 [Might] Recruit unit token."
+    ],
+    "flavor_text": "[1], [T]: Play a 1 [S] Recruit unit token.",
+    "stats": {
+      "cost": 3,
+      "power": 10,
+      "might": 9
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e345a5fc347e6a5835f2afa33492058fdbfcb169-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e345a5fc347e6a5835f2afa33492058fdbfcb169-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e345a5fc347e6a5835f2afa33492058fdbfcb169-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e345a5fc347e6a5835f2afa33492058fdbfcb169-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 42,
+    "name": "Herald of the Arcane",
+    "title": "Mind Legend",
+    "domain": "Mind",
+    "thematicDomain": "Astral",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 4,
+    "power": 10,
+    "might": 11,
+    "artist": "Rudy Siswanto",
+    "lore": "Riftbound Legend: Herald of the Arcane. [1], [T]: Play a 1 [S] Recruit unit token.",
+    "ability": "[1 Energy], :rb_exhaust:: Play a 1 [Might] Recruit unit token.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a39902058db800a4318f3333dddb8a62a8751d7c-1488x2078.png",
+    "color": "#2E5B2E",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-308",
+    "public_code": "OGN-308/298",
+    "number": 308,
+    "printed_number": "308/298",
+    "rules": [
+      "[1 Energy], :rb_exhaust:: Play a 1 [Might] Recruit unit token."
+    ],
+    "flavor_text": "[1], [T]: Play a 1 [S] Recruit unit token.",
+    "stats": {
+      "cost": 4,
+      "power": 10,
+      "might": 11
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a39902058db800a4318f3333dddb8a62a8751d7c-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a39902058db800a4318f3333dddb8a62a8751d7c-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a39902058db800a4318f3333dddb8a62a8751d7c-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a39902058db800a4318f3333dddb8a62a8751d7c-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 43,
+    "name": "Bounty Hunter",
+    "title": "Body Legend",
+    "domain": "Body",
+    "thematicDomain": "Abyssal",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 2,
+    "power": 10,
+    "might": 8,
+    "artist": "Mindy Kang",
+    "lore": "Riftbound Legend: Bounty Hunter. [T]: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+    "ability": ":rb_exhaust:: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f4b7f334f442d30ccea4743c641760c5533804b4-1488x2078.png",
+    "color": "#1F1010",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-309",
+    "public_code": "OGN-309/298",
+    "number": 309,
+    "printed_number": "309/298",
+    "rules": [
+      ":rb_exhaust:: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)"
+    ],
+    "flavor_text": "[T]: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+    "stats": {
+      "cost": 2,
+      "power": 10,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f4b7f334f442d30ccea4743c641760c5533804b4-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f4b7f334f442d30ccea4743c641760c5533804b4-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f4b7f334f442d30ccea4743c641760c5533804b4-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f4b7f334f442d30ccea4743c641760c5533804b4-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 44,
+    "name": "Bounty Hunter",
+    "title": "Body Legend",
+    "domain": "Body",
+    "thematicDomain": "Abyssal",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 4,
+    "power": 10,
+    "might": 11,
+    "artist": "Mindy Kang",
+    "lore": "Riftbound Legend: Bounty Hunter. [T]: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+    "ability": ":rb_exhaust:: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+    "color": "#211110",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-309*",
+    "public_code": "OGN-309*/298",
+    "number": 309,
+    "printed_number": "309*/298",
+    "rules": [
+      ":rb_exhaust:: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)"
+    ],
+    "flavor_text": "[T]: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+    "stats": {
+      "cost": 4,
+      "power": 10,
+      "might": 11
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 45,
+    "name": "The Boss",
+    "title": "Body Legend",
+    "domain": "Body",
+    "thematicDomain": "Abyssal",
+    "type": "Legend",
+    "rarity": "Mythic",
+    "cost": 4,
+    "power": 10,
+    "might": 11,
+    "artist": "Gem Lim",
+    "lore": "Riftbound Legend: The Boss. When a buffed unit you control would die, you may pay [C] and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)\nWhen you conquer, ready me.",
+    "ability": "When a buffed unit you control would die, you may pay [rainbow Rune] and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)When you conquer, ready me.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6e8efcd343dfd37d9d108243a86c2a5a6412f698-744x1039.png",
+    "color": "#4D3227",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-310*",
+    "public_code": "OGN-310*/298",
+    "number": 310,
+    "printed_number": "310*/298",
+    "rules": [
+      "When a buffed unit you control would die, you may pay [rainbow Rune] and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)When you conquer, ready me."
+    ],
+    "flavor_text": "When a buffed unit you control would die, you may pay [C] and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)\nWhen you conquer, ready me.",
+    "stats": {
+      "cost": 4,
+      "power": 10,
+      "might": 11
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6e8efcd343dfd37d9d108243a86c2a5a6412f698-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6e8efcd343dfd37d9d108243a86c2a5a6412f698-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6e8efcd343dfd37d9d108243a86c2a5a6412f698-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6e8efcd343dfd37d9d108243a86c2a5a6412f698-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 46,
+    "name": "Annie, Fiery",
+    "title": "Fury Unit",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Unit",
+    "rarity": "Epic",
+    "cost": 5,
+    "power": 1,
+    "might": 9,
+    "artist": "Polar Engine Studio",
+    "lore": "Riftbound Unit: Annie, Fiery. Your spells and abilities deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+    "ability": "Your spells and abilities deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/532d75dc36a16eb5954253a77366fcceac7aec62-744x1039.png",
+    "color": "#281417",
+    "foilAvailable": true,
+    "totalMinted": 800,
+    "marketFloorPrice": 180,
+    "scrydex_id": "OGS-001",
+    "public_code": "OGS-001/024",
+    "number": 1,
+    "printed_number": "001/024",
+    "rules": [
+      "Your spells and abilities deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)"
+    ],
+    "flavor_text": "Your spells and abilities deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+    "stats": {
+      "cost": 5,
+      "power": 1,
+      "might": 9
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/532d75dc36a16eb5954253a77366fcceac7aec62-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/532d75dc36a16eb5954253a77366fcceac7aec62-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/532d75dc36a16eb5954253a77366fcceac7aec62-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/532d75dc36a16eb5954253a77366fcceac7aec62-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGS",
+      "name": "Proving Grounds",
+      "code": "OGS",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 18.9,
+            "market": 27,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 40.5,
+            "market": 59.4,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 180,
+      "usd_price": 27,
+      "eur_price": 25.2,
+      "foil_available": true,
+      "total_minted": 800,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 47,
+    "name": "Fury Rune",
+    "title": "Fury Rune",
+    "domain": "Fury",
+    "thematicDomain": "Inferno",
+    "type": "Rune",
+    "rarity": "Mythic",
+    "cost": 1,
+    "power": 10,
+    "might": 6,
+    "artist": "Fairfoul",
+    "lore": "Riftbound Rune: Fury Rune.",
+    "ability": "Riftbound Rune: Fury Rune.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/09da06c69d07d4e72dde703737ef167472c715af-1488x2078.png",
+    "color": "#55362B",
+    "foilAvailable": true,
+    "totalMinted": 50,
+    "marketFloorPrice": 1200,
+    "scrydex_id": "OGN-007a",
+    "public_code": "OGN-007a/298",
+    "number": 7,
+    "printed_number": "007a/298",
+    "rules": [
+      "Riftbound Rune: Fury Rune."
+    ],
+    "flavor_text": "Riftbound Rune: Fury Rune.",
+    "stats": {
+      "cost": 1,
+      "power": 10,
+      "might": 6
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/09da06c69d07d4e72dde703737ef167472c715af-1488x2078.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/09da06c69d07d4e72dde703737ef167472c715af-1488x2078.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/09da06c69d07d4e72dde703737ef167472c715af-1488x2078.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/09da06c69d07d4e72dde703737ef167472c715af-1488x2078.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGN",
+      "name": "Origins",
+      "code": "OGN",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 126,
+            "market": 180,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 270,
+            "market": 396,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 1200,
+      "usd_price": 180,
+      "eur_price": 168,
+      "foil_available": true,
+      "total_minted": 50,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 48,
+    "name": "Yi, Honed",
+    "title": "Body Unit",
+    "domain": "Body",
+    "thematicDomain": "Abyssal",
+    "type": "Unit",
+    "rarity": "Epic",
+    "cost": 7,
+    "power": 1,
+    "might": 12,
+    "artist": "Kudos Productions",
+    "lore": "Riftbound Unit: Yi, Honed. [Ganking] (I can move from battlefield to battlefield.)\nI enter ready.",
+    "ability": "[Ganking] (I can move from battlefield to battlefield.)I enter ready.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0e16976cd6d7ee5a874be9351b428671990fbd25-744x1039.png",
+    "color": "#312318",
+    "foilAvailable": true,
+    "totalMinted": 800,
+    "marketFloorPrice": 180,
+    "scrydex_id": "OGS-009",
+    "public_code": "OGS-009/024",
+    "number": 9,
+    "printed_number": "009/024",
+    "rules": [
+      "[Ganking] (I can move from battlefield to battlefield.)I enter ready."
+    ],
+    "flavor_text": "[Ganking] (I can move from battlefield to battlefield.)\nI enter ready.",
+    "stats": {
+      "cost": 7,
+      "power": 1,
+      "might": 12
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0e16976cd6d7ee5a874be9351b428671990fbd25-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0e16976cd6d7ee5a874be9351b428671990fbd25-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0e16976cd6d7ee5a874be9351b428671990fbd25-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0e16976cd6d7ee5a874be9351b428671990fbd25-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGS",
+      "name": "Proving Grounds",
+      "code": "OGS",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 18.9,
+            "market": 27,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 40.5,
+            "market": 59.4,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 180,
+      "usd_price": 27,
+      "eur_price": 25.2,
+      "foil_available": true,
+      "total_minted": 800,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 49,
+    "name": "Garen, Commander",
+    "title": "Order Unit",
+    "domain": "Order",
+    "thematicDomain": "Astral",
+    "type": "Unit",
+    "rarity": "Epic",
+    "cost": 6,
+    "power": 1,
+    "might": 11,
+    "artist": "Six More Vodka",
+    "lore": "Riftbound Unit: Garen, Commander. Other friendly units have +1 [S] here.",
+    "ability": "Other friendly units have +1 [Might] here.",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/cbf2c12d69a86566e4cda07050b2d4495e40187e-744x1039.png",
+    "color": "#1D170E",
+    "foilAvailable": true,
+    "totalMinted": 800,
+    "marketFloorPrice": 180,
+    "scrydex_id": "OGS-013",
+    "public_code": "OGS-013/024",
+    "number": 13,
+    "printed_number": "013/024",
+    "rules": [
+      "Other friendly units have +1 [Might] here."
+    ],
+    "flavor_text": "Other friendly units have +1 [S] here.",
+    "stats": {
+      "cost": 6,
+      "power": 1,
+      "might": 11
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/cbf2c12d69a86566e4cda07050b2d4495e40187e-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/cbf2c12d69a86566e4cda07050b2d4495e40187e-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/cbf2c12d69a86566e4cda07050b2d4495e40187e-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/cbf2c12d69a86566e4cda07050b2d4495e40187e-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGS",
+      "name": "Proving Grounds",
+      "code": "OGS",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 18.9,
+            "market": 27,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 40.5,
+            "market": 59.4,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 180,
+      "usd_price": 27,
+      "eur_price": 25.2,
+      "foil_available": true,
+      "total_minted": 800,
+      "currency": "$RIFT"
+    }
+  },
+  {
+    "id": 50,
+    "name": "Lux, Crownguard",
+    "title": "Order Unit",
+    "domain": "Order",
+    "thematicDomain": "Astral",
+    "type": "Unit",
+    "rarity": "Epic",
+    "cost": 4,
+    "power": 6,
+    "might": 8,
+    "artist": "Envar Studio",
+    "lore": "Riftbound Unit: Lux, Crownguard. [T]: [Reaction] — [Add] [2]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "ability": ":rb_exhaust:: [Reaction] — [Add] [2 Energy]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/17d0793ad495727e67bb1c94ae0e11cd4705870f-744x1039.png",
+    "color": "#26264C",
+    "foilAvailable": true,
+    "totalMinted": 800,
+    "marketFloorPrice": 180,
+    "scrydex_id": "OGS-014",
+    "public_code": "OGS-014/024",
+    "number": 14,
+    "printed_number": "014/024",
+    "rules": [
+      ":rb_exhaust:: [Reaction] — [Add] [2 Energy]. Use only to play spells. (Abilities that add resources can't be reacted to.)"
+    ],
+    "flavor_text": "[T]: [Reaction] — [Add] [2]. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    "stats": {
+      "cost": 4,
+      "power": 6,
+      "might": 8
+    },
+    "images": {
+      "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/17d0793ad495727e67bb1c94ae0e11cd4705870f-744x1039.png",
+      "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/17d0793ad495727e67bb1c94ae0e11cd4705870f-744x1039.png",
+      "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/17d0793ad495727e67bb1c94ae0e11cd4705870f-744x1039.png",
+      "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/17d0793ad495727e67bb1c94ae0e11cd4705870f-744x1039.png",
+      "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+    },
+    "expansion": {
+      "id": "OGS",
+      "name": "Proving Grounds",
+      "code": "OGS",
+      "type": "Main",
+      "total": 352,
+      "printed_total": 298,
+      "release_date": "2025/10/31",
+      "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+      "language": "English",
+      "language_code": "EN"
+    },
+    "language": "English",
+    "language_code": "EN",
+    "variants": [
+      {
+        "name": "normal",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": false,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 18.9,
+            "market": 27,
+            "currency": "USD"
+          }
+        ]
+      },
+      {
+        "name": "foil",
+        "prices": [
+          {
+            "condition": "NM",
+            "is_perfect": true,
+            "is_signed": false,
+            "is_error": false,
+            "type": "raw",
+            "low": 40.5,
+            "market": 59.4,
+            "currency": "USD"
+          }
+        ]
+      }
+    ],
+    "market": {
+      "floor_price_rift": 180,
+      "usd_price": 27,
+      "eur_price": 25.2,
+      "foil_available": true,
+      "total_minted": 800,
+      "currency": "$RIFT"
+    }
+  }
+];
+
+export const DEFAULT_LISTINGS = [
+  {
+    "listingId": 1,
+    "cardId": 30,
+    "quantity": 2,
+    "pricePerItem": 45,
+    "seller": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "card": {
+      "id": 30,
+      "name": "Hand of Noxus",
+      "title": "Fury Legend",
+      "domain": "Fury",
+      "thematicDomain": "Inferno",
+      "type": "Legend",
+      "rarity": "Mythic",
+      "cost": 1,
+      "power": 10,
+      "might": 6,
+      "artist": "Peter Kim",
+      "lore": "Riftbound Legend: Hand of Noxus. [T]: [Reaction], [Legion] — [Add] [1]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+      "ability": ":rb_exhaust:: [Reaction], [Legion] — [Add] [1 Energy]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+      "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+      "color": "#312518",
+      "foilAvailable": true,
+      "totalMinted": 50,
+      "marketFloorPrice": 1200,
+      "scrydex_id": "OGN-302",
+      "public_code": "OGN-302/298",
+      "number": 302,
+      "printed_number": "302/298",
+      "rules": [
+        ":rb_exhaust:: [Reaction], [Legion] — [Add] [1 Energy]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)"
+      ],
+      "flavor_text": "[T]: [Reaction], [Legion] — [Add] [1]. (Abilities that add resources can't be reacted to. Get the effect if you've played a card this turn.)",
+      "stats": {
+        "cost": 1,
+        "power": 10,
+        "might": 6
+      },
+      "images": {
+        "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+        "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+        "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+        "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37d43efe09ccfe5d72ce37fdc27599bd5ef736af-1488x2078.png",
+        "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+      },
+      "expansion": {
+        "id": "OGN",
+        "name": "Origins",
+        "code": "OGN",
+        "type": "Main",
+        "total": 352,
+        "printed_total": 298,
+        "release_date": "2025/10/31",
+        "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+        "language": "English",
+        "language_code": "EN"
+      },
+      "language": "English",
+      "language_code": "EN",
+      "variants": [
+        {
+          "name": "normal",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": false,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 126,
+              "market": 180,
+              "currency": "USD"
+            }
+          ]
+        },
+        {
+          "name": "foil",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": true,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 270,
+              "market": 396,
+              "currency": "USD"
+            }
+          ]
+        }
+      ],
+      "market": {
+        "floor_price_rift": 1200,
+        "usd_price": 180,
+        "eur_price": 168,
+        "foil_available": true,
+        "total_minted": 50,
+        "currency": "$RIFT"
+      }
+    }
+  },
+  {
+    "listingId": 2,
+    "cardId": 17,
+    "quantity": 1,
+    "pricePerItem": 70,
+    "seller": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "card": {
+      "id": 17,
+      "name": "Unforgiven",
+      "title": "Calm Legend",
+      "domain": "Calm",
+      "thematicDomain": "Astral",
+      "type": "Legend",
+      "rarity": "Rare",
+      "cost": 3,
+      "power": 3,
+      "might": 6,
+      "artist": "TSWCK逍",
+      "lore": "Riftbound Legend: Unforgiven. [2], [T]: Move a friendly unit to or from its base.",
+      "ability": "[2 Energy], :rb_exhaust:: Move a friendly unit to or from its base.",
+      "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+      "color": "#181830",
+      "foilAvailable": true,
+      "totalMinted": 2000,
+      "marketFloorPrice": 60,
+      "scrydex_id": "OGN-259",
+      "public_code": "OGN-259/298",
+      "number": 259,
+      "printed_number": "259/298",
+      "rules": [
+        "[2 Energy], :rb_exhaust:: Move a friendly unit to or from its base."
+      ],
+      "flavor_text": "[2], [T]: Move a friendly unit to or from its base.",
+      "stats": {
+        "cost": 3,
+        "power": 3,
+        "might": 6
+      },
+      "images": {
+        "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+        "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+        "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+        "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/33e3d5596de0f560087d40414d62b8245d1dbb0d-744x1039.png",
+        "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+      },
+      "expansion": {
+        "id": "OGN",
+        "name": "Origins",
+        "code": "OGN",
+        "type": "Main",
+        "total": 352,
+        "printed_total": 298,
+        "release_date": "2025/10/31",
+        "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+        "language": "English",
+        "language_code": "EN"
+      },
+      "language": "English",
+      "language_code": "EN",
+      "variants": [
+        {
+          "name": "normal",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": false,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 6.3,
+              "market": 9,
+              "currency": "USD"
+            }
+          ]
+        },
+        {
+          "name": "foil",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": true,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 13.5,
+              "market": 19.8,
+              "currency": "USD"
+            }
+          ]
+        }
+      ],
+      "market": {
+        "floor_price_rift": 60,
+        "usd_price": 9,
+        "eur_price": 8.4,
+        "foil_available": true,
+        "total_minted": 2000,
+        "currency": "$RIFT"
+      }
+    }
+  },
+  {
+    "listingId": 3,
+    "cardId": 44,
+    "quantity": 1,
+    "pricePerItem": 180,
+    "seller": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+    "card": {
+      "id": 44,
+      "name": "Bounty Hunter",
+      "title": "Body Legend",
+      "domain": "Body",
+      "thematicDomain": "Abyssal",
+      "type": "Legend",
+      "rarity": "Mythic",
+      "cost": 4,
+      "power": 10,
+      "might": 11,
+      "artist": "Mindy Kang",
+      "lore": "Riftbound Legend: Bounty Hunter. [T]: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+      "ability": ":rb_exhaust:: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+      "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+      "color": "#211110",
+      "foilAvailable": true,
+      "totalMinted": 50,
+      "marketFloorPrice": 1200,
+      "scrydex_id": "OGN-309*",
+      "public_code": "OGN-309*/298",
+      "number": 309,
+      "printed_number": "309*/298",
+      "rules": [
+        ":rb_exhaust:: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)"
+      ],
+      "flavor_text": "[T]: Give a unit [Ganking] this turn. (It can move from battlefield to battlefield.)",
+      "stats": {
+        "cost": 4,
+        "power": 10,
+        "might": 11
+      },
+      "images": {
+        "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+        "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+        "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+        "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/37153cce7f58b2fceb28ea9ff91deb0411f849e2-1488x2078.png",
+        "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+      },
+      "expansion": {
+        "id": "OGN",
+        "name": "Origins",
+        "code": "OGN",
+        "type": "Main",
+        "total": 352,
+        "printed_total": 298,
+        "release_date": "2025/10/31",
+        "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+        "language": "English",
+        "language_code": "EN"
+      },
+      "language": "English",
+      "language_code": "EN",
+      "variants": [
+        {
+          "name": "normal",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": false,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 126,
+              "market": 180,
+              "currency": "USD"
+            }
+          ]
+        },
+        {
+          "name": "foil",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": true,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 270,
+              "market": 396,
+              "currency": "USD"
+            }
+          ]
+        }
+      ],
+      "market": {
+        "floor_price_rift": 1200,
+        "usd_price": 180,
+        "eur_price": 168,
+        "foil_available": true,
+        "total_minted": 50,
+        "currency": "$RIFT"
+      }
+    }
+  },
+  {
+    "listingId": 4,
+    "cardId": 10,
+    "quantity": 1,
+    "pricePerItem": 450,
+    "seller": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+    "card": {
+      "id": 10,
+      "name": "Battle Mistress",
+      "title": "Body Legend",
+      "domain": "Body",
+      "thematicDomain": "Abyssal",
+      "type": "Legend",
+      "rarity": "Rare",
+      "cost": 2,
+      "power": 3,
+      "might": 5,
+      "artist": "Zhongqi Li",
+      "lore": "Riftbound Legend: Battle Mistress. When you recycle a rune, you may exhaust me to play a Gold gear token exhausted.\nWhen one or more enemy units die, ready me.",
+      "ability": "When you recycle a rune, you may exhaust me to play a Gold gear token exhausted.When one or more enemy units die, ready me.",
+      "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+      "color": "#261319",
+      "foilAvailable": true,
+      "totalMinted": 2000,
+      "marketFloorPrice": 60,
+      "scrydex_id": "SFD-203",
+      "public_code": "SFD-203/221",
+      "number": 203,
+      "printed_number": "203/221",
+      "rules": [
+        "When you recycle a rune, you may exhaust me to play a Gold gear token exhausted.When one or more enemy units die, ready me."
+      ],
+      "flavor_text": "When you recycle a rune, you may exhaust me to play a Gold gear token exhausted.\nWhen one or more enemy units die, ready me.",
+      "stats": {
+        "cost": 2,
+        "power": 3,
+        "might": 5
+      },
+      "images": {
+        "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+        "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+        "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+        "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fd060882c32a8deac04aea4241c6ab7b97236a05-744x1039.png",
+        "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+      },
+      "expansion": {
+        "id": "SFD",
+        "name": "SFD",
+        "code": "SFD",
+        "type": "Main",
+        "total": 352,
+        "printed_total": 298,
+        "release_date": "2025/10/31",
+        "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+        "language": "English",
+        "language_code": "EN"
+      },
+      "language": "English",
+      "language_code": "EN",
+      "variants": [
+        {
+          "name": "normal",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": false,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 6.3,
+              "market": 9,
+              "currency": "USD"
+            }
+          ]
+        },
+        {
+          "name": "foil",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": true,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 13.5,
+              "market": 19.8,
+              "currency": "USD"
+            }
+          ]
+        }
+      ],
+      "market": {
+        "floor_price_rift": 60,
+        "usd_price": 9,
+        "eur_price": 8.4,
+        "foil_available": true,
+        "total_minted": 2000,
+        "currency": "$RIFT"
+      }
+    }
+  },
+  {
+    "listingId": 5,
+    "cardId": 5,
+    "quantity": 3,
+    "pricePerItem": 35,
+    "seller": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+    "card": {
+      "id": 5,
+      "name": "Might of Demacia - Starter",
+      "title": "Body Legend",
+      "domain": "Body",
+      "thematicDomain": "Abyssal",
+      "type": "Legend",
+      "rarity": "Rare",
+      "cost": 3,
+      "power": 3,
+      "might": 6,
+      "artist": "Six More Vodka",
+      "lore": "Riftbound Legend: Might of Demacia - Starter. When you conquer, if you have 4+ units at that battlefield, draw 2.",
+      "ability": "When you conquer, if you have 4+ units at that battlefield, draw 2.",
+      "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+      "color": "#3D291E",
+      "foilAvailable": true,
+      "totalMinted": 2000,
+      "marketFloorPrice": 60,
+      "scrydex_id": "OGS-023",
+      "public_code": "OGS-023/024",
+      "number": 23,
+      "printed_number": "023/024",
+      "rules": [
+        "When you conquer, if you have 4+ units at that battlefield, draw 2."
+      ],
+      "flavor_text": "When you conquer, if you have 4+ units at that battlefield, draw 2.",
+      "stats": {
+        "cost": 3,
+        "power": 3,
+        "might": 6
+      },
+      "images": {
+        "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+        "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+        "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+        "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png",
+        "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+      },
+      "expansion": {
+        "id": "OGS",
+        "name": "Proving Grounds",
+        "code": "OGS",
+        "type": "Main",
+        "total": 352,
+        "printed_total": 298,
+        "release_date": "2025/10/31",
+        "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+        "language": "English",
+        "language_code": "EN"
+      },
+      "language": "English",
+      "language_code": "EN",
+      "variants": [
+        {
+          "name": "normal",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": false,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 6.3,
+              "market": 9,
+              "currency": "USD"
+            }
+          ]
+        },
+        {
+          "name": "foil",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": true,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 13.5,
+              "market": 19.8,
+              "currency": "USD"
+            }
+          ]
+        }
+      ],
+      "market": {
+        "floor_price_rift": 60,
+        "usd_price": 9,
+        "eur_price": 8.4,
+        "foil_available": true,
+        "total_minted": 2000,
+        "currency": "$RIFT"
+      }
+    }
+  },
+  {
+    "listingId": 6,
+    "cardId": 25,
+    "quantity": 1,
+    "pricePerItem": 220,
+    "seller": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+    "card": {
+      "id": 25,
+      "name": "Relentless Storm",
+      "title": "Fury Legend",
+      "domain": "Fury",
+      "thematicDomain": "Inferno",
+      "type": "Legend",
+      "rarity": "Mythic",
+      "cost": 3,
+      "power": 10,
+      "might": 9,
+      "artist": "Alex Flores",
+      "lore": "Riftbound Legend: Relentless Storm. When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [S].)",
+      "ability": "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [Might].)",
+      "image": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+      "color": "#1A1A33",
+      "foilAvailable": true,
+      "totalMinted": 50,
+      "marketFloorPrice": 1200,
+      "scrydex_id": "OGN-300",
+      "public_code": "OGN-300/298",
+      "number": 300,
+      "printed_number": "300/298",
+      "rules": [
+        "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [Might].)"
+      ],
+      "flavor_text": "When you play a [Mighty] unit, you may exhaust me to channel 1 rune exhausted. (A unit is Mighty while it has 5+ [S].)",
+      "stats": {
+        "cost": 3,
+        "power": 10,
+        "might": 9
+      },
+      "images": {
+        "small": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+        "medium": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+        "large": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+        "front": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/34aa11c88735be28266dbc61486a557454fd6b4c-1488x2078.png",
+        "back": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png"
+      },
+      "expansion": {
+        "id": "OGN",
+        "name": "Origins",
+        "code": "OGN",
+        "type": "Main",
+        "total": 352,
+        "printed_total": 298,
+        "release_date": "2025/10/31",
+        "logo": "https://images.scrydex.com/riftbound/OGN-logo/logo",
+        "language": "English",
+        "language_code": "EN"
+      },
+      "language": "English",
+      "language_code": "EN",
+      "variants": [
+        {
+          "name": "normal",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": false,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 126,
+              "market": 180,
+              "currency": "USD"
+            }
+          ]
+        },
+        {
+          "name": "foil",
+          "prices": [
+            {
+              "condition": "NM",
+              "is_perfect": true,
+              "is_signed": false,
+              "is_error": false,
+              "type": "raw",
+              "low": 270,
+              "market": 396,
+              "currency": "USD"
+            }
+          ]
+        }
+      ],
+      "market": {
+        "floor_price_rift": 1200,
+        "usd_price": 180,
+        "eur_price": 168,
+        "foil_available": true,
+        "total_minted": 50,
+        "currency": "$RIFT"
+      }
+    }
+  }
+];

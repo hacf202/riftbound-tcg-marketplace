@@ -84,7 +84,12 @@ export default function Packs() {
           setPacks(data.data);
         }
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error('Lỗi tải packs, sử dụng dữ liệu dự phòng:', err);
+        import('../data/defaultData').then((m) => {
+          if (m && m.DEFAULT_PACKS) setPacks(m.DEFAULT_PACKS);
+        });
+      })
       .finally(() => setLoading(false));
   }, [API_BASE]);
 
