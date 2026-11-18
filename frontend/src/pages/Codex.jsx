@@ -24,7 +24,7 @@ export default function Codex() {
   }, [search]);
 
   useEffect(() => {
-    const limit = scope === 'all' ? 360 : 200;
+    const limit = scope === 'all' ? 400 : 200;
     universalFetch(`${API_BASE}/cards?scope=${scope}&limit=${limit}`)
       .then((data) => {
         if (data && (data.success || data.status === 'success')) {

@@ -1,4 +1,6 @@
 import { DEFAULT_CARDS, DEFAULT_PACKS, DEFAULT_LISTINGS } from '../data/defaultData';
+import allCards from '../data/allCards.json';
+import primaryCards from '../data/primaryCards.json';
 import defaultContractsConfig from '../config/contracts-config.json';
 import defaultContractsAbi from '../config/contracts-abi.json';
 
@@ -250,13 +252,13 @@ export const mockApiHandler = async (url, options = {}) => {
   if (cardMarketMatch) {
     const idOrCode = cardMarketMatch[1].toLowerCase();
     const card =
-      DEFAULT_CARDS.find(
+      allCards.find(
         (c) =>
           c.id.toString() === idOrCode ||
           (c.scrydex_id && c.scrydex_id.toLowerCase() === idOrCode) ||
           (c.public_code && c.public_code.toLowerCase() === idOrCode) ||
           (c.name && c.name.toLowerCase() === idOrCode)
-      ) || DEFAULT_CARDS[0];
+      ) || allCards[0];
 
     const stored = localStorage.getItem(MKT_LISTINGS_KEY);
     const listings = stored ? JSON.parse(stored) : DEFAULT_LISTINGS;
@@ -318,13 +320,13 @@ export const mockApiHandler = async (url, options = {}) => {
   if (singleCardMatch && singleCardMatch[1] !== 'expansions') {
     const idOrCode = singleCardMatch[1].toLowerCase();
     const card =
-      DEFAULT_CARDS.find(
+      allCards.find(
         (c) =>
           c.id.toString() === idOrCode ||
           (c.scrydex_id && c.scrydex_id.toLowerCase() === idOrCode) ||
           (c.public_code && c.public_code.toLowerCase() === idOrCode) ||
           (c.name && c.name.toLowerCase() === idOrCode)
-      ) || DEFAULT_CARDS[0];
+      ) || allCards[0];
 
     return {
       success: true,
@@ -335,11 +337,17 @@ export const mockApiHandler = async (url, options = {}) => {
 
   // 3b. Cards Catalog
   if (pathname.startsWith('/cards')) {
+    const queryString = url.includes('?') ? url.split('?')[1] : '';
+    const params = new URLSearchParams(queryString);
+    const scope = params.get('scope') || 'primary';
+    const limit = parseInt(params.get('limit') || (scope === 'all' ? '400' : '200'), 10);
+    const pool = scope === 'all' ? allCards : primaryCards;
+
     return {
       success: true,
       status: 'success',
-      total: DEFAULT_CARDS.length,
-      data: DEFAULT_CARDS,
+      total: pool.length,
+      data: pool.slice(0, limit),
     };
   }
 
