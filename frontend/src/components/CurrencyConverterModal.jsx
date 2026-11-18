@@ -24,19 +24,23 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
     chainId,
   } = useWeb3();
 
-  // Currency Selection: 'ETH' (Ethereum / Localhost) hoặc 'TCRO' (Cronos Testnet)
-  const [currency, setCurrency] = useState(() => (Number(chainId) === 338 ? 'TCRO' : 'ETH'));
-  const [inputVal, setInputVal] = useState(() => (Number(chainId) === 338 ? '0.5' : '0.1'));
-  const [riftInput, setRiftInput] = useState(() => (Number(chainId) === 338 ? '50' : '1000'));
+  // Mặc định chọn TCRO khi ở Cronos Testnet hoặc chạy trên cloud/Vercel
+  const isCronos =
+    Number(chainId) === 338 ||
+    (typeof window !== 'undefined' && window.location.hostname !== 'localhost');
+
+  const [currency, setCurrency] = useState(() => (isCronos ? 'TCRO' : 'ETH'));
+  const [inputVal, setInputVal] = useState(() => (isCronos ? '10' : '0.1'));
+  const [riftInput, setRiftInput] = useState(() => (isCronos ? '1000' : '1000'));
   const [isSwapping, setIsSwapping] = useState(false);
 
   React.useEffect(() => {
-    if (Number(chainId) === 338) {
+    if (isCronos) {
       setCurrency('TCRO');
-      setInputVal('0.5');
-      setRiftInput('50');
+      setInputVal((prev) => (prev === '0.1' || prev === '0.5' ? '10' : prev || '10'));
+      setRiftInput((prev) => (prev === '1000' || prev === '50' ? '1000' : prev || '1000'));
     }
-  }, [chainId]);
+  }, [chainId, isCronos, isOpen]);
 
   if (!isOpen) return null;
 
@@ -51,11 +55,11 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
   ];
 
   const presetsTCRO = [
-    { val: '0.1', rift: '10', label: 'Thử Nghiệm' },
-    { val: '0.5', rift: '50', label: 'Khởi Động' },
-    { val: '1', rift: '100', label: 'Tân Thủ' },
-    { val: '2', rift: '200', label: 'Phổ Biến' },
-    { val: '5', rift: '500', label: 'Chiến Binh' },
+    { val: '2', rift: '200', label: 'Khởi Động' },
+    { val: '5', rift: '500', label: 'Tân Thủ' },
+    { val: '10', rift: '1,000', label: '⭐ Phổ Biến' },
+    { val: '25', rift: '2,500', label: 'Chiến Binh' },
+    { val: '50', rift: '5,000', label: '👑 Toàn Bộ' },
   ];
 
   const activePresets = currency === 'TCRO' ? presetsTCRO : presetsETH;
@@ -63,8 +67,8 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
   const handleCurrencySwitch = (newCurr) => {
     setCurrency(newCurr);
     if (newCurr === 'TCRO') {
-      setInputVal('0.5');
-      setRiftInput('50');
+      setInputVal('10');
+      setRiftInput('1000');
     } else {
       setInputVal('0.1');
       setRiftInput('1000');

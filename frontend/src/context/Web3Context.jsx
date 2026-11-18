@@ -499,22 +499,11 @@ export function Web3Provider({ children }) {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
 
-        // Kiểm tra số dư native coin thực tế trong ví trước khi gửi
-        const balanceWei = await provider.getBalance(account);
-        const requiredWei = ethers.parseEther(numAmount.toString());
-
-        if (balanceWei < requiredWei) {
-          const currentBalFormatted = parseFloat(ethers.formatEther(balanceWei)).toFixed(4);
-          showToast(
-            `❌ Số dư ${currency} không đủ! Ví bạn chỉ có ${currentBalFormatted} ${currency}, không đủ để gửi ${numAmount} ${currency}. Hãy chọn số lượng nhỏ hơn hoặc nhận tại Cronos Faucet!`,
-            'error'
-          );
-          return false;
-        }
-
         const recipient =
           contractsConfig?.treasury ||
           '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+
+        const requiredWei = ethers.parseEther(numAmount.toString());
 
         const tx = await signer.sendTransaction({
           to: recipient,
@@ -531,11 +520,19 @@ export function Web3Provider({ children }) {
           err.message?.includes('user rejected') ||
           err.message?.includes('denied')
         ) {
-          showToast('❌ Người dùng đã từ chối ký giao dịch trên MetaMask.', 'error');
+          showToast('❌ Bạn đã hủy giao dịch trên ví MetaMask.', 'error');
           return false;
         }
         if (err.code === 'INSUFFICIENT_FUNDS' || err.message?.includes('insufficient funds')) {
           showToast(`❌ Không đủ phí gas hoặc số dư ${currency} để thực hiện giao dịch!`, 'error');
+          return false;
+        }
+        if (
+          err.code === -32002 ||
+          err.message?.includes('too many errors') ||
+          err.message?.includes('retrying')
+        ) {
+          showToast('⏳ Node RPC Cronos đang quá tải tạm thời. Vui lòng chờ 5-10 giây rồi bấm thử lại!', 'warning');
           return false;
         }
         showToast(
