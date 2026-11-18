@@ -20,20 +20,21 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
     RIFT_PER_ETH,
     depositCryptoForRift,
     connectMetaMask,
+    claimFaucet,
     chainId,
   } = useWeb3();
 
   // Currency Selection: 'ETH' (Ethereum / Localhost) hoặc 'TCRO' (Cronos Testnet)
   const [currency, setCurrency] = useState(() => (Number(chainId) === 338 ? 'TCRO' : 'ETH'));
-  const [inputVal, setInputVal] = useState(() => (Number(chainId) === 338 ? '10' : '0.1'));
-  const [riftInput, setRiftInput] = useState('1000');
+  const [inputVal, setInputVal] = useState(() => (Number(chainId) === 338 ? '0.5' : '0.1'));
+  const [riftInput, setRiftInput] = useState(() => (Number(chainId) === 338 ? '50' : '1000'));
   const [isSwapping, setIsSwapping] = useState(false);
 
   React.useEffect(() => {
     if (Number(chainId) === 338) {
       setCurrency('TCRO');
-      setInputVal('10');
-      setRiftInput('1000');
+      setInputVal('0.5');
+      setRiftInput('50');
     }
   }, [chainId]);
 
@@ -50,11 +51,11 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
   ];
 
   const presetsTCRO = [
-    { val: '5', rift: '500', label: 'Tân Thủ' },
-    { val: '10', rift: '1,000', label: '⭐ Phổ Biến' },
-    { val: '25', rift: '2,500', label: 'Chiến Binh' },
-    { val: '50', rift: '5,000', label: 'Cao Cấp' },
-    { val: '100', rift: '10,000', label: '👑 Hoàng Gia' },
+    { val: '0.1', rift: '10', label: 'Thử Nghiệm' },
+    { val: '0.5', rift: '50', label: 'Khởi Động' },
+    { val: '1', rift: '100', label: 'Tân Thủ' },
+    { val: '2', rift: '200', label: 'Phổ Biến' },
+    { val: '5', rift: '500', label: 'Chiến Binh' },
   ];
 
   const activePresets = currency === 'TCRO' ? presetsTCRO : presetsETH;
@@ -62,8 +63,8 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
   const handleCurrencySwitch = (newCurr) => {
     setCurrency(newCurr);
     if (newCurr === 'TCRO') {
-      setInputVal('10');
-      setRiftInput('1000');
+      setInputVal('0.5');
+      setRiftInput('50');
     } else {
       setInputVal('0.1');
       setRiftInput('1000');
@@ -303,6 +304,29 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
 
           <div className="text-[10px] text-center text-slate-400 pt-0.5">
             Giao dịch chuyển tiền được xác thực bởi MetaMask • Token $RIFT cộng trực tiếp vào ví
+          </div>
+
+          {/* Quick Faucet Actions */}
+          <div className="pt-3 border-t border-rift-border/60 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+            <a
+              href="https://cronos.org/faucet"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[11px] text-cyan-400 hover:text-cyan-300 underline underline-offset-2 flex items-center space-x-1"
+            >
+              <span>🔗 Lấy tCRO Cronos Testnet miễn phí (Faucet)</span>
+            </a>
+
+            <button
+              type="button"
+              onClick={async () => {
+                await claimFaucet();
+              }}
+              className="text-[11px] font-bold text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 rounded-xl transition flex items-center space-x-1"
+            >
+              <Sparkles className="w-3 h-3 text-amber-400" />
+              <span>Nhận +1,000 $RIFT Miễn Phí (Không cần Gas)</span>
+            </button>
           </div>
         </div>
 

@@ -13,6 +13,7 @@ import {
   ArrowUpRight,
   Flame,
   History,
+  Gift,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -29,6 +30,7 @@ export default function Navbar() {
     setActiveTab,
     connectMetaMask,
     disconnectWallet,
+    claimFaucet,
     switchNetworkToHardhat,
     switchNetworkToCronosTestnet,
     getNetworkInfo,
@@ -280,6 +282,29 @@ export default function Navbar() {
                         </div>
                       </div>
                       <ArrowUpRight className="w-3.5 h-3.5 text-purple-300" />
+                    </button>
+
+                    {/* 2.5 NHẬN 1,000 $RIFT MIỄN PHÍ (FAUCET) */}
+                    <button
+                      onClick={async () => {
+                        if (claimFaucet) await claimFaucet();
+                        setWalletDropdownOpen(false);
+                      }}
+                      className="w-full p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 flex items-center justify-between transition shadow-sm group"
+                    >
+                      <div className="flex items-center space-x-2.5">
+                        <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
+                          <Gift className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="text-left">
+                          <div className="font-bold text-xs flex items-center space-x-1.5">
+                            <span>Nhận Faucet Miễn Phí</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/30 text-amber-200 font-black">+1,000 $RIFT</span>
+                          </div>
+                          <div className="text-[10px] text-amber-200/70">Nhận token chơi thử không cần Gas</div>
+                        </div>
+                      </div>
+                      <span className="text-amber-400 text-xs font-black">Nhận ➔</span>
                     </button>
 
                     {/* 3. NHẬT KÝ GIAO DỊCH */}

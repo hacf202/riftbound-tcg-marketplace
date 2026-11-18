@@ -145,21 +145,126 @@ export const mockApiHandler = async (url, options = {}) => {
     const stored = localStorage.getItem(MKT_LISTINGS_KEY);
     let listings = stored ? JSON.parse(stored) : DEFAULT_LISTINGS;
     const target = listings.find((l) => Number(l.listingId) === Number(body.listingId));
-    if (target) {
-      target.quantity -= Number(body.quantity || 1);
-      if (target.quantity <= 0) {
-        listings = listings.filter((l) => Number(l.listingId) !== Number(body.listingId));
-      }
-      localStorage.setItem(MKT_LISTINGS_KEY, JSON.stringify(listings));
+    if (!target) {
+      return { success: false, message: 'Thẻ niêm yết không tồn tại hoặc đã được mua!' };
     }
-    return { success: true, message: 'Mua thẻ thành công' };
+
+    const qty = Number(body.quantity || 1);
+    const totalPrice = Number(target.pricePerItem) * qty;
+    const buyer = (body.buyer || '').toLowerCase();
+
+    // 1. Kiểm tra & khấu trừ số dư người mua trong LocalStorage
+    initLocalStore(buyer);
+    const currentBuyerBal = Number(localStorage.getItem(getBalKey(buyer)) || '1000');
+    if (currentBuyerBal < totalPrice) {
+      return {
+        success: false,
+        message: `Số dư ví không đủ (${currentBuyerBal} $RIFT < ${totalPrice} $RIFT)!`,
+      };
+    }
+    const newBuyerBal = Math.max(0, currentBuyerBal - totalPrice);
+    localStorage.setItem(getBalKey(buyer), newBuyerBal.toString());
+
+    // 2. Cộng tiền cho người bán (95.5% sau khi trừ 2% phí sàn và 2.5% phí tác giả)
+    if (target.seller) {
+      const seller = target.seller.toLowerCase();
+      initLocalStore(seller);
+      const sellerPayout = totalPrice * 0.955;
+      const currentSellerBal = Number(localStorage.getItem(getBalKey(seller)) || '1000');
+      localStorage.setItem(getBalKey(seller), (currentSellerBal + sellerPayout).toString());
+    }
+
+    // 3. Thêm lá bài vừa mua vào Túi đồ (Inventory) của người mua
+    const rawBuyerInv = localStorage.getItem(getInvKey(buyer));
+    let buyerInv = rawBuyerInv
+      ? JSON.parse(rawBuyerInv)
+      : { totalCardsCount: 0, uniqueCards: 0, estimatedPortfolioValueRift: 0, cards: [] };
+
+    const cardObj =
+      target.card ||
+      DEFAULT_CARDS.find((c) => c.id === Number(target.cardId)) ||
+      DEFAULT_CARDS[0];
+
+    const existingInInv = buyerInv.cards.find(
+      (c) => Number(c.cardId || c.id) === Number(cardObj.id)
+    );
+
+    if (existingInInv) {
+      existingInInv.quantity = Number(existingInInv.quantity || 1) + qty;
+    } else {
+      buyerInv.cards.unshift({
+        cardId: cardObj.id,
+        card: cardObj,
+        quantity: qty,
+      });
+    }
+
+    buyerInv.totalCardsCount = (buyerInv.totalCardsCount || 0) + qty;
+    buyerInv.uniqueCards = buyerInv.cards.length;
+    buyerInv.estimatedPortfolioValueRift =
+      (buyerInv.estimatedPortfolioValueRift || 0) + (cardObj.marketFloorPrice || 35) * qty;
+
+    localStorage.setItem(getInvKey(buyer), JSON.stringify(buyerInv));
+
+    // 4. Khấu trừ số lượng niêm yết trên sàn (Escrow Marketplace)
+    target.quantity -= qty;
+    if (target.quantity <= 0) {
+      listings = listings.filter((l) => Number(l.listingId) !== Number(body.listingId));
+    }
+    localStorage.setItem(MKT_LISTINGS_KEY, JSON.stringify(listings));
+
+    return {
+      success: true,
+      message: 'Mua thẻ thành công',
+      data: {
+        newBalance: newBuyerBal,
+        card: cardObj,
+        quantity: qty,
+      },
+    };
   }
 
   if (pathname.startsWith('/marketplace/sync-cancel') && method === 'POST') {
     const stored = localStorage.getItem(MKT_LISTINGS_KEY);
     let listings = stored ? JSON.parse(stored) : DEFAULT_LISTINGS;
-    listings = listings.filter((l) => Number(l.listingId) !== Number(body.listingId));
-    localStorage.setItem(MKT_LISTINGS_KEY, JSON.stringify(listings));
+    const target = listings.find((l) => Number(l.listingId) === Number(body.listingId));
+    if (target) {
+      listings = listings.filter((l) => Number(l.listingId) !== Number(body.listingId));
+      localStorage.setItem(MKT_LISTINGS_KEY, JSON.stringify(listings));
+
+      // Hoàn trả thẻ bài về Túi đồ của người bán
+      if (body.seller || target.seller) {
+        const seller = (body.seller || target.seller).toLowerCase();
+        initLocalStore(seller);
+        const rawInv = localStorage.getItem(getInvKey(seller));
+        let inv = rawInv
+          ? JSON.parse(rawInv)
+          : { totalCardsCount: 0, uniqueCards: 0, estimatedPortfolioValueRift: 0, cards: [] };
+
+        const cardObj =
+          target.card ||
+          DEFAULT_CARDS.find((c) => c.id === Number(target.cardId)) ||
+          DEFAULT_CARDS[0];
+
+        const qty = Number(target.quantity || 1);
+        const existingInInv = inv.cards.find(
+          (c) => Number(c.cardId || c.id) === Number(cardObj.id)
+        );
+
+        if (existingInInv) {
+          existingInInv.quantity = Number(existingInInv.quantity || 1) + qty;
+        } else {
+          inv.cards.unshift({
+            cardId: cardObj.id,
+            card: cardObj,
+            quantity: qty,
+          });
+        }
+        inv.totalCardsCount = (inv.totalCardsCount || 0) + qty;
+        inv.uniqueCards = inv.cards.length;
+        localStorage.setItem(getInvKey(seller), JSON.stringify(inv));
+      }
+    }
     return { success: true, message: 'Hủy niêm yết thành công' };
   }
 
@@ -225,6 +330,14 @@ export const mockApiHandler = async (url, options = {}) => {
   if (packRewardsMatch && method === 'POST') {
     const addr = packRewardsMatch[1].toLowerCase();
     initLocalStore(addr);
+
+    // Khấu trừ số dư ví khi mở gói (nếu có truyền giá gói)
+    if (body.price && Number(body.price) > 0) {
+      const currentBal = Number(localStorage.getItem(getBalKey(addr)) || '1000');
+      const newBal = Math.max(0, currentBal - Number(body.price));
+      localStorage.setItem(getBalKey(addr), newBal.toString());
+    }
+
     const raw = localStorage.getItem(getInvKey(addr));
     let inv = raw ? JSON.parse(raw) : { totalCardsCount: 0, uniqueCards: 0, estimatedPortfolioValueRift: 0, cards: [] };
     const cardIds = body.cardIds || [];

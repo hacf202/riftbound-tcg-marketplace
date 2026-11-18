@@ -483,35 +483,65 @@ export function Web3Provider({ children }) {
     const rate = currency === 'TCRO' ? 100 : RIFT_PER_ETH;
     const riftAmount = Math.round(numAmount * rate);
 
-    showToast(`⏳ Đang yêu cầu MetaMask ký lệnh chuyển ${numAmount} ${currency} đổi ${riftAmount.toLocaleString()} $RIFT...`, 'info');
+    showToast(`⏳ Đang kiểm tra ví và gửi yêu cầu MetaMask chuyển ${numAmount} ${currency}...`, 'info');
 
     let txHash = null;
 
-    // 1. Thực hiện chuyển tiền qua MetaMask trên EVM
+    // 1. Thực hiện chuyển tiền thật qua MetaMask trên EVM Blockchain
     if (window.ethereum) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        const recipient = contractsConfig?.contracts?.RiftToken || contractsConfig?.deployer || '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+
+        // Kiểm tra số dư native coin thực tế trong ví trước khi gửi
+        const balanceWei = await provider.getBalance(account);
+        const requiredWei = ethers.parseEther(numAmount.toString());
+
+        if (balanceWei < requiredWei) {
+          const currentBalFormatted = parseFloat(ethers.formatEther(balanceWei)).toFixed(4);
+          showToast(
+            `❌ Số dư ${currency} không đủ! Ví bạn chỉ có ${currentBalFormatted} ${currency}, không đủ để gửi ${numAmount} ${currency}. Hãy chọn số lượng nhỏ hơn hoặc nhận tại Cronos Faucet!`,
+            'error'
+          );
+          return false;
+        }
+
+        const recipient =
+          contractsConfig?.contracts?.RiftToken ||
+          contractsConfig?.deployer ||
+          '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
 
         const tx = await signer.sendTransaction({
           to: recipient,
-          value: ethers.parseEther(numAmount.toString()),
+          value: requiredWei,
         });
 
-        showToast(`⛓️ Giao dịch đã phát lên Blockchain! Đang chờ xác nhận...`, 'info');
+        showToast(`⛓️ Giao dịch đã phát lên Blockchain (${currency})! Đang chờ khối xác nhận...`, 'info');
         const receipt = await tx.wait();
         txHash = receipt.hash;
       } catch (err) {
-        console.log('Lỗi ký giao dịch:', err);
-        if (err.code === 'ACTION_REJECTED' || err.message?.includes('user rejected') || err.message?.includes('denied')) {
+        console.error('Lỗi giao dịch blockchain:', err);
+        if (
+          err.code === 'ACTION_REJECTED' ||
+          err.message?.includes('user rejected') ||
+          err.message?.includes('denied')
+        ) {
           showToast('❌ Người dùng đã từ chối ký giao dịch trên MetaMask.', 'error');
           return false;
         }
+        if (err.code === 'INSUFFICIENT_FUNDS' || err.message?.includes('insufficient funds')) {
+          showToast(`❌ Không đủ phí gas hoặc số dư ${currency} để thực hiện giao dịch!`, 'error');
+          return false;
+        }
+        showToast(
+          `❌ Lỗi giao dịch blockchain: ${err.reason || err.shortMessage || err.message || 'Không thể gửi giao dịch'}`,
+          'error'
+        );
+        return false;
       }
     }
 
-    // 2. Cập nhật số dư trong SQLite Database hoặc LocalStorage
+    // 2. Cập nhật số dư trong Database / LocalStorage sau khi giao dịch on-chain thành công
     try {
       await universalFetch(`${API_BASE}/users/${account}/deposit-eth`, {
         method: 'POST',
@@ -524,7 +554,7 @@ export function Web3Provider({ children }) {
 
     // 3. Cập nhật state UI
     setBalanceRift((prev) => Number(prev) + riftAmount);
-    showToast(`🎉 Quy đổi thành công! Nhận được ${riftAmount.toLocaleString()} $RIFT từ ${numAmount} ${currency}.`, 'success');
+    showToast(`🎉 Quy đổi thành công! Đã nạp ${numAmount} ${currency} và nhận ${riftAmount.toLocaleString()} $RIFT.`, 'success');
     await fetchBalance();
     triggerRefresh();
     return true;
@@ -613,7 +643,11 @@ export function Web3Provider({ children }) {
     }
 
     // Instant balance UI deduction sau khi backend xác nhận hợp lệ
-    setBalanceRift((prev) => Math.max(0, Number(prev) - totalPrice));
+    if (data.data?.newBalance !== undefined) {
+      setBalanceRift(data.data.newBalance);
+    } else {
+      setBalanceRift((prev) => Math.max(0, Number(prev) - totalPrice));
+    }
 
     // 2. Thử giao dịch On-Chain nếu MetaMask kết nối đúng mạng
     if (window.ethereum && contractsConfig?.contracts?.RiftMarketplace) {
