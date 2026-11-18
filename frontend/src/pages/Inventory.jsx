@@ -3,9 +3,10 @@ import { useWeb3 } from '../context/Web3Context';
 import CardItem from '../components/CardItem';
 import SellModal from '../components/SellModal';
 import { Wallet, Sparkles, Layers, ShieldCheck, Flame, RefreshCw, ShoppingCart } from 'lucide-react';
+import { universalFetch, API_BASE } from '../utils/api';
 
 export default function Inventory() {
-  const { account, dataVersion, triggerRefresh, API_BASE, setActiveTab, formatEthEquivalent, setIsExchangeModalOpen } = useWeb3();
+  const { account, dataVersion, triggerRefresh, setActiveTab, formatEthEquivalent, setIsExchangeModalOpen } = useWeb3();
   const [inventory, setInventory] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,29 +17,13 @@ export default function Inventory() {
   const fetchInventory = () => {
     const address = account || '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266';
     setIsLoading(true);
-    fetch(`${API_BASE}/users/${address}/inventory`)
-      .then((res) => res.json())
+    universalFetch(`${API_BASE}/users/${address}/inventory`)
       .then((data) => {
-        if (data.success && data.data) {
+        if (data && data.success && data.data) {
           setInventory(data.data);
         }
       })
-      .catch((err) => {
-        console.error('Lỗi tải túi đồ, sử dụng dữ liệu dự phòng:', err);
-        const storedInventory = localStorage.getItem(`rift_inv_${address}`);
-        if (storedInventory) {
-          try {
-            setInventory(JSON.parse(storedInventory));
-            return;
-          } catch {}
-        }
-        import('../data/defaultData').then((m) => {
-          if (m && m.DEFAULT_CARDS) {
-            const sampleCards = m.DEFAULT_CARDS.slice(0, 6).map((c) => ({ ...c, quantity: 2 }));
-            setInventory({ totalCards: 12, uniqueCards: 6, items: sampleCards });
-          }
-        });
-      })
+      .catch((err) => console.error('Lỗi tải túi đồ:', err))
       .finally(() => setIsLoading(false));
   };
 
@@ -111,7 +96,7 @@ export default function Inventory() {
           <div className="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-slate-400 text-sm font-semibold">Đang đồng bộ kho thẻ từ cơ sở dữ liệu SQLite...</p>
         </div>
-      ) : !inventory || inventory.cards.length === 0 ? (
+      ) : !inventory || !inventory.cards || inventory.cards.length === 0 ? (
         <div className="py-20 text-center bg-rift-card/40 rounded-3xl border border-rift-border/60 p-8">
           <Layers className="w-12 h-12 text-slate-600 mx-auto mb-3" />
           <h3 className="font-cinzel text-lg font-bold text-slate-200 mb-1">Ví này chưa sở hữu lá bài nào</h3>
@@ -144,9 +129,9 @@ export default function Inventory() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {inventory.cards.map((item, index) => (
+          {(inventory?.cards || []).map((item, index) => (
             <CardItem
-              key={item.cardId}
+              key={item.cardId || index}
               card={item.card}
               quantity={item.quantity}
               onSell={handleOpenSell}

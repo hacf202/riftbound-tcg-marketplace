@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { BookOpen, Search, Sparkles, ShieldCheck, Terminal, ExternalLink, Code2, Cpu, X, Filter, Globe } from 'lucide-react';
 import CardItem from '../components/CardItem';
 import { useWeb3 } from '../context/Web3Context';
+import { universalFetch, API_BASE } from '../utils/api';
 
 export default function Codex() {
-  const { API_BASE, contractsConfig } = useWeb3();
+  const { contractsConfig } = useWeb3();
   const [cards, setCards] = useState([]);
   const [search, setSearch] = useState('');
   const [domain, setDomain] = useState('');
@@ -17,19 +18,13 @@ export default function Codex() {
 
   useEffect(() => {
     const limit = scope === 'all' ? 360 : 200;
-    fetch(`${API_BASE}/cards?scope=${scope}&limit=${limit}`)
-      .then((res) => res.json())
+    universalFetch(`${API_BASE}/cards?scope=${scope}&limit=${limit}`)
       .then((data) => {
-        if (data.success || data.status === 'success') {
-          setCards(data.data);
+        if (data && (data.success || data.status === 'success')) {
+          setCards(data.data || []);
         }
       })
-      .catch((err) => {
-        console.error('Lỗi tải API cards, sử dụng dữ liệu dự phòng:', err);
-        import('../data/defaultData').then((m) => {
-          if (m && m.DEFAULT_CARDS) setCards(m.DEFAULT_CARDS);
-        });
-      });
+      .catch((err) => console.error(err));
   }, [scope]);
 
   const filteredCards = cards.filter((c) => {

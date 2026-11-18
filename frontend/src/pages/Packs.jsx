@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 import CardItem from '../components/CardItem';
+import { universalFetch, API_BASE } from '../utils/api';
 import {
   playChargeHum,
   playFoilTear,
@@ -77,21 +78,15 @@ export default function Packs() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${API_BASE}/packs`)
-      .then((res) => res.json())
+    universalFetch(`${API_BASE}/packs`)
       .then((data) => {
-        if (data.success) {
-          setPacks(data.data);
+        if (data && data.success) {
+          setPacks(data.data || []);
         }
       })
-      .catch((err) => {
-        console.error('Lỗi tải packs, sử dụng dữ liệu dự phòng:', err);
-        import('../data/defaultData').then((m) => {
-          if (m && m.DEFAULT_PACKS) setPacks(m.DEFAULT_PACKS);
-        });
-      })
+      .catch((err) => console.error(err))
       .finally(() => setLoading(false));
-  }, [API_BASE]);
+  }, []);
 
   // Featured Spotlight Pack (Default to highest tier pack or popular pack like ID 6 or 12)
   const featuredPack = useMemo(() => {
@@ -179,13 +174,12 @@ export default function Packs() {
       if (!cardIds || cardIds.length === 0) {
         // Fallback or demo simulation
         try {
-          const res = await fetch(`${API_BASE}/packs/simulate-open`, {
+          const data = await universalFetch(`${API_BASE}/packs/simulate-open`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ packId: pack.id }),
           });
-          const data = await res.json();
-          if (data.success && data.data?.cards) {
+          if (data && data.success && data.data?.cards) {
             setRevealedCards(data.data.cards);
             setOpeningStage('revealed');
             return;
@@ -197,11 +191,10 @@ export default function Packs() {
 
       // Fetch cards details
       if (cardIds && cardIds.length > 0) {
-        const promises = cardIds.map((id) =>
-          fetch(`${API_BASE}/cards/${id}`).then((r) => r.json())
-        );
-        const results = await Promise.all(promises);
-        const validCards = results.filter((r) => r.success).map((r) => r.data);
+        const { DEFAULT_CARDS } = await import('../data/defaultData');
+        const validCards = cardIds.map((id) => {
+          return DEFAULT_CARDS.find((c) => Number(c.id) === Number(id)) || DEFAULT_CARDS[0];
+        });
         setRevealedCards(validCards);
       }
 

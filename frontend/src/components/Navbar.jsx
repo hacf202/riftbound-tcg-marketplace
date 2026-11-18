@@ -121,16 +121,26 @@ export default function Navbar() {
           {/* 3. KHU VỰC VÍ & TÀI KHOẢN (GỌN GÀNG, BO GÓC THÂN THIỆN) */}
           <div className="flex items-center space-x-2.5">
             
-            {/* NÚT CHUYỂN MẠNG CRONOS TESTNET / HARDHAT */}
-            <button
-              onClick={Number(chainId) === 338 ? switchNetworkToHardhat : switchNetworkToCronosTestnet}
-              title={Number(chainId) === 338 ? "Đang ở Cronos Testnet (Chain 338). Bấm để chuyển về Hardhat Localhost" : "Bấm để kết nối sang mạng Cronos Testnet (Chain 338)"}
-              className="hidden sm:flex items-center space-x-1.5 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 px-2.5 py-1 rounded-lg text-[11px] text-slate-300 font-mono transition cursor-pointer group shadow-sm"
-            >
-              <span className={`w-2 h-2 rounded-full ${Number(chainId) === 338 ? 'bg-cyan-400 shadow-sm shadow-cyan-400 animate-pulse' : 'bg-emerald-400 shadow-sm shadow-emerald-400'}`}></span>
-              <span className="group-hover:text-amber-300 transition">{netInfo.badge || 'Mạng Nội Bộ'}</span>
-              <span className="text-[9px] text-slate-500 group-hover:text-cyan-400 transition">⇄</span>
-            </button>
+            {/* NÚT / BADGE MẠNG CRONOS TESTNET */}
+            {Number(chainId) === 338 ? (
+              <div
+                title="Đang kết nối chính xác mạng Cronos Testnet (Chain ID 338)"
+                className="hidden sm:flex items-center space-x-1.5 bg-cyan-950/40 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] text-cyan-300 font-mono shadow-sm"
+              >
+                <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400 animate-pulse"></span>
+                <span>Cronos Testnet (338)</span>
+              </div>
+            ) : (
+              <button
+                onClick={switchNetworkToCronosTestnet}
+                title="Bấm để kết nối sang mạng Cronos Testnet (Chain 338)"
+                className="hidden sm:flex items-center space-x-1.5 bg-gradient-to-r from-cyan-950/60 to-slate-900 hover:from-cyan-900/70 hover:to-slate-800 border border-cyan-500/50 hover:border-cyan-400 px-2.5 py-1 rounded-lg text-[11px] text-cyan-300 font-mono transition cursor-pointer group shadow-sm"
+              >
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                <span className="group-hover:text-amber-300 transition">Kết Nối Cronos (338)</span>
+                <span className="text-[10px] text-cyan-400 group-hover:translate-x-0.5 transition-transform">➔</span>
+              </button>
+            )}
 
             {/* TRẠNG THÁI VÍ */}
             {!account ? (

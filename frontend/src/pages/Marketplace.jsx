@@ -3,9 +3,10 @@ import { Search, RefreshCw, Layers, ChevronLeft, ChevronRight, ArrowRight, Spark
 import CardItem from '../components/CardItem';
 import BuyModal from '../components/BuyModal';
 import { useWeb3 } from '../context/Web3Context';
+import { universalFetch, API_BASE } from '../utils/api';
 
 export default function Marketplace() {
-  const { API_BASE, dataVersion, setActiveTab, setIsExchangeModalOpen } = useWeb3();
+  const { dataVersion, setActiveTab, setIsExchangeModalOpen } = useWeb3();
   const [listings, setListings] = useState([]);
   const [stats, setStats] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -95,31 +96,22 @@ export default function Marketplace() {
       order,
     }).toString();
 
-    fetch(`${API_BASE}/marketplace/listings?${query}`)
-      .then((res) => res.json())
+    universalFetch(`${API_BASE}/marketplace/listings?${query}`)
       .then((data) => {
-        if (data.success) {
+        if (data && data.success) {
           setListings(data.data || []);
         }
       })
-      .catch((err) => {
-        console.error('Lỗi tải sàn, sử dụng dữ liệu dự phòng:', err);
-        import('../data/defaultData').then((m) => {
-          if (m && m.DEFAULT_LISTINGS) setListings(m.DEFAULT_LISTINGS);
-        });
-      })
+      .catch((err) => console.error('Lỗi tải sàn:', err))
       .finally(() => setIsLoading(false));
 
-    fetch(`${API_BASE}/marketplace/stats`)
-      .then((res) => res.json())
+    universalFetch(`${API_BASE}/marketplace/stats`)
       .then((data) => {
-        if (data.success) {
+        if (data && data.success) {
           setStats(data.data);
         }
       })
-      .catch(() => {
-        setStats({ totalVolume: 18450, totalSales: 124, activeListings: 18, floorPrice: 25 });
-      });
+      .catch(() => {});
   };
 
   useEffect(() => {

@@ -20,9 +20,11 @@ import {
 } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 import BuyModal from '../components/BuyModal';
+import { universalFetch, API_BASE } from '../utils/api';
+import { DEFAULT_CARDS } from '../data/defaultData';
 
 export default function CardDetail({ cardId, onBack }) {
-  const { API_BASE, account, balanceRift, dataVersion, triggerRefresh, formatEthEquivalent, cancelListing } = useWeb3();
+  const { account, balanceRift, dataVersion, triggerRefresh, formatEthEquivalent, cancelListing } = useWeb3();
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedVariation, setSelectedVariation] = useState('normal'); // 'normal' | 'foil' | 'signature'
@@ -32,39 +34,49 @@ export default function CardDetail({ cardId, onBack }) {
     if (!cardId) return;
     setIsLoading(true);
 
-    fetch(`${API_BASE}/cards/${cardId}/market`)
-      .then((res) => res.json())
+    const fallbackCard = DEFAULT_CARDS.find((c) => Number(c.id) === Number(cardId)) || DEFAULT_CARDS[0];
+
+    universalFetch(`${API_BASE}/cards/${cardId}/market`)
       .then((resData) => {
-        if (resData.success && resData.data) {
+        if (resData && resData.success && resData.data) {
           setData(resData.data);
         } else {
-          // Fallback fetch regular card
-          fetch(`${API_BASE}/cards/${cardId}`)
-            .then((r) => r.json())
-            .then((cd) => {
-              if (cd.success) {
-                setData({
-                  card: cd.data,
-                  floorPrice: cd.data.marketFloorPrice,
-                  activeListings: [],
-                  recentSales: [],
-                  variations: [
-                    { id: 'normal', name: 'Bản Thường (Normal)', type: 'Standard', floorPrice: cd.data.marketFloorPrice, usdPrice: (cd.data.marketFloorPrice * 0.15).toFixed(2), isAvailable: true },
-                    { id: 'foil', name: 'Thẻ Lấp Lánh (Holo Foil)', type: 'Foil', floorPrice: Math.round(cd.data.marketFloorPrice * 1.8), usdPrice: (cd.data.marketFloorPrice * 1.8 * 0.15).toFixed(2), isAvailable: true },
-                    { id: 'signature', name: 'Chữ Ký Họa Sĩ (Signature)', type: 'Showcase', floorPrice: Math.round(cd.data.marketFloorPrice * 3.5), usdPrice: (cd.data.marketFloorPrice * 3.5 * 0.15).toFixed(2), isAvailable: true },
-                  ],
-                  marketStats: {
-                    totalMinted: cd.data.totalMinted,
-                    activeListingsCount: 0,
-                    totalVolume: 0,
-                    lastSalePrice: cd.data.marketFloorPrice,
-                  },
-                });
-              }
-            });
+          setData({
+            card: fallbackCard,
+            floorPrice: fallbackCard.marketFloorPrice || 35,
+            activeListings: [],
+            recentSales: [],
+            variations: [
+              { id: 'normal', name: 'Bản Thường (Normal)', type: 'Standard', floorPrice: fallbackCard.marketFloorPrice || 35, usdPrice: ((fallbackCard.marketFloorPrice || 35) * 0.15).toFixed(2), isAvailable: true },
+              { id: 'foil', name: 'Thẻ Lấp Lánh (Holo Foil)', type: 'Foil', floorPrice: Math.round((fallbackCard.marketFloorPrice || 35) * 1.8), usdPrice: (Math.round((fallbackCard.marketFloorPrice || 35) * 1.8) * 0.15).toFixed(2), isAvailable: true },
+              { id: 'signature', name: 'Chữ Ký Họa Sĩ (Signature)', type: 'Showcase', floorPrice: Math.round((fallbackCard.marketFloorPrice || 35) * 3.5), usdPrice: (Math.round((fallbackCard.marketFloorPrice || 35) * 3.5) * 0.15).toFixed(2), isAvailable: true },
+            ],
+            marketStats: {
+              totalMinted: fallbackCard.totalMinted || 100,
+              activeListingsCount: 0,
+              totalVolume: 0,
+              lastSalePrice: fallbackCard.marketFloorPrice || 35,
+            },
+          });
         }
       })
-      .catch((err) => console.error('Lỗi tải chi tiết lá bài:', err))
+      .catch(() => {
+        setData({
+          card: fallbackCard,
+          floorPrice: fallbackCard.marketFloorPrice || 35,
+          activeListings: [],
+          recentSales: [],
+          variations: [
+            { id: 'normal', name: 'Bản Thường (Normal)', type: 'Standard', floorPrice: fallbackCard.marketFloorPrice || 35, usdPrice: ((fallbackCard.marketFloorPrice || 35) * 0.15).toFixed(2), isAvailable: true },
+          ],
+          marketStats: {
+            totalMinted: fallbackCard.totalMinted || 100,
+            activeListingsCount: 0,
+            totalVolume: 0,
+            lastSalePrice: fallbackCard.marketFloorPrice || 35,
+          },
+        });
+      })
       .finally(() => setIsLoading(false));
   }, [cardId, dataVersion]);
 
@@ -477,9 +489,8 @@ export default function CardDetail({ cardId, onBack }) {
           onClose={() => setSelectedListing(null)}
           onSuccess={() => {
             // Reload card market data
-            fetch(`${API_BASE}/cards/${cardId}/market`)
-              .then((r) => r.json())
-              .then((res) => res.success && setData(res.data));
+            universalFetch(`${API_BASE}/cards/${cardId}/market`)
+              .then((res) => res && res.success && setData(res.data));
           }}
         />
       )}

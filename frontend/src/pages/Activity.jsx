@@ -16,9 +16,10 @@ import {
   Package,
 } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
+import { universalFetch, API_BASE } from '../utils/api';
 
 export default function Activity() {
-  const { API_BASE, account, dataVersion, triggerRefresh, shortAccount } = useWeb3();
+  const { account, dataVersion, triggerRefresh, shortAccount } = useWeb3();
   const [transactions, setTransactions] = useState([]);
   const [filterType, setFilterType] = useState('ALL');
   const [viewScope, setViewScope] = useState('my'); // 'my' (ví của tôi) | 'all' (toàn sàn)
@@ -32,11 +33,12 @@ export default function Activity() {
         ? `${API_BASE}/marketplace/activities?user=${encodeURIComponent(currentAddr)}&limit=50`
         : `${API_BASE}/marketplace/activities?limit=50`;
 
-    fetch(url)
-      .then((res) => res.json())
+    universalFetch(url)
       .then((data) => {
-        if (data.success) {
+        if (data && data.success) {
           setTransactions(data.data || []);
+        } else {
+          setTransactions([]);
         }
       })
       .catch((err) => console.error('Lỗi tải lịch sử giao dịch:', err))

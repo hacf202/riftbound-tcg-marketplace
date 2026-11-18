@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { ethers } from 'ethers';
+import defaultContractsConfig from '../config/contracts-config.json';
+import defaultContractsAbi from '../config/contracts-abi.json';
+import { universalFetch, API_BASE, initLocalStore } from '../utils/api';
 
 const Web3Context = createContext();
 
@@ -73,14 +76,12 @@ export function Web3Provider({ children }) {
   const [balanceEth, setBalanceEth] = useState('0.0000');
   const [chainId, setChainId] = useState(null);
   const [isConnecting, setIsConnecting] = useState(false);
-  const [contractsConfig, setContractsConfig] = useState(null);
-  const [contractsAbi, setContractsAbi] = useState(null);
+  const [contractsConfig, setContractsConfig] = useState(defaultContractsConfig);
+  const [contractsAbi, setContractsAbi] = useState(defaultContractsAbi);
   const [toast, setToast] = useState(null);
 
   // Modal Quy Đổi Tiền Tệ
   const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
-
-  const API_BASE = 'http://localhost:5000/api/v1';
 
   const showToast = (message, type = 'info') => {
     setToast({ message, type });
@@ -154,17 +155,16 @@ export function Web3Provider({ children }) {
     }
   }, [activeTab, selectedCardId]);
 
-  // Load Smart Contracts config from backend
+  // Load Smart Contracts config from backend (or fallback to bundled defaults)
   useEffect(() => {
-    fetch(`${API_BASE}/system/contracts`)
-      .then((res) => res.json())
+    universalFetch(`${API_BASE}/system/contracts`)
       .then((data) => {
-        if (data.success && data.data) {
-          setContractsConfig(data.data.config);
-          setContractsAbi(data.data.abi);
+        if (data && data.success && data.data) {
+          setContractsConfig(data.data.config || defaultContractsConfig);
+          setContractsAbi(data.data.abi || defaultContractsAbi);
         }
       })
-      .catch((err) => console.log('Không thể tải ABI contracts từ backend:', err));
+      .catch(() => {});
   }, []);
 
   // Restore or verify MetaMask session on mount
@@ -278,11 +278,10 @@ export function Web3Provider({ children }) {
       }
     }
 
-    // 3. Đồng bộ với SQLite backend
+    // 3. Đồng bộ với SQLite backend hoặc LocalStorage
     try {
-      const res = await fetch(`${API_BASE}/users/${account}/balance`);
-      const data = await res.json();
-      if (data.success && data.data) {
+      const data = await universalFetch(`${API_BASE}/users/${account}/balance`);
+      if (data && data.success && data.data) {
         const dbBal = Number(data.data.balance) || 0;
         const finalBal = onChainBalance !== null ? Math.max(onChainBalance, dbBal) : dbBal;
         setBalanceRift(finalBal);
@@ -512,15 +511,15 @@ export function Web3Provider({ children }) {
       }
     }
 
-    // 2. Cập nhật số dư trong SQLite Database
+    // 2. Cập nhật số dư trong SQLite Database hoặc LocalStorage
     try {
-      await fetch(`${API_BASE}/users/${account}/deposit-eth`, {
+      await universalFetch(`${API_BASE}/users/${account}/deposit-eth`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ethAmount: numAmount, riftAmount, txHash, currency }),
       });
     } catch (err) {
-      console.log('Lỗi sync deposit-eth backend:', err);
+      console.log('Lỗi sync deposit-eth:', err);
     }
 
     // 3. Cập nhật state UI
@@ -547,9 +546,9 @@ export function Web3Provider({ children }) {
     setBalanceRift((prev) => Number(prev) + 1000);
 
     try {
-      await fetch(`${API_BASE}/users/${account}/faucet`, { method: 'POST' });
+      await universalFetch(`${API_BASE}/users/${account}/faucet`, { method: 'POST' });
     } catch (err) {
-      console.log('Lỗi sync faucet backend:', err);
+      console.log('Lỗi sync faucet:', err);
     }
 
     if (window.ethereum && contractsConfig?.contracts?.RiftToken) {
@@ -594,22 +593,21 @@ export function Web3Provider({ children }) {
       return false;
     }
 
-    // 1. Đồng bộ mua thẻ ngay lập tức với Backend Database (Escrow & Inventory Transfer)
+    // 1. Đồng bộ mua thẻ ngay lập tức với Database / LocalStorage
     try {
-      const res = await fetch(`${API_BASE}/marketplace/sync-sale`, {
+      const data = await universalFetch(`${API_BASE}/marketplace/sync-sale`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ listingId, quantity, buyer: account }),
       });
-      const data = await res.json();
       if (!data.success) {
         showToast(data.message || 'Lỗi khi khớp lệnh mua thẻ!', 'error');
         triggerRefresh();
         return false;
       }
     } catch (err) {
-      console.log('Lỗi sync sale backend:', err);
-      showToast('Lỗi kết nối máy chủ khi mua thẻ!', 'error');
+      console.log('Lỗi sync sale:', err);
+      showToast('Lỗi kết nối khi mua thẻ!', 'error');
       triggerRefresh();
       return false;
     }
@@ -705,13 +703,12 @@ export function Web3Provider({ children }) {
     // Backend fallback / simulation
     if (!cardIds || cardIds.length === 0) {
       try {
-        const res = await fetch(`${API_BASE}/packs/simulate-open`, {
+        const data = await universalFetch(`${API_BASE}/packs/simulate-open`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ packId }),
         });
-        const data = await res.json();
-        if (data.success && data.data?.cards) {
+        if (data && data.success && data.data?.cards) {
           cardIds = data.data.cards.map((c) => c.id);
         }
       } catch (err) {
@@ -725,10 +722,10 @@ export function Web3Provider({ children }) {
       cardIds = Array.from({ length: count }, () => Math.floor(Math.random() * 48) + 1);
     }
 
-    // Save cards won into user's SQLite Inventory
+    // Save cards won into user's Inventory
     if (cardIds && cardIds.length > 0) {
       try {
-        await fetch(`${API_BASE}/users/${account}/pack-rewards`, {
+        await universalFetch(`${API_BASE}/users/${account}/pack-rewards`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ cardIds, price, packId }),
@@ -776,9 +773,9 @@ export function Web3Provider({ children }) {
       }
     }
 
-    // Sync with SQLite Database
+    // Sync with Database / LocalStorage
     try {
-      await fetch(`${API_BASE}/marketplace/sync-listing`, {
+      await universalFetch(`${API_BASE}/marketplace/sync-listing`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -790,7 +787,7 @@ export function Web3Provider({ children }) {
         }),
       });
     } catch (err) {
-      console.log('Lỗi sync listing backend:', err);
+      console.log('Lỗi sync listing:', err);
     }
 
     showToast('🎉 Đã đưa lá bài lên Sàn Giao Dịch thành công!', 'success');
@@ -823,20 +820,19 @@ export function Web3Provider({ children }) {
       }
     }
 
-    // 2. Đồng bộ với SQLite backend
+    // 2. Đồng bộ với Database / LocalStorage
     try {
-      const res = await fetch(`${API_BASE}/marketplace/sync-cancel`, {
+      const data = await universalFetch(`${API_BASE}/marketplace/sync-cancel`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ listingId, seller: account }),
       });
-      const data = await res.json();
       if (!data.success) {
         showToast(data.message || 'Lỗi khi hủy niêm yết!', 'error');
         return false;
       }
     } catch (err) {
-      console.log('Lỗi sync cancel backend:', err);
+      console.log('Lỗi sync cancel:', err);
     }
 
     showToast('🎉 Đã hủy niêm yết thành công! Thẻ bài đã được trả lại vào Bộ Sưu Tập của bạn.', 'success');
