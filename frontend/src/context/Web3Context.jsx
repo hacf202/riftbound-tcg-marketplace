@@ -691,14 +691,17 @@ export function Web3Provider({ children }) {
     if (window.ethereum && contractsConfig?.contracts?.RiftToken) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        const riftContract = new ethers.Contract(
-          contractsConfig.contracts.RiftToken,
-          contractsAbi.RiftToken,
-          signer
-        );
-        const tx = await riftContract.claimFaucet();
-        await tx.wait();
+        const network = await provider.getNetwork();
+        if (Number(network.chainId) === contractsConfig.chainId) {
+          const signer = await provider.getSigner();
+          const riftContract = new ethers.Contract(
+            contractsConfig.contracts.RiftToken,
+            contractsAbi.RiftToken,
+            signer
+          );
+          const tx = await riftContract.claimFaucet();
+          await tx.wait();
+        }
       } catch (err) {
         console.log('On-chain faucet notice:', err.message);
       }
@@ -813,30 +816,33 @@ export function Web3Provider({ children }) {
     if (window.ethereum && contractsConfig?.contracts?.RiftBoosterPack) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        const packAddress = contractsConfig.contracts.RiftBoosterPack;
-        const riftAddress = contractsConfig.contracts.RiftToken;
+        const network = await provider.getNetwork();
+        if (Number(network.chainId) === contractsConfig.chainId) {
+          const signer = await provider.getSigner();
+          const packAddress = contractsConfig.contracts.RiftBoosterPack;
+          const riftAddress = contractsConfig.contracts.RiftToken;
 
-        const riftContract = new ethers.Contract(riftAddress, contractsAbi.RiftToken, signer);
-        const packContract = new ethers.Contract(packAddress, contractsAbi.RiftBoosterPack, signer);
+          const riftContract = new ethers.Contract(riftAddress, contractsAbi.RiftToken, signer);
+          const packContract = new ethers.Contract(packAddress, contractsAbi.RiftBoosterPack, signer);
 
-        const priceWei = ethers.parseEther(price.toString());
-        const allowance = await riftContract.allowance(account, packAddress);
-        if (allowance < priceWei) {
-          const appTx = await riftContract.approve(packAddress, ethers.MaxUint256);
-          await appTx.wait();
-        }
+          const priceWei = ethers.parseEther(price.toString());
+          const allowance = await riftContract.allowance(account, packAddress);
+          if (allowance < priceWei) {
+            const appTx = await riftContract.approve(packAddress, ethers.MaxUint256);
+            await appTx.wait();
+          }
 
-        const tx = await packContract.openPack(packId);
-        const receipt = await tx.wait();
+          const tx = await packContract.openPack(packId);
+          const receipt = await tx.wait();
 
-        for (const log of receipt.logs) {
-          try {
-            const parsed = packContract.interface.parseLog(log);
-            if (parsed && parsed.name === 'PackOpened') {
-              cardIds = Array.from(parsed.args.cardIds).map(Number);
-            }
-          } catch {}
+          for (const log of receipt.logs) {
+            try {
+              const parsed = packContract.interface.parseLog(log);
+              if (parsed && parsed.name === 'PackOpened') {
+                cardIds = Array.from(parsed.args.cardIds).map(Number);
+              }
+            } catch {}
+          }
         }
       } catch (err) {
         console.log('On-chain pack opening error:', err);
@@ -892,25 +898,28 @@ export function Web3Provider({ children }) {
     }
 
     // On-Chain if MetaMask is active
-    if (window.ethereum && contractsConfig) {
+    if (window.ethereum && contractsConfig?.contracts?.RiftMarketplace) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        const mktAddress = contractsConfig.contracts.RiftMarketplace;
-        const nftAddress = contractsConfig.contracts.RiftCardNFT;
+        const network = await provider.getNetwork();
+        if (Number(network.chainId) === contractsConfig.chainId) {
+          const signer = await provider.getSigner();
+          const mktAddress = contractsConfig.contracts.RiftMarketplace;
+          const nftAddress = contractsConfig.contracts.RiftCardNFT;
 
-        const nftContract = new ethers.Contract(nftAddress, contractsAbi.RiftCardNFT, signer);
-        const mktContract = new ethers.Contract(mktAddress, contractsAbi.RiftMarketplace, signer);
+          const nftContract = new ethers.Contract(nftAddress, contractsAbi.RiftCardNFT, signer);
+          const mktContract = new ethers.Contract(mktAddress, contractsAbi.RiftMarketplace, signer);
 
-        const isApproved = await nftContract.isApprovedForAll(account, mktAddress);
-        if (!isApproved) {
-          const appTx = await nftContract.setApprovalForAll(mktAddress, true);
-          await appTx.wait();
+          const isApproved = await nftContract.isApprovedForAll(account, mktAddress);
+          if (!isApproved) {
+            const appTx = await nftContract.setApprovalForAll(mktAddress, true);
+            await appTx.wait();
+          }
+
+          const priceWei = ethers.parseEther(pricePerItem.toString());
+          const tx = await mktContract.listItem(nftAddress, cardId, quantity, priceWei);
+          await tx.wait();
         }
-
-        const priceWei = ethers.parseEther(pricePerItem.toString());
-        const tx = await mktContract.listItem(nftAddress, cardId, quantity, priceWei);
-        await tx.wait();
       } catch (err) {
         console.log('On-chain listing error (đồng bộ backend):', err);
       }
@@ -952,12 +961,15 @@ export function Web3Provider({ children }) {
     if (window.ethereum && contractsConfig?.contracts?.RiftMarketplace) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        const mktAddress = contractsConfig.contracts.RiftMarketplace;
-        const mktContract = new ethers.Contract(mktAddress, contractsAbi.RiftMarketplace, signer);
+        const network = await provider.getNetwork();
+        if (Number(network.chainId) === contractsConfig.chainId) {
+          const signer = await provider.getSigner();
+          const mktAddress = contractsConfig.contracts.RiftMarketplace;
+          const mktContract = new ethers.Contract(mktAddress, contractsAbi.RiftMarketplace, signer);
 
-        const tx = await mktContract.cancelListing(listingId);
-        await tx.wait();
+          const tx = await mktContract.cancelListing(listingId);
+          await tx.wait();
+        }
       } catch (err) {
         console.log('On-chain cancel notice:', err.message);
       }

@@ -296,7 +296,7 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
               disabled={isSwapping || !parseFloat(inputVal)}
               className="w-full bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-slate-950 font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition active:scale-95"
             >
-              {isSwapping ? 'Đang xử lý...' : 'Xác Nhận Đổi Token'}
+              {isSwapping ? 'Đang xử lý...' : `Quy Đổi ${inputVal} ${currency} ➔ ${riftInput} $RIFT`}
             </button>
           )}
 
@@ -308,7 +308,7 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
               rel="noreferrer"
               className="text-[11px] text-slate-400 hover:text-slate-200 transition"
             >
-              Nhận tCRO miễn phí (Faucet)
+              Lấy tCRO Cronos Testnet
             </a>
 
             <button
@@ -318,7 +318,7 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
               }}
               className="text-[11px] font-semibold text-amber-400 hover:text-amber-300 transition"
             >
-              Nhận 1,000 $RIFT (Faucet)
+              Nhận 1,000 $RIFT Miễn Phí (Không tốn gas)
             </button>
           </div>
         </div>

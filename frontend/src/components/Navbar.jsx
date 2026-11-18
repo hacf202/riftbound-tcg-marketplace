@@ -201,7 +201,7 @@ export default function Navbar() {
                         }}
                         className="w-full px-2.5 py-2 rounded-lg text-left text-amber-400 hover:bg-amber-500/10 transition font-medium"
                       >
-                        Nhận 1,000 $RIFT (Faucet)
+                        Nhận 1,000 $RIFT Miễn Phí
                       </button>
 
                       <button
