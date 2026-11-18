@@ -326,12 +326,10 @@ export default function Navbar() {
                       <span className="text-[10px] font-mono text-slate-400">Xem →</span>
                     </button>
 
-                    {/* 4. CHUYỂN MẠNG BLOCKCHAIN NHANH */}
+                    {/* 4. TRẠNG THÁI / CHUYỂN MẠNG CRONOS TESTNET */}
                     <button
                       onClick={() => {
-                        if (Number(chainId) === 338) {
-                          switchNetworkToHardhat();
-                        } else {
+                        if (Number(chainId) !== 338) {
                           switchNetworkToCronosTestnet();
                         }
                         setWalletDropdownOpen(false);
@@ -339,10 +337,10 @@ export default function Navbar() {
                       className="w-full p-2 rounded-xl text-left flex items-center justify-between text-xs bg-slate-950/60 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-slate-300 transition"
                     >
                       <span className="flex items-center space-x-2">
-                        <span className={`w-2 h-2 rounded-full ${Number(chainId) === 338 ? 'bg-cyan-400' : 'bg-emerald-400'}`}></span>
-                        <span>{Number(chainId) === 338 ? 'Chuyển Về Mạng Hardhat (31337)' : 'Chuyển Sang Cronos Testnet (338)'}</span>
+                        <span className={`w-2 h-2 rounded-full ${Number(chainId) === 338 ? 'bg-cyan-400' : 'bg-amber-400'}`}></span>
+                        <span>{Number(chainId) === 338 ? 'Đang Ở Cronos Testnet (338) ✓' : 'Chuyển Sang Cronos Testnet (338)'}</span>
                       </span>
-                      <span className="text-[10px] font-mono text-cyan-400 font-bold">⇄</span>
+                      <span className="text-[10px] font-mono text-cyan-400 font-bold">{Number(chainId) === 338 ? 'OK' : '⇄'}</span>
                     </button>
 
                     {/* 5. NGẮT KẾT NỐI VÍ */}

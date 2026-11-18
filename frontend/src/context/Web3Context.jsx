@@ -254,7 +254,9 @@ export function Web3Provider({ children }) {
         const ethBal = await provider.getBalance(account);
         setBalanceEth(parseFloat(ethers.formatEther(ethBal)).toFixed(4));
       } catch (err) {
-        console.log('Lỗi fetch ETH balance:', err);
+        if (err.code !== -32002 && !err.message?.includes('too many errors')) {
+          console.log('Lỗi fetch ETH balance:', err);
+        }
       }
     }
 
@@ -439,7 +441,11 @@ export function Web3Provider({ children }) {
               {
                 chainId: '0x152',
                 chainName: 'Cronos Testnet',
-                rpcUrls: ['https://evm-t3.cronos.org'],
+                rpcUrls: [
+                  'https://evm-t3.cronos.org',
+                  'https://cronos-testnet.crypto.org:8545',
+                  'https://cronos-testnet-3.crypto.org:8545',
+                ],
                 nativeCurrency: { name: 'Cronos Test Token', symbol: 'tCRO', decimals: 18 },
                 blockExplorerUrls: ['https://explorer.cronos.org/testnet'],
               },
@@ -507,8 +513,7 @@ export function Web3Provider({ children }) {
         }
 
         const recipient =
-          contractsConfig?.contracts?.RiftToken ||
-          contractsConfig?.deployer ||
+          contractsConfig?.treasury ||
           '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
 
         const tx = await signer.sendTransaction({
