@@ -22,13 +22,18 @@ export default function BuyModal({ listing, card, onClose, onSuccess }) {
   const handleBuy = async () => {
     if (isOwnListing) return;
     setIsLoading(true);
-    const listingIdToBuy = listing.id || listing.listingId;
-    const success = await buyCard(listingIdToBuy, listing.pricePerItem, quantity, listing.seller);
-    setIsLoading(false);
-    if (success) {
-      if (onSuccess) onSuccess();
-      onClose();
-      setActiveTab('inventory');
+    try {
+      const listingIdToBuy = listing.id || listing.listingId;
+      const success = await buyCard(listingIdToBuy, listing.pricePerItem, quantity, listing.seller);
+      if (success) {
+        if (onSuccess) onSuccess();
+        onClose();
+        setActiveTab('inventory');
+      }
+    } catch (err) {
+      console.error('Lỗi khi mua thẻ:', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 

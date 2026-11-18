@@ -247,15 +247,22 @@ export function Web3Provider({ children }) {
       return;
     }
 
-    // 1. Lấy số dư ETH trực tiếp từ provider
+    // 1. Lấy số dư ETH / TCRO trực tiếp từ provider
     if (window.ethereum) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const ethBal = await provider.getBalance(account);
         setBalanceEth(parseFloat(ethers.formatEther(ethBal)).toFixed(4));
       } catch (err) {
-        if (err.code !== -32002 && !err.message?.includes('too many errors')) {
-          console.log('Lỗi fetch ETH balance:', err);
+        // Fallback: nếu MetaMask bị nghẽn RPC hoặc circuit breaker, query trực tiếp RPC Cronos Testnet
+        try {
+          const fallbackRpc = new ethers.JsonRpcProvider('https://evm-t3.cronos.org');
+          const ethBal = await fallbackRpc.getBalance(account);
+          setBalanceEth(parseFloat(ethers.formatEther(ethBal)).toFixed(4));
+        } catch {
+          if (err.code !== -32002 && !err.message?.includes('too many errors')) {
+            console.log('Lỗi fetch ETH balance:', err);
+          }
         }
       }
     }
@@ -515,28 +522,39 @@ export function Web3Provider({ children }) {
         txHash = receipt.hash;
       } catch (err) {
         console.error('Lỗi giao dịch blockchain:', err);
+        const errDetail = [
+          err.code,
+          err.message,
+          err.shortMessage,
+          err.reason,
+          err.error?.message,
+          err.error?.code,
+          err.info?.error?.message,
+        ].filter(Boolean).join(' ');
+
         if (
           err.code === 'ACTION_REJECTED' ||
-          err.message?.includes('user rejected') ||
-          err.message?.includes('denied')
+          errDetail.includes('user rejected') ||
+          errDetail.includes('denied')
         ) {
           showToast('❌ Bạn đã hủy giao dịch trên ví MetaMask.', 'error');
           return false;
         }
-        if (err.code === 'INSUFFICIENT_FUNDS' || err.message?.includes('insufficient funds')) {
+        if (err.code === 'INSUFFICIENT_FUNDS' || errDetail.includes('insufficient funds')) {
           showToast(`❌ Không đủ phí gas hoặc số dư ${currency} để thực hiện giao dịch!`, 'error');
           return false;
         }
         if (
           err.code === -32002 ||
-          err.message?.includes('too many errors') ||
-          err.message?.includes('retrying')
+          errDetail.includes('too many errors') ||
+          errDetail.includes('retrying') ||
+          errDetail.includes('coalesce error')
         ) {
-          showToast('⏳ Node RPC Cronos đang quá tải tạm thời. Vui lòng chờ 5-10 giây rồi bấm thử lại!', 'warning');
+          showToast('⏳ Node RPC Cronos của MetaMask đang quá tải (rate-limit). Vui lòng đợi 15-30 giây hoặc bấm "Nhận 1,000 $RIFT (Faucet)" để nạp ngay!', 'warning');
           return false;
         }
         showToast(
-          `❌ Lỗi giao dịch blockchain: ${err.reason || err.shortMessage || err.message || 'Không thể gửi giao dịch'}`,
+          `❌ Lỗi giao dịch: ${err.reason || err.shortMessage || err.message || 'Không thể gửi giao dịch'}`,
           'error'
         );
         return false;
@@ -626,14 +644,15 @@ export function Web3Provider({ children }) {
     }
 
     // 1. Đồng bộ mua thẻ ngay lập tức với Database / LocalStorage
+    let saleResult = null;
     try {
-      const data = await universalFetch(`${API_BASE}/marketplace/sync-sale`, {
+      saleResult = await universalFetch(`${API_BASE}/marketplace/sync-sale`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ listingId, quantity, buyer: account }),
       });
-      if (!data.success) {
-        showToast(data.message || 'Lỗi khi khớp lệnh mua thẻ!', 'error');
+      if (!saleResult || !saleResult.success) {
+        showToast(saleResult?.message || 'Lỗi khi khớp lệnh mua thẻ!', 'error');
         triggerRefresh();
         return false;
       }
@@ -645,8 +664,8 @@ export function Web3Provider({ children }) {
     }
 
     // Instant balance UI deduction sau khi backend xác nhận hợp lệ
-    if (data.data?.newBalance !== undefined) {
-      setBalanceRift(data.data.newBalance);
+    if (saleResult?.data?.newBalance !== undefined) {
+      setBalanceRift(saleResult.data.newBalance);
     } else {
       setBalanceRift((prev) => Math.max(0, Number(prev) - totalPrice));
     }
@@ -681,6 +700,7 @@ export function Web3Provider({ children }) {
     }
 
     showToast('🎉 Mua thẻ bài thành công! Thẻ đã về Bộ Sưu Tập ví MetaMask của bạn.', 'success');
+    await fetchBalance();
     triggerRefresh();
     return true;
   };

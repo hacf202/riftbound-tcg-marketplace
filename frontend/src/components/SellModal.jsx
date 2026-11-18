@@ -19,11 +19,16 @@ export default function SellModal({ card, ownedQuantity, onClose, onSuccess }) {
   const handleSell = async () => {
     if (!pricePerItem || pricePerItem <= 0) return;
     setIsLoading(true);
-    const success = await listCard(card.id, quantity, pricePerItem);
-    setIsLoading(false);
-    if (success) {
-      if (onSuccess) onSuccess();
-      onClose();
+    try {
+      const success = await listCard(card.id, quantity, pricePerItem);
+      if (success) {
+        if (onSuccess) onSuccess();
+        onClose();
+      }
+    } catch (err) {
+      console.error('Lỗi khi niêm yết thẻ:', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
