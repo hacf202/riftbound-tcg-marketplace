@@ -72,7 +72,95 @@ export const mockApiHandler = async (url, options = {}) => {
     return { success: true, status: 'ONLINE', service: 'Riftbound Vercel Hybrid Client' };
   }
 
-  // 3. Cards Catalog
+  // 3. Cards Routes: Market, Single Card, and Catalog
+  const cardMarketMatch = pathname.match(/^\/cards\/([^/]+)\/market/);
+  if (cardMarketMatch) {
+    const idOrCode = cardMarketMatch[1].toLowerCase();
+    const card =
+      DEFAULT_CARDS.find(
+        (c) =>
+          c.id.toString() === idOrCode ||
+          (c.scrydex_id && c.scrydex_id.toLowerCase() === idOrCode) ||
+          (c.public_code && c.public_code.toLowerCase() === idOrCode) ||
+          (c.name && c.name.toLowerCase() === idOrCode)
+      ) || DEFAULT_CARDS[0];
+
+    const stored = localStorage.getItem(MKT_LISTINGS_KEY);
+    const listings = stored ? JSON.parse(stored) : DEFAULT_LISTINGS;
+    const cardListings = listings.filter((l) => Number(l.cardId) === Number(card.id));
+    const floorPrice =
+      cardListings.length > 0
+        ? Math.min(...cardListings.map((l) => Number(l.pricePerItem)))
+        : card.marketFloorPrice || 35;
+
+    const variations = [
+      {
+        id: 'normal',
+        name: 'Bản Thường (Normal)',
+        type: 'Standard',
+        floorPrice: floorPrice,
+        usdPrice: Number((floorPrice * 0.15).toFixed(2)),
+        isAvailable: true,
+      },
+      {
+        id: 'foil',
+        name: 'Thẻ Lấp Lánh (Holo Foil)',
+        type: 'Foil',
+        floorPrice: Math.round(floorPrice * 1.8),
+        usdPrice: Number((floorPrice * 1.8 * 0.15).toFixed(2)),
+        isAvailable: true,
+      },
+      {
+        id: 'signature',
+        name: 'Chữ Ký Họa Sĩ (Signature)',
+        type: 'Showcase',
+        floorPrice: Math.round(floorPrice * 3.5),
+        usdPrice: Number((floorPrice * 3.5 * 0.15).toFixed(2)),
+        isAvailable: card.rarity === 'Mythic' || card.rarity === 'Legendary',
+      },
+    ];
+
+    return {
+      success: true,
+      status: 'success',
+      data: {
+        card,
+        floorPrice,
+        activeListings: cardListings,
+        recentSales: [
+          { price: floorPrice, timestamp: Date.now() - 3600000, quantity: 1 },
+        ],
+        variations,
+        marketStats: {
+          totalMinted: card.totalMinted || 200,
+          activeListingsCount: cardListings.length,
+          totalVolume: floorPrice * 5,
+          lastSalePrice: floorPrice,
+        },
+      },
+    };
+  }
+
+  const singleCardMatch = pathname.match(/^\/cards\/([^/?#]+)$/);
+  if (singleCardMatch && singleCardMatch[1] !== 'expansions') {
+    const idOrCode = singleCardMatch[1].toLowerCase();
+    const card =
+      DEFAULT_CARDS.find(
+        (c) =>
+          c.id.toString() === idOrCode ||
+          (c.scrydex_id && c.scrydex_id.toLowerCase() === idOrCode) ||
+          (c.public_code && c.public_code.toLowerCase() === idOrCode) ||
+          (c.name && c.name.toLowerCase() === idOrCode)
+      ) || DEFAULT_CARDS[0];
+
+    return {
+      success: true,
+      status: 'success',
+      data: card,
+    };
+  }
+
+  // 3b. Cards Catalog
   if (pathname.startsWith('/cards')) {
     return {
       success: true,

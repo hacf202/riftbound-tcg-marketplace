@@ -20,7 +20,13 @@ export default function CardDetail({ cardId, onBack }) {
 
     universalFetch(`${API_BASE}/cards/${cardId}/market`)
       .then((resData) => {
-        if (resData && resData.success && resData.data) {
+        if (
+          resData &&
+          resData.success &&
+          resData.data &&
+          !Array.isArray(resData.data) &&
+          resData.data.card
+        ) {
           setData(resData.data);
         } else {
           setData({
@@ -71,7 +77,24 @@ export default function CardDetail({ cardId, onBack }) {
     );
   }
 
-  const { card, floorPrice, activeListings, recentSales, variations, marketStats } = data;
+  const fallbackCard = DEFAULT_CARDS.find((c) => Number(c.id) === Number(cardId)) || DEFAULT_CARDS[0];
+  const card = (data && !Array.isArray(data) && data.card) || fallbackCard;
+  const floorPrice = (data && data.floorPrice) || card?.marketFloorPrice || 35;
+  const activeListings = (data && Array.isArray(data.activeListings)) ? data.activeListings : [];
+  const recentSales = (data && Array.isArray(data.recentSales)) ? data.recentSales : [];
+  const variations = (data && Array.isArray(data.variations) && data.variations.length > 0)
+    ? data.variations
+    : [
+        { id: 'normal', name: 'Bản Thường (Normal)', type: 'Standard', floorPrice: floorPrice, usdPrice: (floorPrice * 0.15).toFixed(2), isAvailable: true },
+        { id: 'foil', name: 'Thẻ Lấp Lánh (Holo Foil)', type: 'Foil', floorPrice: Math.round(floorPrice * 1.8), usdPrice: (Math.round(floorPrice * 1.8) * 0.15).toFixed(2), isAvailable: true },
+        { id: 'signature', name: 'Chữ Ký Họa Sĩ (Signature)', type: 'Showcase', floorPrice: Math.round(floorPrice * 3.5), usdPrice: (Math.round(floorPrice * 3.5) * 0.15).toFixed(2), isAvailable: true },
+      ];
+  const marketStats = (data && data.marketStats) || {
+    totalMinted: card?.totalMinted || 100,
+    activeListingsCount: activeListings.length,
+    totalVolume: 0,
+    lastSalePrice: floorPrice,
+  };
   const currentVar = variations.find((v) => v.id === selectedVariation) || variations[0];
 
   const getRarityBadge = (rarity) => {
