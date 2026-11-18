@@ -129,8 +129,8 @@ export default function CardItem({
             {card.domain}
           </span>
           {card.cost !== undefined && (
-            <span className="text-[9px] font-bold text-amber-300 bg-amber-950/40 px-1 py-0.2 rounded border border-amber-800/40 ml-auto font-mono">
-              ⚡ {card.cost}
+            <span className="text-[9px] font-bold text-amber-300 bg-slate-950 px-1 py-0.2 rounded border border-slate-800 ml-auto font-mono">
+              {card.cost}
             </span>
           )}
         </div>
@@ -154,20 +154,18 @@ export default function CardItem({
               {isOwnListing ? (
                 <button
                   onClick={() => cancelListing && cancelListing(listing.id || listing.listingId)}
-                  title="Bạn là người bán lá bài này. Bấm để hủy niêm yết."
-                  className="bg-rose-950 border border-rose-800 text-rose-300 font-bold px-2 py-1 rounded-md text-xs transition flex items-center space-x-1"
+                  title="Hủy niêm yết"
+                  className="bg-slate-800 hover:bg-slate-700 text-rose-300 font-medium px-2 py-1 rounded-md text-xs transition"
                 >
-                  <XCircle className="w-3 h-3 text-rose-400" />
-                  <span>Hủy</span>
+                  Hủy
                 </button>
               ) : (
                 listing && onBuy && (
                   <button
                     onClick={() => onBuy(listing, card)}
-                    className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-2.5 py-1 rounded-md text-xs transition flex items-center space-x-1"
+                    className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-2.5 py-1 rounded-md text-xs transition"
                   >
-                    <ShoppingCart className="w-3 h-3" />
-                    <span>Mua</span>
+                    Mua
                   </button>
                 )
               )}
@@ -212,9 +210,9 @@ export default function CardItem({
             </div>
             <button
               onClick={handleCardClick}
-              className="text-amber-400 hover:text-amber-300 text-xs font-bold transition"
+              className="text-amber-400 hover:text-amber-300 text-xs font-semibold transition"
             >
-              Xem Chi Tiết →
+              Chi Tiết
             </button>
           </div>
         )}

@@ -1,23 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  ArrowLeft, 
-  Sparkles, 
-  ShieldCheck, 
-  ExternalLink, 
-  Swords, 
-  Shield, 
-  Zap, 
-  Tag, 
-  ShoppingBag, 
-  Clock, 
-  Layers, 
-  CheckCircle2, 
-  Coins, 
-  Eye, 
-  Share2,
-  XCircle,
-  UserCheck
-} from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 import BuyModal from '../components/BuyModal';
 import { universalFetch, API_BASE } from '../utils/api';
@@ -132,43 +114,39 @@ export default function CardDetail({ cardId, onBack }) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in space-y-8">
+    <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-5 animate-fade-in space-y-5">
       {/* Top Breadcrumb Navigation */}
-      <div className="flex items-center justify-between border-b border-rift-border/60 pb-4">
+      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
         <button
           onClick={onBack}
-          className="inline-flex items-center space-x-2 text-xs font-bold text-slate-400 hover:text-amber-400 transition"
+          className="inline-flex items-center space-x-1.5 text-xs font-bold text-slate-400 hover:text-amber-400 transition"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Quay lại Chợ Thẻ / Marketplace</span>
+          <span>Quay lại Sàn Giao Dịch</span>
         </button>
 
         <div className="flex items-center space-x-2 text-xs text-slate-400">
-          <span>Codex</span>
-          <span>/</span>
-          <span className="text-slate-300">{card.expansion?.name || 'Origins (OGN)'}</span>
+          <span>{card.expansion?.name || 'Origins'}</span>
           <span>/</span>
           <span className="font-bold text-amber-400">{card.name}</span>
         </div>
       </div>
 
-      {/* Main Showcase Layout (Inspired by Bilgewater Market Card View) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      {/* Main Showcase Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        {/* LEFT COLUMN: Large Card Visual + Foil Sheen + Variations (5 Cols) */}
-        <div className="lg:col-span-5 flex flex-col items-center space-y-6">
-          <div className="relative w-full max-w-[380px] group">
-            {/* Holographic Foil Glow Effect */}
+        {/* LEFT COLUMN: Large Card Visual */}
+        <div className="lg:col-span-5 flex flex-col items-center space-y-4">
+          <div className="relative w-full max-w-[340px]">
             <div
-              className={`relative aspect-[744/1039] rounded-2xl overflow-hidden bg-slate-950 border-2 p-1.5 shadow-2xl transition-all duration-500 ${
+              className={`relative aspect-[744/1039] rounded-2xl overflow-hidden bg-slate-950 border p-1 shadow-xl transition-all duration-300 ${
                 selectedVariation === 'signature'
-                  ? 'border-rose-500 shadow-rose-500/40 hover:scale-[1.02]'
+                  ? 'border-rose-500'
                   : selectedVariation === 'foil'
-                  ? 'border-amber-400 shadow-amber-500/40 hover:scale-[1.02]'
-                  : 'border-rift-border shadow-slate-950/80'
+                  ? 'border-amber-400'
+                  : 'border-slate-800'
               }`}
             >
-              {/* Full Authentic Riot Card Image */}
               <img
                 src={card.image || (card.images && card.images.front)}
                 alt={card.name}
@@ -179,44 +157,30 @@ export default function CardDetail({ cardId, onBack }) {
                 }}
               />
 
-              {/* Shimmer Foil Overlay */}
               {(selectedVariation === 'foil' || selectedVariation === 'signature') && (
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-cyan-400/20 to-amber-400/25 pointer-events-none rounded-xl animate-pulse mix-blend-overlay"></div>
-              )}
-
-              {/* Signature Badge */}
-              {selectedVariation === 'signature' && (
-                <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-md px-3 py-1 rounded-xl border border-rose-500/60 text-[10px] font-black text-rose-300 flex items-center space-x-1 shadow-lg">
-                  <Sparkles className="w-3 h-3 text-rose-400" />
-                  <span>SIGNATURE EDITION</span>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-amber-400/15 to-transparent pointer-events-none rounded-xl"></div>
               )}
             </div>
-
-            {/* Hint text */}
-            <p className="text-center text-[11px] text-slate-500 mt-3">
-              💡 Thẻ hiển thị nguyên bản theo tỷ lệ 744x1039 chuẩn giải đấu TCG quốc tế
-            </p>
           </div>
 
-          {/* Print Variation Selector (Bản in: Normal, Foil, Signature) */}
-          <div className="w-full max-w-[380px] bg-rift-card border border-rift-border rounded-2xl p-3.5 space-y-2">
+          {/* Print Variation Selector */}
+          <div className="w-full max-w-[340px] bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2">
             <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
-              Chọn Phiên Bản In (Print Variations)
+              Phiên Bản In
             </div>
             <div className="grid grid-cols-3 gap-2">
               {variations.map((v) => (
                 <button
                   key={v.id}
                   onClick={() => setSelectedVariation(v.id)}
-                  className={`p-2.5 rounded-xl border text-center transition flex flex-col items-center justify-center ${
+                  className={`p-2 rounded-lg border text-center transition flex flex-col items-center justify-center ${
                     selectedVariation === v.id
-                      ? 'bg-amber-500/15 border-amber-500/70 text-amber-300 shadow-sm'
-                      : 'bg-slate-900/60 border-rift-border text-slate-400 hover:bg-slate-800'
+                      ? 'bg-amber-500/15 border-amber-500/70 text-amber-300'
+                      : 'bg-slate-950 border-slate-800 text-slate-400 hover:bg-slate-800'
                   }`}
                 >
                   <span className="text-xs font-bold truncate">{v.name.split(' ')[0]}</span>
-                  <span className="text-[10px] font-mono mt-0.5 text-amber-400 font-extrabold">
+                  <span className="text-[10px] font-mono mt-0.5 text-amber-400 font-bold">
                     {v.floorPrice} $RIFT
                   </span>
                 </button>
@@ -225,46 +189,46 @@ export default function CardDetail({ cardId, onBack }) {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Scrydex Specs + Market Actions + Live Listings (7 Cols) */}
-        <div className="lg:col-span-7 space-y-6">
+        {/* RIGHT COLUMN */}
+        <div className="lg:col-span-7 space-y-4">
           
           {/* Card Header & Emblems */}
           <div>
-            <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-slate-900 text-cyan-300 border border-rift-border">
+            <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+              <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">
                 {card.public_code || `#${card.printed_number}`}
               </span>
-              <span className={`text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-lg border ${getDomainColor(card.domain)}`}>
+              <span className={`text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${getDomainColor(card.domain)}`}>
                 {card.domain}
               </span>
-              <span className={`text-xs uppercase font-extrabold px-2.5 py-0.5 rounded-lg border ${getRarityBadge(card.rarity)}`}>
+              <span className={`text-[11px] uppercase font-bold px-2 py-0.5 rounded border ${getRarityBadge(card.rarity)}`}>
                 {card.rarity}
               </span>
-              <span className="text-xs px-2.5 py-0.5 rounded-lg bg-slate-900 text-slate-300 border border-rift-border">
+              <span className="text-[11px] px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">
                 {card.type}
               </span>
             </div>
 
-            <h1 className="font-cinzel text-3xl md:text-4xl font-black text-slate-100 tracking-wide">
+            <h1 className="font-cinzel text-2xl md:text-3xl font-bold text-slate-100">
               {card.name}
             </h1>
-            <p className="text-sm text-slate-400 font-medium italic mt-1">
+            <p className="text-xs text-slate-400 mt-0.5">
               {card.title} • {card.expansion?.name || 'Origins (OGN)'}
             </p>
           </div>
 
           {/* Market Floor Price Banner */}
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-slate-900/80 to-cyan-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
               <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                Giá Sàn Thị Trường ({currentVar.name})
+                Giá Sàn ({currentVar.name.split(' ')[0]})
               </div>
               <div className="flex items-baseline space-x-2 mt-0.5">
-                <span className="text-2xl md:text-3xl font-black text-amber-400 tracking-tight font-mono">
+                <span className="text-2xl font-black text-amber-400 font-mono">
                   {currentVar.floorPrice} $RIFT
                 </span>
-                <span className="text-xs text-cyan-400 font-mono">
-                  (~{formatEthEquivalent ? formatEthEquivalent(currentVar.floorPrice) : '0 ETH'} • ${currentVar.usdPrice} USD)
+                <span className="text-xs text-slate-400 font-mono">
+                  (~{formatEthEquivalent ? formatEthEquivalent(currentVar.floorPrice) : '0 ETH'})
                 </span>
               </div>
             </div>
@@ -277,155 +241,132 @@ export default function CardDetail({ cardId, onBack }) {
                       await cancelListing(activeListings[0].id || activeListings[0].listingId);
                       if (onBack) onBack();
                     }}
-                    className="w-full sm:w-auto bg-rose-950/80 hover:bg-rose-900 border border-rose-500/60 text-rose-300 font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-lg active:scale-95 flex items-center justify-center space-x-1.5"
+                    className="w-full sm:w-auto bg-rose-950/80 hover:bg-rose-900 border border-rose-500/60 text-rose-300 font-bold px-4 py-2 rounded-lg text-xs uppercase tracking-wider transition"
                   >
-                    <XCircle className="w-4 h-4 text-rose-400" />
-                    <span>Thẻ Của Bạn (Hủy Niêm Yết)</span>
+                    Hủy Niêm Yết
                   </button>
                 ) : (
                   <button
                     onClick={() => setSelectedListing(activeListings[0])}
-                    className="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-lg shadow-amber-500/25 active:scale-95 flex items-center justify-center space-x-1.5"
+                    className="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs uppercase tracking-wider transition"
                   >
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>Mua Ngay ({activeListings[0].pricePerItem} $RIFT)</span>
+                    Mua Ngay ({activeListings[0].pricePerItem} $RIFT)
                   </button>
                 )
               ) : (
-                <div className="text-xs font-semibold text-slate-400 bg-slate-900 px-3 py-2 rounded-xl border border-rift-border">
-                  Hiện chưa có lệnh bán thẻ này
+                <div className="text-xs text-slate-400 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+                  Chưa có lệnh bán
                 </div>
               )}
             </div>
           </div>
 
           {/* Combat Stats Ticker */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="bg-slate-900/80 p-3 rounded-xl border border-rift-border flex items-center space-x-3">
-              <div className="w-9 h-9 rounded-lg bg-amber-950/80 border border-amber-500/50 flex items-center justify-center text-amber-300">
-                <Zap className="w-5 h-5 fill-amber-400" />
-              </div>
-              <div>
-                <div className="text-[10px] uppercase font-bold text-slate-400">Chi Phí (Energy)</div>
-                <div className="text-base font-black text-slate-100">{card.cost}</div>
-              </div>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-center">
+              <div className="text-[10px] uppercase font-semibold text-slate-400">Năng Lượng</div>
+              <div className="text-sm font-bold text-slate-100">{card.cost}</div>
             </div>
-
-            <div className="bg-slate-900/80 p-3 rounded-xl border border-rift-border flex items-center space-x-3">
-              <div className="w-9 h-9 rounded-lg bg-rose-950/80 border border-rose-500/50 flex items-center justify-center text-rose-300">
-                <Swords className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-[10px] uppercase font-bold text-slate-400">Công (Power)</div>
-                <div className="text-base font-black text-rose-400">{card.power} ATK</div>
-              </div>
+            <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-center">
+              <div className="text-[10px] uppercase font-semibold text-slate-400">Công</div>
+              <div className="text-sm font-bold text-amber-400">{card.power} ATK</div>
             </div>
-
-            <div className="bg-slate-900/80 p-3 rounded-xl border border-rift-border flex items-center space-x-3">
-              <div className="w-9 h-9 rounded-lg bg-cyan-950/80 border border-cyan-500/50 flex items-center justify-center text-cyan-300">
-                <Shield className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-[10px] uppercase font-bold text-slate-400">Thủ (Might)</div>
-                <div className="text-base font-black text-cyan-400">{card.might} DEF</div>
-              </div>
+            <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-center">
+              <div className="text-[10px] uppercase font-semibold text-slate-400">Thủ</div>
+              <div className="text-sm font-bold text-slate-200">{card.might} DEF</div>
             </div>
           </div>
 
           {/* Rules & Abilities */}
-          <div className="bg-rift-card border border-rift-border rounded-2xl p-4 space-y-3">
-            <div className="text-xs uppercase font-bold text-amber-400 tracking-wider flex items-center space-x-2">
-              <Sparkles className="w-4 h-4" />
-              <span>Hiệu Ứng & Kỹ Năng Chiến Đấu</span>
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-2">
+            <div className="text-xs uppercase font-bold text-amber-400 tracking-wider">
+              Hiệu Ứng & Kỹ Năng
             </div>
-            <div className="bg-slate-950/70 p-3.5 rounded-xl border border-rift-border/60 text-xs text-slate-200 leading-relaxed font-sans">
+            <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs text-slate-200 leading-relaxed">
               {card.ability || (card.rules && card.rules[0])}
             </div>
-
-            <div className="text-[11px] text-slate-400 italic pt-1">
-              <strong>Mô tả lore:</strong> "{card.lore}"
-            </div>
+            {card.lore && (
+              <p className="text-[11px] text-slate-400 italic">
+                "{card.lore}"
+              </p>
+            )}
           </div>
 
-          {/* Scrydex Specifications Grid Table */}
-          <div className="bg-rift-card border border-rift-border rounded-2xl p-4 space-y-3">
-            <div className="text-xs uppercase font-bold text-slate-300 tracking-wider flex items-center space-x-2">
-              <Layers className="w-4 h-4 text-cyan-400" />
-              <span>Thông Số Kỹ Thuật (Scrydex & ERC-1155 Spec)</span>
+          {/* Specifications Grid */}
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-2.5">
+            <div className="text-xs uppercase font-bold text-slate-300 tracking-wider">
+              Thông Số Thẻ Bài
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-              <div className="bg-slate-900/70 p-2.5 rounded-xl border border-rift-border/50">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+              <div className="bg-slate-950 p-2 rounded-lg border border-slate-800">
                 <span className="text-slate-400 block text-[10px]">Mã Định Danh:</span>
-                <strong className="text-cyan-300 font-mono">{card.scrydex_id || card.public_code}</strong>
+                <strong className="text-slate-200 font-mono">{card.scrydex_id || card.public_code}</strong>
               </div>
-              <div className="bg-slate-900/70 p-2.5 rounded-xl border border-rift-border/50">
-                <span className="text-slate-400 block text-[10px]">Số Thứ Tự In:</span>
+              <div className="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                <span className="text-slate-400 block text-[10px]">Số Thứ Tự:</span>
                 <strong className="text-slate-200">{card.printed_number}</strong>
               </div>
-              <div className="bg-slate-900/70 p-2.5 rounded-xl border border-rift-border/50">
-                <span className="text-slate-400 block text-[10px]">Họa Sĩ (Artist):</span>
+              <div className="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                <span className="text-slate-400 block text-[10px]">Họa Sĩ:</span>
                 <strong className="text-slate-200 truncate block">{card.artist || 'Envar Studio'}</strong>
               </div>
-              <div className="bg-slate-900/70 p-2.5 rounded-xl border border-rift-border/50">
-                <span className="text-slate-400 block text-[10px]">Bộ Mở Rộng:</span>
+              <div className="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                <span className="text-slate-400 block text-[10px]">Bộ Sưu Tập:</span>
                 <strong className="text-slate-200">{card.expansion?.name} ({card.expansion?.code})</strong>
               </div>
-              <div className="bg-slate-900/70 p-2.5 rounded-xl border border-rift-border/50">
+              <div className="bg-slate-950 p-2 rounded-lg border border-slate-800">
                 <span className="text-slate-400 block text-[10px]">Tiêu Chuẩn Token:</span>
-                <strong className="text-amber-400">ERC-1155 (ID: {card.id})</strong>
+                <strong className="text-amber-400">ERC-1155 (#{card.id})</strong>
               </div>
-              <div className="bg-slate-900/70 p-2.5 rounded-xl border border-rift-border/50">
-                <span className="text-slate-400 block text-[10px]">Phí Bản Quyền:</span>
-                <strong className="text-emerald-400">2.5% (ERC-2981)</strong>
+              <div className="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                <span className="text-slate-400 block text-[10px]">Phí Tác Quyền:</span>
+                <strong className="text-slate-200">2.5%</strong>
               </div>
             </div>
           </div>
 
-          {/* Active Marketplace Listings Table for this specific Card */}
-          <div className="bg-rift-card border border-rift-border rounded-2xl p-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="text-xs uppercase font-bold text-amber-300 tracking-wider flex items-center space-x-2">
-                <Tag className="w-4 h-4 text-amber-400" />
-                <span>Các Lệnh Bán Thẻ Này Trên Sàn ({activeListings.length})</span>
-              </div>
+          {/* Active Marketplace Listings Table */}
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-2.5">
+            <div className="text-xs uppercase font-bold text-amber-400 tracking-wider">
+              Danh Sách Đang Rao Bán ({activeListings.length})
             </div>
 
             {activeListings.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-xs text-left">
                   <thead>
-                    <tr className="border-b border-rift-border text-[10px] text-slate-400 uppercase font-semibold">
+                    <tr className="border-b border-slate-800 text-[10px] text-slate-400 uppercase font-semibold">
                       <th className="py-2 px-2">Người Bán</th>
                       <th className="py-2 px-2">Số Lượng</th>
                       <th className="py-2 px-2">Đơn Giá</th>
                       <th className="py-2 px-2 text-right">Thao Tác</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-rift-border/40">
+                  <tbody className="divide-y divide-slate-800/60">
                     {activeListings.map((l) => (
                       <tr key={l.id} className="hover:bg-slate-800/40 transition">
-                        <td className="py-2.5 px-2 font-mono text-[11px] text-slate-300">
+                        <td className="py-2 px-2 font-mono text-[11px] text-slate-300">
                           {l.seller.slice(0, 6)}...{l.seller.slice(-4)}
                         </td>
-                        <td className="py-2.5 px-2 font-bold text-slate-200">
+                        <td className="py-2 px-2 font-bold text-slate-200">
                           x{l.quantity}
                         </td>
-                        <td className="py-2.5 px-2 font-black text-amber-400 font-mono">
+                        <td className="py-2 px-2 font-black text-amber-400 font-mono">
                           {l.pricePerItem} $RIFT
                         </td>
-                        <td className="py-2.5 px-2 text-right">
+                        <td className="py-2 px-2 text-right">
                           {l.seller?.toLowerCase() === account?.toLowerCase() ? (
                             <button
                               onClick={() => cancelListing && cancelListing(l.id || l.listingId)}
-                              className="bg-rose-950/70 hover:bg-rose-900 border border-rose-500/50 text-rose-300 font-bold px-2.5 py-1 rounded-lg text-[11px] uppercase transition shadow-sm active:scale-95"
+                              className="bg-rose-950/70 hover:bg-rose-900 border border-rose-500/50 text-rose-300 font-bold px-2.5 py-1 rounded text-xs uppercase transition"
                             >
                               Hủy Bán
                             </button>
                           ) : (
                             <button
                               onClick={() => setSelectedListing(l)}
-                              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded-lg text-[11px] uppercase transition shadow-sm"
+                              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded text-xs uppercase transition"
                             >
                               Mua
                             </button>
@@ -437,37 +378,36 @@ export default function CardDetail({ cardId, onBack }) {
                 </table>
               </div>
             ) : (
-              <p className="text-xs text-slate-400 py-3 text-center">
-                Chưa có ai niêm yết bán lá bài này. Hãy là người đầu tiên đưa lên sàn!
+              <p className="text-xs text-slate-400 py-2 text-center">
+                Chưa có ai niêm yết bán lá bài này.
               </p>
             )}
           </div>
 
-          {/* Recent Sales History for this Card */}
+          {/* Recent Sales History */}
           {recentSales.length > 0 && (
-            <div className="bg-rift-card border border-rift-border rounded-2xl p-4 space-y-3">
-              <div className="text-xs uppercase font-bold text-slate-300 tracking-wider flex items-center space-x-2">
-                <Clock className="w-4 h-4 text-slate-400" />
-                <span>Lịch Sử Giao Dịch Thẻ Này (SQLite)</span>
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-2.5">
+              <div className="text-xs uppercase font-bold text-slate-300 tracking-wider">
+                Lịch Sử Giao Dịch
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full text-[11px] text-left">
+                <table className="w-full text-xs text-left">
                   <thead>
-                    <tr className="border-b border-rift-border text-[10px] text-slate-400 uppercase font-semibold">
+                    <tr className="border-b border-slate-800 text-[10px] text-slate-400 uppercase font-semibold">
                       <th className="py-2 px-2">Loại</th>
                       <th className="py-2 px-2">Người Mua</th>
                       <th className="py-2 px-2">Số Lượng</th>
-                      <th className="py-2 px-2">Tổng Giá</th>
+                      <th className="py-2 px-2">Giá Trị</th>
                       <th className="py-2 px-2 text-right">Thời Gian</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-rift-border/30">
+                  <tbody className="divide-y divide-slate-800/40">
                     {recentSales.map((tx) => (
                       <tr key={tx.id} className="text-slate-300">
-                        <td className="py-2 px-2 font-bold text-emerald-400">{tx.type}</td>
+                        <td className="py-2 px-2 font-bold text-amber-400">{tx.type}</td>
                         <td className="py-2 px-2 font-mono text-[10px]">{tx.user_address?.slice(0, 6)}...</td>
                         <td className="py-2 px-2 font-semibold">x{tx.quantity || 1}</td>
-                        <td className="py-2 px-2 font-bold text-amber-400">{tx.total_price || tx.price} $RIFT</td>
+                        <td className="py-2 px-2 font-bold text-amber-400 font-mono">{tx.total_price || tx.price} $RIFT</td>
                         <td className="py-2 px-2 text-right text-slate-500 text-[10px]">{tx.created_at}</td>
                       </tr>
                     ))}
@@ -488,7 +428,6 @@ export default function CardDetail({ cardId, onBack }) {
           card={card}
           onClose={() => setSelectedListing(null)}
           onSuccess={() => {
-            // Reload card market data
             universalFetch(`${API_BASE}/cards/${cardId}/market`)
               .then((res) => res && res.success && setData(res.data));
           }}

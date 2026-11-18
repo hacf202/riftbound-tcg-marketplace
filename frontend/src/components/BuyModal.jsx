@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ShoppingBag, ShieldCheck, Sparkles, XCircle, AlertTriangle } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 
 export default function BuyModal({ listing, card, onClose, onSuccess }) {
@@ -28,74 +28,69 @@ export default function BuyModal({ listing, card, onClose, onSuccess }) {
     if (success) {
       if (onSuccess) onSuccess();
       onClose();
-      // Tự động chuyển qua tab Bộ Sưu Tập để người dùng chiêm ngưỡng ngay thẻ vừa mua
       setActiveTab('inventory');
     }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-lg bg-rift-card border border-rift-border rounded-3xl p-6 shadow-2xl overflow-hidden">
-        {/* Glow accent */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
-
+      <div className="relative w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl text-slate-100">
+        
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-rift-border">
-          <div className="flex items-center space-x-2">
-            <ShoppingBag className="w-5 h-5 text-amber-400" />
-            <h2 className="font-cinzel text-lg font-bold text-slate-100">Xác Nhận Mua Thẻ Bài</h2>
-          </div>
+        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+          <h2 className="text-base font-bold text-slate-100">Xác Nhận Mua Thẻ</h2>
           <button
             onClick={onClose}
-            className="p-1 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition"
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Card Info Banner */}
-        <div className="flex items-center space-x-4 my-5 p-3.5 bg-rift-darkest/70 border border-rift-border/60 rounded-2xl">
+        {/* Card Info */}
+        <div className="flex items-center space-x-3.5 my-4 p-3 bg-slate-950 border border-slate-800 rounded-xl">
           <img
             src={card.image}
             alt={card.name}
-            className="w-16 h-22 aspect-[744/1039] object-contain bg-slate-950 rounded-xl border border-rift-border p-0.5 shadow"
+            className="w-14 h-20 aspect-[744/1039] object-contain bg-slate-900 rounded-lg border border-slate-800 p-0.5"
             onError={(e) => {
               e.currentTarget.onerror = null;
               e.currentTarget.src = 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png';
             }}
           />
           <div className="flex-1 min-w-0">
-            <div className="flex items-center space-x-2 mb-1">
-              <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">{card.domain}</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold border border-slate-700">
+            <div className="flex items-center space-x-1.5 mb-1">
+              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">{card.domain}</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300 font-medium">
                 {card.rarity}
               </span>
             </div>
-            <h3 className="font-cinzel text-base font-bold text-slate-100 truncate">{card.name}</h3>
-            <p className="text-xs text-slate-400 truncate">{card.title}</p>
+            <h3 className="text-sm font-bold text-slate-100 truncate">{card.name}</h3>
+            <p className="text-xs text-slate-400 font-mono mt-0.5">{listing.pricePerItem} $RIFT / thẻ</p>
           </div>
         </div>
 
         {/* Quantity Select */}
         <div className="mb-4">
-          <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-            Số Lượng Mua (Tối đa {maxQty})
-          </label>
+          <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
+            <span>Số lượng mua</span>
+            <span>Tối đa: {maxQty}</span>
+          </div>
           <div className="flex items-center space-x-3">
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
               disabled={quantity <= 1}
-              className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 font-bold text-lg text-slate-200 border border-rift-border flex items-center justify-center transition"
+              className="w-9 h-9 rounded-lg bg-slate-950 hover:bg-slate-800 disabled:opacity-40 font-bold text-sm text-slate-200 border border-slate-800 flex items-center justify-center transition"
             >
               -
             </button>
-            <span className="text-base font-extrabold text-amber-400 w-12 text-center">
+            <span className="text-sm font-bold text-amber-400 w-10 text-center font-mono">
               {quantity}
             </span>
             <button
               onClick={() => setQuantity(Math.min(maxQty, quantity + 1))}
               disabled={quantity >= maxQty}
-              className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 font-bold text-lg text-slate-200 border border-rift-border flex items-center justify-center transition"
+              className="w-9 h-9 rounded-lg bg-slate-950 hover:bg-slate-800 disabled:opacity-40 font-bold text-sm text-slate-200 border border-slate-800 flex items-center justify-center transition"
             >
               +
             </button>
@@ -103,65 +98,57 @@ export default function BuyModal({ listing, card, onClose, onSuccess }) {
         </div>
 
         {/* Price Breakdown */}
-        <div className="space-y-2.5 p-4 bg-slate-900/60 border border-rift-border/60 rounded-2xl text-xs mb-6">
+        <div className="space-y-2 p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs mb-4">
           <div className="flex justify-between text-slate-400">
-            <span>Đơn Giá</span>
-            <span>{listing.pricePerItem} $RIFT / thẻ</span>
+            <span>Đơn giá</span>
+            <span className="font-mono">{listing.pricePerItem} $RIFT</span>
           </div>
           <div className="flex justify-between text-slate-400">
-            <span>Phí Sàn Giao Dịch (2%)</span>
-            <span>{protocolFee} $RIFT</span>
+            <span>Phí sàn (2%)</span>
+            <span className="font-mono">{protocolFee} $RIFT</span>
           </div>
           <div className="flex justify-between text-slate-400">
-            <span>Phí Bản Quyền Tác Giả ERC-2981 (2.5%)</span>
-            <span>{royaltyFee} $RIFT</span>
+            <span>Phí tác quyền (2.5%)</span>
+            <span className="font-mono">{royaltyFee} $RIFT</span>
           </div>
           <div className="flex justify-between text-slate-400">
-            <span>Người Bán Nhận (95.5%)</span>
-            <span>{sellerPayout} $RIFT</span>
+            <span>Người bán nhận (95.5%)</span>
+            <span className="font-mono">{sellerPayout} $RIFT</span>
           </div>
-          <div className="h-[1px] bg-rift-border/80 my-1"></div>
-          <div className="flex justify-between text-sm font-extrabold text-slate-100">
-            <span>Tổng Cộng Thanh Toán</span>
-            <span className="text-amber-400 text-base">{totalPrice} $RIFT</span>
+          <div className="h-[1px] bg-slate-800 my-1"></div>
+          <div className="flex justify-between text-xs font-bold text-slate-100">
+            <span>Tổng thanh toán</span>
+            <span className="text-amber-400 text-sm font-mono">{totalPrice} $RIFT</span>
           </div>
         </div>
 
-        {/* Own Listing Warning */}
+        {/* Own Listing Notice */}
         {isOwnListing && (
-          <div className="mb-4 p-3.5 rounded-2xl bg-rose-950/60 border border-rose-500/50 text-rose-200 text-xs space-y-1.5">
-            <div className="font-bold flex items-center space-x-1.5 text-rose-300">
-              <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0" />
-              <span>Bạn Là Người Đăng Bán Lá Bài Này!</span>
-            </div>
-            <p className="text-[11px] text-slate-300 leading-relaxed">
-              Theo quy tắc chống thao túng thị trường (Wash Trading), bạn không thể tự mua thẻ bài của chính mình. Nếu bạn muốn rút lại thẻ về ví, vui lòng bấm nút <strong>Hủy Niêm Yết</strong> bên dưới.
-            </p>
+          <div className="mb-4 p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 text-xs">
+            Bạn đang là người bán lá bài này. Bạn có thể bấm nút Hủy để rút thẻ về túi đồ.
           </div>
         )}
 
-        {/* Wallet Balance Warning & Quick Swap CTA (chỉ hiện nếu không phải thẻ của mình) */}
+        {/* Insufficient Balance */}
         {!isOwnListing && Number(balanceRift) < totalPrice && (
-          <div className="mb-4 p-3.5 rounded-2xl bg-purple-950/40 border border-purple-500/40 text-purple-200 text-xs flex flex-col sm:flex-row items-center justify-between gap-2.5">
-            <div>
-              <div className="font-bold text-amber-300">⚠️ Số dư không đủ ({balanceRift} $RIFT)</div>
-              <div className="text-[11px] text-slate-300">Cần thêm {totalPrice - Number(balanceRift)} $RIFT để mua thẻ bài này.</div>
-            </div>
+          <div className="mb-4 p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-xs flex items-center justify-between">
+            <span className="text-slate-400">
+              Số dư không đủ ({balanceRift} $RIFT)
+            </span>
             <button
               type="button"
               onClick={() => {
                 onClose();
                 if (setIsExchangeModalOpen) setIsExchangeModalOpen(true);
               }}
-              className="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs uppercase tracking-wider transition whitespace-nowrap shadow-md shadow-purple-600/30 active:scale-95 flex items-center space-x-1"
+              className="text-amber-400 hover:text-amber-300 font-semibold"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              <span>Đổi ETH Ngay</span>
+              Nạp thêm
             </button>
           </div>
         )}
 
-        {/* Action Button: Hủy Niêm Yết hoặc Thanh Toán */}
+        {/* Action Button */}
         {isOwnListing ? (
           <button
             type="button"
@@ -176,31 +163,17 @@ export default function BuyModal({ listing, card, onClose, onSuccess }) {
               }
             }}
             disabled={isLoading}
-            className="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider transition shadow-lg shadow-rose-600/30 active:scale-[0.99] flex items-center justify-center space-x-2"
+            className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition active:scale-95"
           >
-            {isLoading ? (
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-            ) : (
-              <>
-                <XCircle className="w-4 h-4" />
-                <span>Hủy Niêm Yết & Rút Thẻ Về Ví</span>
-              </>
-            )}
+            {isLoading ? 'Đang hủy...' : 'Hủy Niêm Yết'}
           </button>
         ) : (
           <button
             onClick={handleBuy}
             disabled={isLoading || Number(balanceRift) < totalPrice}
-            className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 disabled:opacity-40 text-slate-950 font-bold py-3.5 rounded-2xl text-sm uppercase tracking-wider transition shadow-lg shadow-amber-500/25 active:scale-[0.99] flex items-center justify-center space-x-2"
+            className="w-full bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-slate-950 font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition active:scale-95"
           >
-            {isLoading ? (
-              <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div>
-            ) : (
-              <>
-                <ShieldCheck className="w-4 h-4" />
-                <span>Xác Nhận Thanh Toán ({totalPrice} $RIFT)</span>
-              </>
-            )}
+            {isLoading ? 'Đang xử lý...' : `Thanh toán (${totalPrice} $RIFT)`}
           </button>
         )}
       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, RefreshCw, Layers, ChevronLeft, ChevronRight, ArrowRight, Sparkles, Zap, Package } from 'lucide-react';
+import { Search, RefreshCw, Layers, ChevronLeft, ChevronRight } from 'lucide-react';
 import CardItem from '../components/CardItem';
 import BuyModal from '../components/BuyModal';
 import { useWeb3 } from '../context/Web3Context';
@@ -13,6 +13,7 @@ export default function Marketplace() {
 
   // Filters
   const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [domain, setDomain] = useState('');
   const [rarity, setRarity] = useState('');
   const [sortBy, setSortBy] = useState('price');
@@ -22,22 +23,27 @@ export default function Marketplace() {
   const [selectedListing, setSelectedListing] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
 
-  // Banner Carousel State (10s auto rotate)
+  // Banner Carousel State
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+
+  // Debounce search input (Rule 9: 350ms)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   const SLIDES = [
     {
       id: 'marketplace',
-      tag: 'SÀN GIAO DỊCH ON-CHAIN',
-      tagColor: 'text-amber-300 bg-amber-500/20 border-amber-500/40',
+      tag: 'THỊ TRƯỜNG',
       titleMain: 'Sàn Giao Dịch',
       titleAccent: 'RIFTBOUND',
-      accentColor: 'text-amber-400',
-      description: 'Mua bán, chuyển nhượng 200+ lá bài NFT chuẩn ERC-1155. Ký quỹ Escrow 100% minh bạch trên mạng blockchain EVM.',
-      bgImage: 'https://dd.b.pvp.net/latest/set4/en_us/img/cards/04BW013-full.png', // Reaver's Row - Bilgewater rực rỡ (Full Art sạch 100%)
-      buttonLabel: 'Khám Phá Sàn Thẻ Bài',
-      buttonIcon: ArrowRight,
+      description: 'Giao dịch thẻ bài NFT với cơ chế ký quỹ thông minh.',
+      bgImage: 'https://dd.b.pvp.net/latest/set4/en_us/img/cards/04BW013-full.png',
+      buttonLabel: 'Khám Phá Sàn',
       buttonAction: () => {
         const el = document.getElementById('search-filter-section');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -46,35 +52,29 @@ export default function Marketplace() {
     },
     {
       id: 'packs',
-      tag: 'TÍNH NĂNG MỞ GÓI THẺ',
-      tagColor: 'text-cyan-300 bg-cyan-500/20 border-cyan-500/40',
-      titleMain: 'Khai Mở Gói Thẻ',
+      tag: 'GÓI BÀI',
+      titleMain: 'Mở Gói Thẻ',
       titleAccent: 'BOOSTER PACKS',
-      accentColor: 'text-cyan-400',
-      description: 'Nhận ngay 5 lá bài ngẫu nhiên từ 12 bộ gói chủ đề. Tỉ lệ trúng thẻ Epic, Legendary & Mythic được bảo chứng trên Smart Contract.',
-      bgImage: 'https://dd.b.pvp.net/latest/set3/en_us/img/cards/03DE010-full.png', // The Grand Plaza - Cung điện Demacia tráng lệ (Full Art sạch 100%)
-      buttonLabel: 'Mở Gói Thẻ Ngay',
-      buttonIcon: Package,
+      description: 'Nhận 5 thẻ ngẫu nhiên từ 12 bộ sưu tập theo chủ đề.',
+      bgImage: 'https://dd.b.pvp.net/latest/set3/en_us/img/cards/03DE010-full.png',
+      buttonLabel: 'Mở Gói Ngay',
       buttonAction: () => setActiveTab('packs'),
       type: 'packs',
     },
     {
       id: 'exchange',
-      tag: 'THANH KHOẢN CRYPTO TỨC THÌ',
-      tagColor: 'text-purple-300 bg-purple-500/20 border-purple-500/40',
-      titleMain: 'Quy Đổi Token',
-      titleAccent: 'ETH & CRONOS',
-      accentColor: 'text-purple-400',
-      description: 'Đổi đồng ETH hoặc Cronos Testnet (TCRO) sang token $RIFT tức thì. Tỷ giá định chuẩn: 1 ETH = 10,000 $RIFT, 1 TCRO = 100 $RIFT.',
-      bgImage: 'https://dd.b.pvp.net/latest/set3/en_us/img/cards/03MT054-full.png', // Targon's Peak - Đỉnh núi mặt trời Solari rực sáng (Full Art sạch 100%)
-      buttonLabel: 'Quy Đổi Tiền Tệ Ngay',
-      buttonIcon: Zap,
+      tag: 'QUY ĐỔI',
+      titleMain: 'Nạp Token',
+      titleAccent: 'CRONOS & ETH',
+      description: 'Đổi TCRO hoặc ETH sang $RIFT với tỷ giá cố định.',
+      bgImage: 'https://dd.b.pvp.net/latest/set3/en_us/img/cards/03MT054-full.png',
+      buttonLabel: 'Quy Đổi Token',
       buttonAction: () => setIsExchangeModalOpen(true),
       type: 'exchange',
     },
   ];
 
-  // Auto rotate slide every 10 seconds (10,000ms)
+  // Auto rotate slide every 10 seconds
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
@@ -89,7 +89,7 @@ export default function Marketplace() {
   const fetchMarketplace = () => {
     setIsLoading(true);
     const query = new URLSearchParams({
-      search,
+      search: debouncedSearch,
       domain,
       rarity,
       sortBy,
@@ -116,7 +116,7 @@ export default function Marketplace() {
 
   useEffect(() => {
     fetchMarketplace();
-  }, [search, domain, rarity, sortBy, order, dataVersion]);
+  }, [debouncedSearch, domain, rarity, sortBy, order, dataVersion]);
 
   const handleOpenBuy = (listing, card) => {
     setSelectedListing(listing);
@@ -135,43 +135,38 @@ export default function Marketplace() {
   ];
 
   const slide = SLIDES[currentSlide];
-  const ButtonIcon = slide.buttonIcon;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
       
-      {/* 1. HERO BANNER - CỐ ĐỊNH KÍCH THƯỚC GỌN GÀNG, ẢNH FULL ART SẠCH 100%, KHÔNG LỘ SCROLLBAR */}
+      {/* 1. HERO BANNER */}
       <div
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         className="relative bg-slate-950 border border-slate-800 rounded-xl mb-4 overflow-hidden shadow-lg select-none min-h-[160px] md:h-[152px] flex flex-col justify-between"
       >
-        {/* Background Full Art Image Layer - Phủ 100% hình ảnh không bị méo, không viền thẻ, không khoảng đen */}
         <div
           key={slide.id}
           className="absolute inset-0 bg-cover bg-center opacity-85 group-hover:opacity-95 pointer-events-none transition-opacity duration-700 ease-out"
           style={{ backgroundImage: `url('${slide.bgImage}')` }}
         />
         
-        {/* Lớp phủ chuyển sắc bảo vệ chữ rõ nét mà không che đen ảnh */}
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
 
-        {/* Nội dung chính trong Banner (Cố định chiều cao gọn gàng, không nhảy layout) */}
         <div className="relative z-10 p-2.5 sm:p-3 md:px-5 md:py-2.5 flex-1 flex flex-col justify-between">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
             
             {/* Cột trái: Tiêu đề & Mô tả */}
             <div className="max-w-lg animate-fade-in">
               <div className="flex items-center space-x-2 mb-1">
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${slide.tagColor}`}>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider backdrop-blur-md text-amber-300 bg-amber-500/15 border border-amber-500/30">
                   {slide.tag}
                 </span>
-                <span className="text-slate-300 font-mono text-[9px] hidden sm:inline">10s tự chuyển</span>
               </div>
 
               <h1 className="font-cinzel text-lg sm:text-xl md:text-2xl font-black text-slate-100 tracking-wide leading-tight drop-shadow-md">
-                {slide.titleMain} <span className={slide.accentColor}>{slide.titleAccent}</span>
+                {slide.titleMain} <span className="text-amber-400">{slide.titleAccent}</span>
               </h1>
               
               <p className="text-xs text-slate-200 mt-0.5 font-medium leading-relaxed drop-shadow line-clamp-1 max-w-md">
@@ -181,75 +176,74 @@ export default function Marketplace() {
               <div className="mt-2 flex items-center space-x-2">
                 <button
                   onClick={slide.buttonAction}
-                  className="inline-flex items-center space-x-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-3 py-1 rounded-lg text-xs uppercase tracking-wider transition active:scale-95 shadow-sm"
+                  className="inline-flex items-center bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-1 rounded-lg text-xs uppercase tracking-wider transition active:scale-95 shadow-sm"
                 >
-                  <ButtonIcon className="w-3 h-3" />
-                  <span>{slide.buttonLabel}</span>
+                  {slide.buttonLabel}
                 </button>
               </div>
             </div>
 
-            {/* Cột phải: 4 ô số liệu định hình kích thước đồng nhất cho cả 3 slide */}
+            {/* Cột phải: 4 ô số liệu định hình kích thước đồng nhất */}
             <div className="flex-shrink-0 w-full sm:w-[280px] animate-fade-in">
               {slide.type === 'stats' && (
                 <div className="grid grid-cols-2 gap-1.5 text-center sm:text-left">
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800/80 rounded-lg p-1.5 px-2">
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
                     <div className="text-[9px] text-slate-400 uppercase font-semibold">Giá Sàn</div>
                     <div className="text-xs sm:text-sm font-black text-amber-400 font-mono">{stats?.floorPrice || 25} $RIFT</div>
                   </div>
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800/80 rounded-lg p-1.5 px-2">
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
                     <div className="text-[9px] text-slate-400 uppercase font-semibold">Đang Bán</div>
                     <div className="text-xs sm:text-sm font-black text-slate-200 font-mono">{stats?.activeListingsCount || 33} Thẻ</div>
                   </div>
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800/80 rounded-lg p-1.5 px-2">
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
                     <div className="text-[9px] text-slate-400 uppercase font-semibold">Volume Sàn</div>
-                    <div className="text-xs sm:text-sm font-black text-cyan-400 font-mono">{stats?.totalVolumeRift || 5405} $RIFT</div>
+                    <div className="text-xs sm:text-sm font-black text-amber-300 font-mono">{stats?.totalVolumeRift || 5405} $RIFT</div>
                   </div>
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800/80 rounded-lg p-1.5 px-2">
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
                     <div className="text-[9px] text-slate-400 uppercase font-semibold">Phí Bản Quyền</div>
-                    <div className="text-xs sm:text-sm font-black text-emerald-400 font-mono">{stats?.royaltyFeeBps ? stats.royaltyFeeBps / 100 : 2.5}%</div>
+                    <div className="text-xs sm:text-sm font-black text-slate-200 font-mono">{stats?.royaltyFeeBps ? stats.royaltyFeeBps / 100 : 2.5}%</div>
                   </div>
                 </div>
               )}
 
               {slide.type === 'packs' && (
                 <div className="grid grid-cols-2 gap-1.5 text-center sm:text-left">
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-cyan-500/30 rounded-lg p-1.5 px-2">
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
                     <div className="text-[9px] text-slate-400 uppercase font-semibold">Bộ Gói</div>
-                    <div className="text-xs sm:text-sm font-black text-cyan-300 font-mono">12 Gói</div>
+                    <div className="text-xs sm:text-sm font-black text-amber-300 font-mono">12 Gói</div>
                   </div>
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-cyan-500/30 rounded-lg p-1.5 px-2">
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
                     <div className="text-[9px] text-slate-400 uppercase font-semibold">Giá Từ</div>
                     <div className="text-xs sm:text-sm font-black text-amber-400 font-mono">50 $RIFT</div>
                   </div>
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-cyan-500/30 rounded-lg p-1.5 px-2">
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
                     <div className="text-[9px] text-slate-400 uppercase font-semibold">Số Lá / Gói</div>
-                    <div className="text-xs sm:text-sm font-black text-slate-200 font-mono">5 Thẻ Bài</div>
+                    <div className="text-xs sm:text-sm font-black text-slate-200 font-mono">5 Thẻ</div>
                   </div>
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-cyan-500/30 rounded-lg p-1.5 px-2">
-                    <div className="text-[9px] text-slate-400 uppercase font-semibold">Tỉ Lệ Hiếm</div>
-                    <div className="text-xs sm:text-sm font-black text-emerald-400 font-mono">100% On-Chain</div>
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
+                    <div className="text-[9px] text-slate-400 uppercase font-semibold">Cơ Chế</div>
+                    <div className="text-xs sm:text-sm font-black text-slate-200 font-mono">On-Chain</div>
                   </div>
                 </div>
               )}
 
               {slide.type === 'exchange' && (
                 <div className="grid grid-cols-2 gap-1.5 text-center sm:text-left">
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-purple-500/30 rounded-lg p-1.5 px-2">
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
                     <div className="text-[9px] text-slate-400 uppercase font-semibold">Ethereum</div>
-                    <div className="text-xs font-black text-purple-300 font-mono">1 ETH = 10k $RIFT</div>
+                    <div className="text-xs font-black text-amber-300 font-mono">1 ETH = 10k $RIFT</div>
                   </div>
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-purple-500/30 rounded-lg p-1.5 px-2">
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
                     <div className="text-[9px] text-slate-400 uppercase font-semibold">Cronos Testnet</div>
-                    <div className="text-xs font-black text-cyan-300 font-mono">1 TCRO = 100 $RIFT</div>
+                    <div className="text-xs font-black text-amber-400 font-mono">1 TCRO = 100 $RIFT</div>
                   </div>
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-purple-500/30 rounded-lg p-1.5 px-2">
-                    <div className="text-[9px] text-slate-400 uppercase font-semibold">Phí Nạp Sàn</div>
-                    <div className="text-xs sm:text-sm font-black text-emerald-400 font-mono">0% Miễn Phí</div>
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
+                    <div className="text-[9px] text-slate-400 uppercase font-semibold">Phí Nạp</div>
+                    <div className="text-xs sm:text-sm font-black text-slate-200 font-mono">0%</div>
                   </div>
-                  <div className="bg-slate-950/80 backdrop-blur-md border border-purple-500/30 rounded-lg p-1.5 px-2">
-                    <div className="text-[9px] text-slate-400 uppercase font-semibold">Tốc Độ Khớp</div>
-                    <div className="text-xs sm:text-sm font-black text-amber-400 font-mono">Tức Thì</div>
+                  <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-lg p-1.5 px-2">
+                    <div className="text-[9px] text-slate-400 uppercase font-semibold">Tốc Độ</div>
+                    <div className="text-xs sm:text-sm font-black text-slate-200 font-mono">Tức Thì</div>
                   </div>
                 </div>
               )}

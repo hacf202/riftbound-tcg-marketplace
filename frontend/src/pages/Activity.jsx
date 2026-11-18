@@ -1,20 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  History,
-  Search,
-  RefreshCw,
-  ArrowUpRight,
-  ArrowDownLeft,
-  Sparkles,
-  Filter,
-  ExternalLink,
-  ShieldCheck,
-  User,
-  Globe,
-  Coins,
-  Tag,
-  Package,
-} from 'lucide-react';
+import { RefreshCw, User, Globe } from 'lucide-react';
 import { useWeb3 } from '../context/Web3Context';
 import { universalFetch, API_BASE } from '../utils/api';
 
@@ -62,65 +47,65 @@ export default function Activity() {
       case 'SALE':
         if (isBuyer) {
           return {
-            text: 'MUA THẺ (Khớp Lệnh)',
-            cls: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50',
+            text: 'MUA THẺ',
+            cls: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
             sign: '-',
             color: 'text-amber-400',
           };
         }
         if (isSeller) {
           return {
-            text: 'BÁN THẺ (Đã Khớp)',
-            cls: 'bg-amber-500/20 text-amber-300 border-amber-500/50',
+            text: 'BÁN THẺ',
+            cls: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
             sign: '+',
             color: 'text-emerald-400',
           };
         }
         return {
-          text: 'KHỚP LỆNH SÀN',
-          cls: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40',
+          text: 'KHỚP LỆNH',
+          cls: 'bg-slate-800 text-slate-300 border-slate-700',
           sign: '',
           color: 'text-slate-100',
         };
       case 'LISTING':
         return {
-          text: 'RAO BÁN SÀN',
-          cls: 'bg-amber-500/20 text-amber-300 border-amber-500/50',
+          text: 'RAO BÁN',
+          cls: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
           sign: '',
           color: 'text-slate-300',
         };
       case 'PACK_OPEN':
         return {
-          text: 'MỞ GÓI THẺ',
-          cls: 'bg-purple-500/20 text-purple-300 border-purple-500/50',
+          text: 'MỞ GÓI',
+          cls: 'bg-slate-800 text-slate-200 border-slate-700',
           sign: '-',
-          color: 'text-purple-300',
+          color: 'text-slate-300',
         };
       case 'FAUCET':
         return {
-          text: 'NHẬN FAUCET',
-          cls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50',
+          text: 'FAUCET',
+          cls: 'bg-slate-800 text-slate-200 border-slate-700',
           sign: '+',
-          color: 'text-cyan-300',
+          color: 'text-slate-300',
         };
       case 'EXCHANGE':
         return {
-          text: 'ĐỔI ETH SANG $RIFT',
-          cls: 'bg-purple-500/20 text-purple-300 border-purple-500/50',
+          text: 'NẠP $RIFT',
+          cls: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
           sign: '+',
           color: 'text-amber-400',
         };
       case 'CANCEL':
         return {
-          text: 'HỦY NIÊM YẾT',
-          cls: 'bg-rose-500/20 text-rose-300 border-rose-500/50',
+          text: 'HỦY BÁN',
+          cls: 'bg-rose-950/60 text-rose-300 border-rose-500/30',
           sign: '',
           color: 'text-rose-400',
         };
       default:
         return {
           text: tx.type,
-          cls: 'bg-slate-700 text-slate-300 border-slate-600',
+          cls: 'bg-slate-800 text-slate-300 border-slate-700',
           sign: '',
           color: 'text-slate-200',
         };
@@ -128,19 +113,15 @@ export default function Activity() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in space-y-6">
+    <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-5 animate-fade-in space-y-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-rift-border/60 pb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-2">
-            <History className="w-3.5 h-3.5" />
-            <span>SQLite Database Ledger • Đồng Bộ Tài Khoản Thời Gian Thực</span>
-          </div>
-          <h1 className="font-cinzel text-3xl font-black text-slate-100 tracking-wide">
-            LỊCH SỬ GIAO DỊCH
+          <h1 className="font-cinzel text-xl sm:text-2xl font-bold text-slate-100 tracking-wide">
+            Lịch Sử Giao Dịch
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
-            Ghi nhận chính xác từng lệnh mua, bán, xé gói và faucet lưu trữ vĩnh viễn trong cơ sở dữ liệu.
+          <p className="text-xs text-slate-400 mt-0.5">
+            Ghi nhận các lệnh mua bán, quy đổi và mở gói thẻ.
           </p>
         </div>
 
@@ -149,7 +130,7 @@ export default function Activity() {
             fetchTransactions();
             triggerRefresh();
           }}
-          className="flex items-center space-x-2 bg-slate-900 hover:bg-slate-800 border border-rift-border text-slate-200 px-3.5 py-2 rounded-xl text-xs font-semibold transition shadow"
+          className="flex items-center space-x-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
           <span>Làm Mới</span>
@@ -157,58 +138,55 @@ export default function Activity() {
       </div>
 
       {/* Scope Switcher: Giao dịch của tôi vs Toàn bộ sàn */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-950/80 p-2 rounded-2xl border border-rift-border">
-        <div className="flex items-center space-x-2">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 bg-slate-900 p-2 rounded-xl border border-slate-800">
+        <div className="flex items-center space-x-1.5">
           <button
             onClick={() => setViewScope('my')}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
               viewScope === 'my'
-                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow-sm'
+                ? 'bg-amber-500 text-slate-950 shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            <User className="w-3.5 h-3.5 text-amber-400" />
-            <span>Giao Dịch Của Tôi ({shortAccount})</span>
+            <User className="w-3.5 h-3.5" />
+            <span>Ví Của Tôi ({shortAccount})</span>
           </button>
 
           <button
             onClick={() => setViewScope('all')}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
               viewScope === 'all'
-                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-sm'
+                ? 'bg-amber-500 text-slate-950 shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            <Globe className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Toàn Bộ Sàn Giao Dịch</span>
+            <Globe className="w-3.5 h-3.5" />
+            <span>Toàn Bộ Sàn</span>
           </button>
         </div>
 
-        <div className="text-[11px] text-slate-400 px-2">
-          Đang xem:{' '}
-          <strong className="text-slate-200 font-mono">
-            {viewScope === 'my' ? (account ? `${account.slice(0, 6)}...${account.slice(-4)}` : 'Chưa kết nối ví') : 'Toàn bộ mạng lưới'}
-          </strong>
+        <div className="text-[11px] text-slate-400 px-1">
+          {viewScope === 'my' ? (account ? `${account.slice(0, 6)}...${account.slice(-4)}` : 'Chưa kết nối ví') : 'Toàn bộ sàn'}
         </div>
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex items-center space-x-2 overflow-x-auto pb-2">
+      <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 no-scrollbar">
         {[
           { id: 'ALL', label: 'Tất Cả' },
-          { id: 'EXCHANGE', label: '⚡ Quy Đổi ETH' },
+          { id: 'EXCHANGE', label: 'Quy Đổi Token' },
           { id: 'SALE', label: 'Mua / Bán Thẻ' },
-          { id: 'LISTING', label: 'Rao Bán Sàn' },
-          { id: 'PACK_OPEN', label: 'Mở Gói Thẻ' },
+          { id: 'LISTING', label: 'Rao Bán' },
+          { id: 'PACK_OPEN', label: 'Mở Gói' },
           { id: 'CANCEL', label: 'Hủy Niêm Yết' },
         ].map((t) => (
           <button
             key={t.id}
             onClick={() => setFilterType(t.id)}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap border ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap border ${
               filterType === t.id
-                ? 'bg-amber-500/20 text-amber-300 border-amber-500/60 shadow-sm'
-                : 'bg-slate-900/60 text-slate-400 border-rift-border hover:bg-slate-800'
+                ? 'bg-amber-500/15 text-amber-300 border-amber-500/50 shadow-sm'
+                : 'bg-slate-900 text-slate-400 border-slate-800 hover:bg-slate-800'
             }`}
           >
             {t.label}
@@ -217,22 +195,21 @@ export default function Activity() {
       </div>
 
       {/* Transactions Table */}
-      <div className="bg-rift-card border border-rift-border rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
             <thead>
-              <tr className="border-b border-rift-border bg-slate-950/70 text-[10px] text-slate-400 uppercase font-semibold">
-                <th className="py-3 px-4">Mã GD</th>
-                <th className="py-3 px-4">Hành Động</th>
-                <th className="py-3 px-4">Ví Thực Hiện</th>
-                <th className="py-3 px-4">Thẻ Bài / Nội Dung</th>
-                <th className="py-3 px-4">Số Lượng</th>
-                <th className="py-3 px-4">Giá Trị ($RIFT)</th>
-                <th className="py-3 px-4">Phí Sàn & Royalty</th>
-                <th className="py-3 px-4 text-right">Thời Gian</th>
+              <tr className="border-b border-slate-800 bg-slate-950 text-[10px] text-slate-400 uppercase font-semibold">
+                <th className="py-2.5 px-3">Mã GD</th>
+                <th className="py-2.5 px-3">Hành Động</th>
+                <th className="py-2.5 px-3">Ví Thực Hiện</th>
+                <th className="py-2.5 px-3">Thẻ Bài / Nội Dung</th>
+                <th className="py-2.5 px-3">Số Lượng</th>
+                <th className="py-2.5 px-3">Giá Trị</th>
+                <th className="py-2.5 px-3 text-right">Thời Gian</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-rift-border/40">
+            <tbody className="divide-y divide-slate-800/60">
               {filtered.map((tx) => {
                 const badge = getActionBadge(tx);
                 const isMyTx =
@@ -245,13 +222,13 @@ export default function Activity() {
                     key={tx.id}
                     className={`hover:bg-slate-800/40 transition ${isMyTx ? 'bg-amber-500/5' : ''}`}
                   >
-                    <td className="py-3 px-4 font-mono text-[11px] text-slate-500">#{tx.id}</td>
-                    <td className="py-3 px-4">
-                      <span className={`px-2 py-0.5 rounded-md border text-[10px] font-extrabold uppercase ${badge.cls}`}>
+                    <td className="py-2.5 px-3 font-mono text-[11px] text-slate-500">#{tx.id}</td>
+                    <td className="py-2.5 px-3">
+                      <span className={`px-2 py-0.5 rounded border text-[10px] font-bold uppercase ${badge.cls}`}>
                         {badge.text}
                       </span>
                     </td>
-                    <td className="py-3 px-4 font-mono text-[11px] text-slate-300">
+                    <td className="py-2.5 px-3 font-mono text-[11px] text-slate-300">
                       {tx.user_address ? (
                         <span
                           title={tx.user_address}
@@ -268,31 +245,22 @@ export default function Activity() {
                         'Hệ thống'
                       )}
                     </td>
-                    <td className="py-3 px-4 font-medium text-slate-200">
+                    <td className="py-2.5 px-3 font-medium text-slate-200">
                       <div className="font-bold text-slate-100">{tx.card_name || 'Vật phẩm TCG'}</div>
                       {tx.details && (
                         <div className="text-[10px] text-slate-500 truncate max-w-xs">{tx.details}</div>
                       )}
                     </td>
-                    <td className="py-3 px-4 font-bold text-slate-300">
+                    <td className="py-2.5 px-3 font-bold text-slate-300">
                       {tx.quantity ? `x${tx.quantity}` : '—'}
                     </td>
-                    <td className="py-3 px-4 font-mono text-sm font-black">
+                    <td className="py-2.5 px-3 font-mono text-xs font-bold">
                       <span className={badge.color}>
                         {badge.sign}
                         {tx.total_price || tx.price || 0} $RIFT
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-[10px] text-slate-400 font-mono">
-                      {tx.protocol_fee ? (
-                        <span>
-                          Sàn: {tx.protocol_fee} • Bản quyền: {tx.royalty_fee}
-                        </span>
-                      ) : (
-                        '—'
-                      )}
-                    </td>
-                    <td className="py-3 px-4 text-right text-slate-400 font-mono text-[11px]">
+                    <td className="py-2.5 px-3 text-right text-slate-400 font-mono text-[11px]">
                       {tx.created_at}
                     </td>
                   </tr>
@@ -305,7 +273,7 @@ export default function Activity() {
         {filtered.length === 0 && (
           <div className="py-12 text-center text-slate-400 text-xs">
             {viewScope === 'my'
-              ? 'Tài khoản này chưa có giao dịch nào trong danh mục đã chọn.'
+              ? 'Tài khoản chưa có giao dịch nào trong danh mục đã chọn.'
               : 'Chưa có giao dịch nào trong danh mục đã chọn.'}
           </div>
         )}

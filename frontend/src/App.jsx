@@ -30,28 +30,25 @@ function AppContent() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-rift-border/60 bg-rift-dark/70 py-8 text-center text-xs text-slate-400">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <footer className="border-t border-slate-800 bg-slate-950 py-5 text-center text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center space-x-2">
-            <span className="font-cinzel font-bold text-amber-400">RIFTBOUND TCG</span>
-            <span>— Sàn Giao Dịch Vật Phẩm Ảo & 200 Thẻ Bài NFT Chuẩn Scrydex</span>
+            <span className="font-cinzel font-bold text-amber-400">RIFTBOUND</span>
+            <span>TCG Marketplace</span>
           </div>
-          <div className="text-slate-500">
-            Ứng dụng công nghệ Blockchain EVM • Chuẩn ERC-20, ERC-1155 & ERC-2981 • Bilgewater Marketplace Edition
-          </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 text-xs">
             <button
               onClick={() => setActiveTab('activity')}
-              className="text-cyan-400 hover:text-cyan-300 underline transition"
+              className="text-slate-400 hover:text-amber-400 transition"
             >
-              Nhật Ký Giao Dịch
+              Lịch Sử Giao Dịch
             </button>
             <span>•</span>
             <button
               onClick={() => setActiveTab('codex')}
-              className="text-amber-400 hover:text-amber-300 underline transition"
+              className="text-slate-400 hover:text-amber-400 transition"
             >
-              Bách Khoa Toàn Thư (Codex)
+              Codex
             </button>
           </div>
         </div>

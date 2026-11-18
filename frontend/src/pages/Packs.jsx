@@ -286,72 +286,57 @@ export default function Packs() {
       {/* ========================================================
           TOP UTILITY & WALLET BAR
       ======================================================== */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-900/80 border border-rift-border/80 backdrop-blur-xl rounded-2xl p-4 mb-8 shadow-xl">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400">
-            <Sparkles className="w-5 h-5 animate-pulse" />
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <span className="font-cinzel text-sm font-bold text-slate-100">RIFTBOUND ARENA</span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] uppercase font-black bg-gradient-to-r from-amber-500/20 to-purple-500/20 text-amber-300 border border-amber-500/30">
-                12 Gói Chính Thức
-              </span>
-            </div>
-            <p className="text-xs text-slate-400">
-              Công nghệ mở thẻ minh bạch chuẩn Web3 • Cam kết tỷ lệ rơi ngẫu nhiên
-            </p>
-          </div>
+      <div className="flex flex-col md:flex-row items-center justify-between gap-3 bg-slate-900 border border-slate-800 rounded-xl p-3 sm:p-4 mb-5 shadow-sm">
+        <div>
+          <h1 className="font-cinzel text-lg sm:text-xl font-bold text-slate-100">
+            Khai Mở Gói Thẻ
+          </h1>
+          <p className="text-xs text-slate-400 mt-0.5">
+            Mở các gói bài theo chủ đề để thu thập các lá bài hiếm cho bộ sưu tập.
+          </p>
         </div>
 
         {/* Live Wallet & Controls */}
-        <div className="flex items-center space-x-3 w-full md:w-auto justify-end">
+        <div className="flex items-center space-x-2.5 w-full md:w-auto justify-end">
           {/* Balance Pill */}
-          <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl px-3.5 py-2 flex items-center space-x-2.5 shadow-inner">
-            <Coins className="w-4 h-4 text-amber-400 animate-spin" style={{ animationDuration: '8s' }} />
+          <div className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 flex items-center space-x-2">
             <div>
-              <div className="text-[10px] uppercase font-bold text-slate-400 leading-none">Số Dư Khả Dụng</div>
+              <div className="text-[10px] uppercase font-bold text-slate-400 leading-none">Số Dư</div>
               <div className="text-sm font-black text-amber-400 leading-tight">
                 {Number(balanceRift).toLocaleString()} <span className="text-[11px] font-semibold text-slate-300">$RIFT</span>
-              </div>
-              <div className="text-[10px] text-cyan-400 font-mono font-medium leading-none mt-0.5">
-                {balanceEth} ETH (~{formatEthEquivalent ? formatEthEquivalent(balanceRift) : '0 ETH'})
               </div>
             </div>
           </div>
 
-          {/* Button: Đổi ETH sang $RIFT (Thay thế Faucet) */}
+          {/* Button: Nạp $RIFT */}
           {setIsExchangeModalOpen && (
             <button
               onClick={() => setIsExchangeModalOpen(true)}
-              title="Quy đổi ETH sang $RIFT theo tỷ giá 1 ETH = 10,000 $RIFT"
-              className="bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-extrabold px-3.5 py-2 rounded-xl text-xs uppercase tracking-wider transition shadow-lg shadow-purple-600/30 active:scale-95 flex items-center space-x-1.5 whitespace-nowrap border border-purple-400/40"
+              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs uppercase tracking-wider transition active:scale-95"
             >
-              <Zap className="w-3.5 h-3.5 fill-amber-300 text-amber-300 animate-pulse" />
-              <span>Đổi ETH Sang $RIFT</span>
+              Nạp $RIFT
             </button>
           )}
 
           {/* Sound Toggle Button */}
           <button
             onClick={handleToggleSound}
-            title={soundEnabled ? 'Tắt âm thanh hiệu ứng' : 'Bật âm thanh hiệu ứng'}
-            className={`p-2 rounded-xl border transition ${
+            title={soundEnabled ? 'Tắt âm thanh' : 'Bật âm thanh'}
+            className={`p-2 rounded-lg border transition ${
               soundEnabled
-                ? 'bg-purple-950/40 border-purple-500/50 text-purple-300 hover:bg-purple-900/40'
-                : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-slate-200'
+                ? 'bg-slate-800 border-slate-700 text-amber-400'
+                : 'bg-slate-950 border-slate-800 text-slate-500'
             }`}
           >
-            {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            {soundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
           </button>
 
           {/* View Inventory Shortcut */}
           <button
             onClick={() => setActiveTab('inventory')}
-            className="hidden sm:flex items-center space-x-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-slate-500 font-bold px-3 py-2 rounded-xl text-xs transition"
+            className="hidden sm:flex items-center bg-slate-950 hover:bg-slate-800 text-slate-200 border border-slate-800 font-bold px-3 py-1.5 rounded-lg text-xs transition"
           >
-            <Layers className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Túi Đồ</span>
+            Túi Đồ
           </button>
         </div>
       </div>
@@ -360,147 +345,101 @@ export default function Packs() {
           HERO ARENA BANNER & SPOTLIGHT
       ======================================================== */}
       {openingStage === 'idle' && featuredPack && (
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-purple-950/50 to-slate-900 border border-purple-500/40 p-6 md:p-8 mb-10 shadow-2xl">
-          {/* Ambient light blobs */}
-          <div className="absolute top-0 right-1/4 w-80 h-80 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
-          <div className="absolute -bottom-10 left-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="relative overflow-hidden rounded-xl bg-slate-900 border border-slate-800 p-4 sm:p-6 mb-6 shadow-sm">
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             
-            {/* Left 3D Pack Preview Mockup */}
+            {/* Left Pack Preview */}
             <div className="lg:col-span-4 flex justify-center">
               <div className="relative group cursor-pointer" onClick={() => startOpenPack(featuredPack)}>
-                {/* Aura Glow */}
                 <div
-                  className="absolute inset-0 rounded-3xl blur-2xl opacity-60 group-hover:opacity-100 transition duration-500"
-                  style={{ backgroundColor: featuredPack.glowColor || 'rgba(168, 85, 247, 0.4)' }}
-                ></div>
-
-                {/* 3D Vertical Booster Pack Wrapper */}
-                <div
-                  className="relative w-56 md:w-64 rounded-2xl border-2 overflow-hidden shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2 flex flex-col justify-between"
-                  style={{
-                    backgroundColor: '#090d16',
-                    borderColor: featuredPack.color || '#a855f7',
-                    boxShadow: `0 10px 40px ${featuredPack.glowColor || 'rgba(168, 85, 247, 0.3)'}`,
-                  }}
+                  className="relative w-52 md:w-56 rounded-xl border border-slate-800 bg-slate-950 overflow-hidden shadow-lg transition-all duration-300 group-hover:scale-102 flex flex-col justify-between"
                 >
-                  {/* Top Crimp Strip with Hanger Slot */}
-                  <div className="foil-crimp h-5 w-full flex items-center justify-center border-b border-white/10 relative">
-                    <div className="w-8 h-2 rounded-full bg-slate-950/80 border border-white/20"></div>
-                  </div>
+                  <div className="p-3.5 flex flex-col items-center text-center">
+                    <span className="text-[10px] uppercase font-bold text-amber-400 mb-1">
+                      {featuredPack.tier}
+                    </span>
 
-                  {/* Foil Shimmer effect */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"></div>
-
-                  {/* Pack Inner Body */}
-                  <div className="p-4 flex flex-col items-center text-center">
-                    <div className="flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-[10px] font-black uppercase text-amber-300 tracking-wider mb-2">
-                      <Crown className="w-3 h-3" />
-                      <span>{featuredPack.tier}</span>
-                    </div>
-
-                    <h3 className="font-cinzel text-lg font-black text-white leading-tight">
+                    <h3 className="font-cinzel text-base font-bold text-white leading-tight">
                       {featuredPack.name}
                     </h3>
-                    <p className="text-[10px] text-slate-300 font-medium tracking-wide mb-3">
+                    <p className="text-[10px] text-slate-400 font-medium mb-2.5">
                       {featuredPack.subtitle}
                     </p>
 
-                    {/* Artwork Window */}
-                    <div className="w-full aspect-[4/3] rounded-xl overflow-hidden border border-white/20 relative shadow-inner mb-3">
+                    <div className="w-full aspect-[4/3] rounded-lg overflow-hidden border border-slate-800 relative mb-2.5">
                       <img
                         src={featuredPack.image}
                         alt={featuredPack.name}
-                        className="w-full h-full object-cover object-top group-hover:scale-110 transition duration-700"
+                        className="w-full h-full object-cover object-top"
                         onError={(e) => {
                           e.currentTarget.onerror = null;
                           e.currentTarget.src = 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/14a52a367fd41fd84745e050e62d1f281f733467-1038x744.png';
                         }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
-                      <div className="absolute bottom-2 left-2 right-2 flex justify-between items-center text-[10px] font-bold text-amber-300">
-                        <span>⚡ {featuredPack.cardCount} Lá Bài</span>
-                        <span className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10 text-white">
+                      <div className="absolute bottom-1.5 left-2 right-2 flex justify-between items-center text-[10px] font-bold text-amber-300">
+                        <span>{featuredPack.cardCount} Lá Bài</span>
+                        <span className="px-1.5 py-0.5 rounded bg-black/70 text-slate-200">
                           {featuredPack.domainFocus}
                         </span>
                       </div>
                     </div>
 
-                    {/* Guarantee Callout */}
-                    <div className="w-full bg-purple-950/40 border border-purple-500/30 rounded-lg p-1.5 text-[10px] text-purple-200 font-semibold mb-2">
-                      ✨ Đảm bảo 100% Epic hoặc Mythic!
-                    </div>
-
-                    <div className="text-amber-400 font-black text-lg tracking-wide">
+                    <div className="text-amber-400 font-bold text-base font-mono">
                       {featuredPack.price} $RIFT
                     </div>
-                  </div>
-
-                  {/* Bottom Crimp Strip */}
-                  <div className="foil-crimp h-5 w-full border-t border-white/10 flex items-center justify-center">
-                    <span className="text-[8px] tracking-widest text-white/50 uppercase font-mono">
-                      AUTHENTIC RIFTBOUND TCG FOIL
-                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Right Spotlight Details & CTA */}
-            <div className="lg:col-span-8 space-y-4 text-center lg:text-left">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
-                <Crown className="w-4 h-4" />
-                <span>Gói Thẻ Hoàng Gia Tối Thượng • Giới Hạn</span>
-              </div>
+            <div className="lg:col-span-8 space-y-3 text-center lg:text-left">
+              <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wider">
+                Gói Thẻ Nổi Bật
+              </span>
 
-              <h1 className="font-cinzel text-3xl md:text-5xl font-black text-slate-100 tracking-wide leading-tight">
-                Mở Phong Ấn <br className="hidden md:inline" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-rose-400 to-purple-400">
-                  {featuredPack.name}
-                </span>
-              </h1>
+              <h2 className="font-cinzel text-2xl md:text-3xl font-bold text-slate-100">
+                {featuredPack.name}
+              </h2>
 
-              <p className="text-xs md:text-sm text-slate-300 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
-                {featuredPack.description} Sở hữu các lá bài có chỉ số ATK và DEF vô song, hỗ trợ kỹ năng thức tỉnh và hào quang hiệu triệu cực hiếm trong vũ trụ Riftbound.
+              <p className="text-xs text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                {featuredPack.description}
               </p>
 
               {/* Highlight Perks Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                <div className="bg-slate-900/80 border border-rift-border rounded-xl p-3 text-center">
-                  <div className="text-amber-400 font-black text-sm md:text-base">{featuredPack.cardCount} Lá</div>
-                  <div className="text-[10px] text-slate-400 font-semibold uppercase">Số lượng thẻ</div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+                <div className="bg-slate-950 border border-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-amber-400 font-bold text-sm">{featuredPack.cardCount} Lá</div>
+                  <div className="text-[10px] text-slate-400 uppercase">Số Lượng</div>
                 </div>
-                <div className="bg-slate-900/80 border border-rift-border rounded-xl p-3 text-center">
-                  <div className="text-rose-400 font-black text-sm md:text-base">50%</div>
-                  <div className="text-[10px] text-slate-400 font-semibold uppercase">Tỉ Lệ Mythic</div>
+                <div className="bg-slate-950 border border-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-slate-200 font-bold text-sm">50%</div>
+                  <div className="text-[10px] text-slate-400 uppercase">Tỉ Lệ Mythic</div>
                 </div>
-                <div className="bg-slate-900/80 border border-rift-border rounded-xl p-3 text-center">
-                  <div className="text-purple-400 font-black text-sm md:text-base">50%</div>
-                  <div className="text-[10px] text-slate-400 font-semibold uppercase">Tỉ Lệ Epic</div>
+                <div className="bg-slate-950 border border-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-slate-200 font-bold text-sm">50%</div>
+                  <div className="text-[10px] text-slate-400 uppercase">Tỉ Lệ Epic</div>
                 </div>
-                <div className="bg-slate-900/80 border border-rift-border rounded-xl p-3 text-center">
-                  <div className="text-emerald-400 font-black text-sm md:text-base">100%</div>
-                  <div className="text-[10px] text-slate-400 font-semibold uppercase">Cấp Cao Nhất</div>
+                <div className="bg-slate-950 border border-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-slate-200 font-bold text-sm">100%</div>
+                  <div className="text-[10px] text-slate-400 uppercase">Độ Hiếm Đảm Bảo</div>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+              <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
                 <button
                   onClick={() => startOpenPack(featuredPack)}
-                  className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-6 py-3.5 rounded-2xl text-xs md:text-sm uppercase tracking-wider transition shadow-xl shadow-amber-500/25 active:scale-95 flex items-center space-x-2"
+                  className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2 rounded-lg text-xs uppercase tracking-wider transition active:scale-95 shadow-sm"
                 >
-                  <Layers className="w-4 h-4 fill-slate-950" />
-                  <span>Xé Gói Thần Khí Ngay ({featuredPack.price} $RIFT ~ {formatEthEquivalent ? formatEthEquivalent(featuredPack.price) : '0 ETH'})</span>
+                  Mở Gói ({featuredPack.price} $RIFT)
                 </button>
 
                 <button
                   onClick={() => setOddsModalPack(featuredPack)}
-                  className="bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 px-4 py-3 rounded-2xl text-xs font-bold transition flex items-center space-x-1.5"
+                  className="bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 px-3.5 py-2 rounded-lg text-xs font-semibold transition"
                 >
-                  <Info className="w-3.5 h-3.5" />
-                  <span>Xem Bảng Tỉ Lệ Rơi Thẻ</span>
+                  Bảng Tỉ Lệ
                 </button>
               </div>
 
@@ -514,40 +453,37 @@ export default function Packs() {
           FILTER & CATEGORY SELECTION TABS
       ======================================================== */}
       {openingStage === 'idle' && (
-        <div className="space-y-4 mb-8">
-          
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="space-y-3 mb-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3">
             
             {/* Category Pills */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1.5">
               {[
-                { id: 'all', label: `Tất Cả (${packs.length})`, icon: Layers },
-                { id: 'popular', label: '⭐ Thịnh Hành', icon: Star },
-                { id: 'starter', label: '🔰 Tân Thủ & Phổ Thông', icon: Shield },
-                { id: 'domain', label: '⚡ Hệ Tộc Chuyên Sâu', icon: Flame },
-                { id: 'mythic', label: '👑 Thần Khí & Hoàng Gia', icon: Crown },
+                { id: 'all', label: `Tất Cả (${packs.length})` },
+                { id: 'popular', label: 'Thịnh Hành' },
+                { id: 'starter', label: 'Tân Thủ' },
+                { id: 'domain', label: 'Hệ Tộc' },
+                { id: 'mythic', label: 'Cao Cấp' },
               ].map((tab) => {
-                const Icon = tab.icon;
                 const isActive = filterCategory === tab.id;
                 return (
                   <button
                     key={tab.id}
                     onClick={() => setFilterCategory(tab.id)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                       isActive
-                        ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/30'
-                        : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-rift-border'
+                        ? 'bg-amber-500 text-slate-950 shadow-sm'
+                        : 'bg-slate-900 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800'
                     }`}
                   >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{tab.label}</span>
+                    {tab.label}
                   </button>
                 );
               })}
             </div>
 
             {/* Search and Sort controls */}
-            <div className="flex items-center space-x-3 w-full md:w-auto">
+            <div className="flex items-center space-x-2 w-full md:w-auto">
               {/* Search input */}
               <div className="relative flex-1 md:w-56">
                 <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -556,7 +492,7 @@ export default function Packs() {
                   placeholder="Tìm gói theo tên, hệ..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-slate-900 border border-rift-border rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500"
                 />
                 {searchQuery && (
                   <button
@@ -569,28 +505,19 @@ export default function Packs() {
               </div>
 
               {/* Sorter */}
-              <div className="relative">
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-slate-900 border border-rift-border rounded-xl px-3 py-1.5 text-xs font-medium text-slate-300 focus:outline-none focus:border-purple-500 cursor-pointer"
-                >
-                  <option value="default">Sắp Xếp: Mặc Định</option>
-                  <option value="price-asc">Giá: Thấp Đến Cao</option>
-                  <option value="price-desc">Giá: Cao Đến Thấp</option>
-                  <option value="cards-desc">Số Lượng Thẻ: Nhiều Nhất</option>
-                </select>
-              </div>
-
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-300 focus:outline-none focus:border-amber-500 cursor-pointer"
+              >
+                <option value="default">Mặc Định</option>
+                <option value="price-asc">Giá Thấp Đến Cao</option>
+                <option value="price-desc">Giá Cao Đến Thấp</option>
+                <option value="cards-desc">Số Lượng Nhiều</option>
+              </select>
             </div>
 
           </div>
-
-          <div className="flex items-center justify-between text-xs text-slate-400 px-1">
-            <span>Hiển thị {displayedPacks.length} trên tổng số {packs.length} gói thẻ bài</span>
-            <span>💡 Nhấn vào thẻ để xem tỉ lệ rơi thẻ chi tiết</span>
-          </div>
-
         </div>
       )}
 
@@ -728,43 +655,40 @@ export default function Packs() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-2.5">
               {/* Reveal All Button */}
               {!allRevealed && (
                 <button
                   onClick={revealAllCards}
                   disabled={isAutoRevealing}
-                  className="bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white font-black px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-lg shadow-purple-500/25 active:scale-95 flex items-center space-x-2"
+                  className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs uppercase tracking-wider transition active:scale-95 shadow-sm"
                 >
-                  <Eye className="w-4 h-4" />
-                  <span>{isAutoRevealing ? 'Đang Lật Mở...' : 'Lật Mở Tất Cả'}</span>
+                  {isAutoRevealing ? 'Đang Lật Mở...' : 'Lật Mở Tất Cả'}
                 </button>
               )}
 
               {/* Re-Open Same Pack */}
               <button
                 onClick={handleReopenSamePack}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-slate-500 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 transition shadow-sm"
+                className="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-bold px-3.5 py-2 rounded-lg text-xs transition shadow-sm"
               >
-                <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
-                <span>Mở Tiếp Gói Này</span>
+                Mở Tiếp Gói Này
               </button>
 
               {/* Return to Packs Store */}
               <button
                 onClick={resetPackOpening}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-4 py-2.5 rounded-xl text-xs transition"
+                className="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-bold px-3.5 py-2 rounded-lg text-xs transition"
               >
-                <span>Cửa Hàng Gói</span>
+                Cửa Hàng Gói
               </button>
 
               {/* View in Collection */}
               <button
                 onClick={() => setActiveTab('inventory')}
-                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider flex items-center space-x-1.5 transition shadow-md shadow-amber-500/20"
+                className="bg-slate-900 hover:bg-slate-800 text-amber-400 border border-slate-800 font-bold px-3.5 py-2 rounded-lg text-xs uppercase tracking-wider transition"
               >
-                <span>Bộ Sưu Tập</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                Bộ Sưu Tập
               </button>
             </div>
           </div>
@@ -779,32 +703,27 @@ export default function Packs() {
 
           {/* Celebration Banner for High Rarity Pulls */}
           {allRevealed && highestPull && (highestPull.rarity === 'Mythic' || highestPull.rarity === 'Legendary') && (
-            <div className="relative z-10 bg-gradient-to-r from-amber-500/20 via-rose-500/20 to-purple-500/20 border border-amber-500/40 rounded-2xl p-4 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 animate-fade-in shadow-xl">
-              <div className="flex items-center space-x-3 text-left">
-                <div className="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-400">
-                  <Trophy className="w-6 h-6 animate-bounce" />
+            <div className="relative z-10 bg-slate-950 border border-slate-800 rounded-xl p-3 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 animate-fade-in shadow-sm">
+              <div className="text-left">
+                <div className="text-amber-400 font-bold text-xs uppercase tracking-wider">
+                  Mở Được Thẻ {highestPull.rarity.toUpperCase()}
                 </div>
-                <div>
-                  <div className="text-amber-400 font-black text-sm uppercase tracking-wider">
-                    🎉 CHÚC MỪNG BẠN MỞ TRÚNG THẺ {highestPull.rarity.toUpperCase()} CỰC HIẾM!
-                  </div>
-                  <div className="text-xs text-slate-200">
-                    Lá bài <strong className="text-amber-300 font-bold">{highestPull.name}</strong> đã được thêm vĩnh viễn vào Bộ Sưu Tập của bạn.
-                  </div>
+                <div className="text-xs text-slate-300">
+                  Lá bài <strong className="text-amber-300">{highestPull.name}</strong> đã được thêm vào Bộ Sưu Tập.
                 </div>
               </div>
 
               <button
                 onClick={() => viewCardDetail(highestPull.scrydex_id || highestPull.id)}
-                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition whitespace-nowrap"
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs uppercase tracking-wider transition whitespace-nowrap"
               >
-                Chi Tiết Thẻ Này
+                Chi Tiết
               </button>
             </div>
           )}
 
           {/* Cards Grid with Interactive 3D Flip */}
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-center">
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 justify-center">
             {revealedCards.map((card, index) => {
               const isFlipped = flippedIndices.includes(index);
               const isHighRarity = card.rarity === 'Legendary' || card.rarity === 'Mythic';
@@ -835,8 +754,8 @@ export default function Packs() {
                     /* Face-Up Revealed Card */
                     <div className="animate-fade-in transform hover:scale-[1.03] transition-all duration-300 relative">
                       {isHighRarity && (
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 bg-gradient-to-r from-amber-400 via-rose-500 to-amber-400 text-slate-950 text-[10px] uppercase font-black px-3 py-0.5 rounded-full shadow-lg shadow-amber-500/50 whitespace-nowrap animate-bounce">
-                          ✨ {card.rarity}! ✨
+                        <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-20 bg-amber-500 text-slate-950 text-[10px] uppercase font-bold px-2 py-0.5 rounded-full shadow whitespace-nowrap">
+                          {card.rarity}
                         </div>
                       )}
                       <CardItem card={card} mode="codex" isRecentlyUpdated={true} />
@@ -1035,23 +954,13 @@ export default function Packs() {
                             setIsExchangeModalOpen(true);
                           }
                         }}
-                        className={`font-black px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition flex items-center space-x-1.5 active:scale-95 ${
+                        className={`font-bold px-3 py-1.5 rounded-lg text-xs uppercase tracking-wider transition active:scale-95 ${
                           canAfford
-                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
-                            : 'bg-purple-950/60 hover:bg-purple-900/70 text-purple-200 border border-purple-500/40 hover:border-purple-400 shadow-md shadow-purple-950/30'
+                            ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm'
+                            : 'bg-slate-900 hover:bg-slate-800 text-amber-400 border border-slate-800'
                         }`}
                       >
-                        {canAfford ? (
-                          <>
-                            <Layers className="w-3.5 h-3.5" />
-                            <span>Xé Gói Ngay</span>
-                          </>
-                        ) : (
-                          <>
-                            <Zap className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
-                            <span>Đổi Thêm ETH</span>
-                          </>
-                        )}
+                        {canAfford ? 'Mở Gói' : 'Nạp $RIFT'}
                       </button>
                     </div>
 
