@@ -550,7 +550,12 @@ if __name__ == "__main__":
     print("🚀 BẮT ĐẦU CHUYỂN ĐỔI BỘ TÀI LIỆU SANG MICROSOFT WORD (.DOCX)")
     print("==================================================")
     
-    # 1. Tạo 3 file Word riêng lẻ tương ứng với 3 file tài liệu
+    # 1. Tạo các file Word tài liệu
+    create_single_doc(
+        "TOM_TAT_BAO_CAO_GIUA_KY_COT_LOI.docx",
+        "Tóm Tắt Cốt Lõi Báo Cáo Giữa Kỳ",
+        os.path.join(DOCS_DIR, "TOM_TAT_BAO_CAO_GIUA_KY_COT_LOI.md")
+    )
     create_single_doc(
         "DOC_01_KIEM_THU_VA_SO_DO_HE_THONG.docx",
         "Kiểm Thử & Sơ Đồ Hệ Thống",
