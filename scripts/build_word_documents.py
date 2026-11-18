@@ -513,8 +513,9 @@ def create_master_report():
     
     doc.add_page_break()
     
-    # 2. Đọc và ghép lần lượt 3 tài liệu
+    # 2. Đọc và ghép lần lượt các tài liệu vào Báo cáo tổng thể
     doc_files = [
+        ("TOM_TAT_BAO_CAO_GIUA_KY_COT_LOI.md", "TÓM TẮT ĐIỀU HÀNH: BẢN CHẤT CÁC CƠ CHẾ BLOCKCHAIN QUA VÍ DỤ ĐỜI THỰC"),
         ("DOC_01_KIEM_THU_VA_SO_DO_HE_THONG.md", "PHẦN 1: BÁO CÁO KIỂM THỬ TỰ ĐỘNG & HỆ THỐNG SƠ ĐỒ WORKFLOW, SƠ ĐỒ LUỒNG, SƠ ĐỒ CHỨC NĂNG"),
         ("DOC_02_THANH_PHAN_CAU_THANH_VA_CO_CHE_BLOCKCHAIN.md", "PHẦN 2: PHÂN TÍCH CÁC THÀNH PHẦN CẤU THÀNH VÀ CƠ CHẾ CỐT LÕI CỦA BLOCKCHAIN"),
         ("DOC_03_SO_SANH_CONG_NGHE_VA_DIEM_SANG_DU_AN.md", "PHẦN 3: SO SÁNH CÔNG NGHỆ TRƯỚC - SAU (WEB2 VS WEB3), ĐIỂM SÁNG ĐỒ ÁN & BỘ CÂU HỎI VẤN ĐÁP")
