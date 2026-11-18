@@ -478,6 +478,77 @@ export function Web3Provider({ children }) {
     }
   };
 
+  // 1-Click Switch Network to Ethereum Sepolia Testnet (Chain 11155111 / 0xaa36a7)
+  const switchNetworkToSepolia = async () => {
+    if (!window.ethereum) {
+      showToast('⚠️ Vui lòng cài đặt ví MetaMask!', 'warning');
+      return;
+    }
+    if (isSwitchingNetworkRef.current) {
+      showToast('⚠️ Đang có yêu cầu xử lý mạng trong MetaMask. Vui lòng mở tiện ích ví để duyệt!', 'warning');
+      return;
+    }
+
+    isSwitchingNetworkRef.current = true;
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0xaa36a7' }], // 11155111 in hex
+      });
+      showToast('🎉 Đã chuyển sang mạng Ethereum Sepolia Testnet!', 'success');
+    } catch (switchError) {
+      if (switchError.code === -32002 || switchError.message?.includes('already pending')) {
+        showToast('⚠️ Có yêu cầu đang chờ! Vui lòng mở tiện ích MetaMask và xác nhận.', 'warning');
+        return;
+      }
+      if (
+        switchError.code === 4902 ||
+        switchError.message?.toLowerCase().includes('unrecognized chain id') ||
+        switchError.message?.includes('0xaa36a7')
+      ) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: '0xaa36a7',
+                chainName: 'Sepolia Testnet',
+                rpcUrls: ['https://rpc.sepolia.org', 'https://ethereum-sepolia-rpc.publicnode.com'],
+                nativeCurrency: { name: 'Sepolia Ether', symbol: 'ETH', decimals: 18 },
+                blockExplorerUrls: ['https://sepolia.etherscan.io'],
+              },
+            ],
+          });
+          showToast('🎉 Đã thêm và chuyển sang mạng Ethereum Sepolia!', 'success');
+        } catch (addError) {
+          if (addError.code === 4001 || addError.message?.includes('User rejected')) {
+            showToast('ℹ️ Người dùng đã hủy thêm mạng Sepolia.', 'info');
+          } else {
+            showToast('Lỗi thêm mạng: ' + addError.message, 'error');
+          }
+        }
+      } else if (switchError.code === 4001 || switchError.message?.includes('User rejected')) {
+        showToast('ℹ️ Người dùng đã hủy chuyển mạng.', 'info');
+      } else {
+        showToast('Lỗi chuyển mạng: ' + switchError.message, 'error');
+      }
+    } finally {
+      isSwitchingNetworkRef.current = false;
+    }
+  };
+
+  // Switch to appropriate Ethereum network (Hardhat if localhost, Sepolia if on production)
+  const switchNetworkToEthereum = async () => {
+    const isLocal =
+      typeof window !== 'undefined' &&
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    if (isLocal) {
+      return await switchNetworkToHardhat();
+    } else {
+      return await switchNetworkToSepolia();
+    }
+  };
+
   // Deposit / Swap Crypto (ETH or Cronos TCRO) for $RIFT
   const depositCryptoForRift = async (amount, currency = 'ETH') => {
     if (!account) {
@@ -496,14 +567,30 @@ export function Web3Provider({ children }) {
     const rate = currency === 'TCRO' ? 100 : RIFT_PER_ETH;
     const riftAmount = Math.round(numAmount * rate);
 
-    showToast(`⏳ Đang kiểm tra ví và gửi yêu cầu MetaMask chuyển ${numAmount} ${currency}...`, 'info');
-
     let txHash = null;
 
     // 1. Thực hiện chuyển tiền thật qua MetaMask trên EVM Blockchain
     if (window.ethereum) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
+        const network = await provider.getNetwork();
+        const activeChainId = Number(network.chainId);
+
+        // Kiểm tra an toàn: Chặn việc trừ nhầm token khác mạng
+        if (currency === 'ETH' && activeChainId === 338) {
+          showToast('⚠️ Bạn đang chọn đổi ETH nhưng ví MetaMask đang ở Cronos Testnet (đồng TCRO). Vui lòng chuyển mạng sang Ethereum!', 'warning');
+          await switchNetworkToEthereum();
+          return false;
+        }
+
+        if (currency === 'TCRO' && activeChainId !== 338) {
+          showToast('⚠️ Bạn đang chọn đổi TCRO nhưng ví MetaMask chưa ở mạng Cronos Testnet. Vui lòng chuyển sang Cronos!', 'warning');
+          await switchNetworkToCronosTestnet();
+          return false;
+        }
+
+        showToast(`⏳ Đang gửi yêu cầu MetaMask chuyển ${numAmount} ${currency}...`, 'info');
+
         const signer = await provider.getSigner();
 
         const recipient =
@@ -926,6 +1013,8 @@ export function Web3Provider({ children }) {
         disconnectWallet,
         switchNetworkToHardhat,
         switchNetworkToCronosTestnet,
+        switchNetworkToSepolia,
+        switchNetworkToEthereum,
         getNetworkInfo,
         depositEthForRift,
         depositCryptoForRift,

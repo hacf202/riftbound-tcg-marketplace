@@ -12,6 +12,9 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
     connectMetaMask,
     claimFaucet,
     chainId,
+    switchNetworkToCronosTestnet,
+    switchNetworkToEthereum,
+    showToast,
   } = useWeb3();
 
   const isCronos =
@@ -24,12 +27,16 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
   const [isSwapping, setIsSwapping] = useState(false);
 
   React.useEffect(() => {
-    if (isCronos) {
+    if (Number(chainId) === 338) {
       setCurrency('TCRO');
       setInputVal('10');
       setRiftInput('1000');
+    } else if (Number(chainId) === 31337 || Number(chainId) === 11155111) {
+      setCurrency('ETH');
+      setInputVal('0.1');
+      setRiftInput('1000');
     }
-  }, [chainId, isCronos, isOpen]);
+  }, [chainId, isOpen]);
 
   if (!isOpen) return null;
 
@@ -53,14 +60,20 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
 
   const activePresets = currency === 'TCRO' ? presetsTCRO : presetsETH;
 
-  const handleCurrencySwitch = (newCurr) => {
+  const handleCurrencySwitch = async (newCurr) => {
     setCurrency(newCurr);
     if (newCurr === 'TCRO') {
       setInputVal('10');
       setRiftInput('1000');
+      if (window.ethereum && Number(chainId) !== 338) {
+        await switchNetworkToCronosTestnet();
+      }
     } else {
       setInputVal('0.1');
       setRiftInput('1000');
+      if (window.ethereum && Number(chainId) === 338) {
+        await switchNetworkToEthereum();
+      }
     }
   };
 
@@ -96,6 +109,18 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
     }
     const num = parseFloat(inputVal);
     if (isNaN(num) || num <= 0) return;
+
+    if (currency === 'ETH' && Number(chainId) === 338) {
+      showToast('⚠️ Ví MetaMask đang ở mạng Cronos Testnet (đồng TCRO). Vui lòng chuyển sang mạng Ethereum để trừ ETH!', 'warning');
+      await switchNetworkToEthereum();
+      return;
+    }
+
+    if (currency === 'TCRO' && Number(chainId) !== 338) {
+      showToast('⚠️ Ví MetaMask chưa ở mạng Cronos Testnet. Vui lòng chuyển sang Cronos Testnet để đổi TCRO!', 'warning');
+      await switchNetworkToCronosTestnet();
+      return;
+    }
 
     setIsSwapping(true);
     const success = await depositCryptoForRift(num, currency);
@@ -229,6 +254,32 @@ export default function CurrencyConverterModal({ isOpen, onClose }) {
             </div>
           </div>
         </div>
+
+        {/* Network Mismatch Notice */}
+        {currency === 'ETH' && Number(chainId) === 338 && (
+          <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 mb-3.5">
+            <span>Ví đang ở mạng Cronos. Vui lòng chuyển sang Ethereum để trừ ETH.</span>
+            <button
+              type="button"
+              onClick={switchNetworkToEthereum}
+              className="ml-2 px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 transition whitespace-nowrap"
+            >
+              Chuyển mạng
+            </button>
+          </div>
+        )}
+        {currency === 'TCRO' && Number(chainId) !== 338 && (
+          <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 mb-3.5">
+            <span>Ví chưa ở Cronos Testnet. Cần chuyển mạng để trừ đồng TCRO.</span>
+            <button
+              type="button"
+              onClick={switchNetworkToCronosTestnet}
+              className="ml-2 px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 transition whitespace-nowrap"
+            >
+              Chuyển mạng
+            </button>
+          </div>
+        )}
 
         {/* Action Button */}
         <div className="space-y-2.5">
