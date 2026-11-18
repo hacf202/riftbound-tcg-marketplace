@@ -1,114 +1,201 @@
-# TÀI LIỆU ÔN TẬP CỐT LÕI: RIFTBOUND TCG MARKETPLACE
-> **Phong cách trình bày**: Ngôn ngữ tự nhiên, bình dân, sử dụng các hình ảnh đời thực để bất kỳ ai dù không rành kỹ thuật cũng có thể hiểu thấu đáo bản chất của Blockchain trong vòng 10 phút.
+# TÀI LIỆU CỐT LÕI ÔN TẬP VÀ VẤN ĐÁP: RIFTBOUND TCG MARKETPLACE
+> **Phong cách trình bày**: Ngôn ngữ trực quan, bình dân, sử dụng các hình ảnh đời thực gần gũi thay vì công thức máy móc để sinh viên nắm bắt bản chất công nghệ trong 10 phút và tự tin đối đáp mọi câu hỏi vấn đáp của Giảng viên.
 
 ---
 
-## 1. DỰ ÁN NÀY LÀ CÁI GÌ? (GIẢI THÍCH KIỂU "NÓI CHUYỆN ĐỜI THƯỜNG")
+## 1. DỰ ÁN NÀY LÀ GÌ? (GIẢI THÍCH KIỂU ĐỜI THƯỜNG)
 
-Hãy tưởng tượng bạn đang chơi một game thẻ bài ma thuật (như Yu-Gi-Oh! hay Pokemon), nhưng thay vì mua bài giấy ngoài đời:
-* **Ở Game truyền thống (Web2 - Hearthstone, FIFA)**: Thẻ bài bạn nạp tiền triệu ra mở được thực chất **chẳng phải của bạn**. Nó nằm trên máy chủ của công ty game. Ngày mai công ty game phá sản, hoặc admin "ngứa mắt" khóa tài khoản bạn, toàn bộ thẻ bài bốc hơi thành con số 0. Muốn bán lại cho người khác thì bị cấm, bán chui trên mạng thì 90% bị lừa đảo quỵt tiền.
-* **Ở Dự án Riftbound TCG (Web3)**: Mỗi lá bài được biến thành một món tài sản số (gọi là **NFT**). Nó nằm trong **ví cá nhân (MetaMask)** của chính bạn. Công ty game có sập thì thẻ bài vẫn nằm trong túi bạn mãi mãi. Bạn có thể mang lên chợ bán lấy tiền thật, và hệ thống giao dịch tự động bảo vệ bạn 100%, không một ai có thể bùng tiền hay cướp bài của bạn.
+Hãy tưởng tượng bạn đang chơi một game sưu tầm thẻ bài (như Pokemon, Yu-Gi-Oh! hay Liên Minh Huyền Thoại), nhưng thay vì mua bài giấy ngoài đời:
+
+* **Ở Game truyền thống (Web2 - Hearthstone, FIFA Online, Genshin Impact)**:
+  * Toàn bộ thẻ bài, đồ đạc bạn bỏ hàng chục triệu ra mở hòm thực chất **chẳng bao giờ thuộc về bạn**. Chúng chỉ là các dòng dữ liệu nằm trong máy chủ của công ty game.
+  * Giống như bạn **đi thuê nhà trọ**: Chủ trọ thích đuổi lúc nào thì đuổi, công ty game phá sản hoặc khóa tài khoản là toàn bộ công sức bốc hơi về con số 0.
+  * Muốn bán lại cho người chơi khác thì bị cấm, giao dịch chui ngoài chợ đen thì 90% bị lừa đảo quỵt tiền.
+* **Ở Dự án Riftbound TCG (Web3 - Blockchain)**:
+  * Mỗi lá bài được biến thành một tài sản số có quyền sở hữu độc lập (gọi là **NFT**).
+  * Giống như bạn **mua đứt một mảnh đất có Sổ Đỏ**: Lá bài nằm trong **ví cá nhân (MetaMask)** của bạn, được bảo vệ bằng mật mã học. Công ty game có sập máy chủ, thẻ bài vẫn nguyên vẹn trong ví của bạn trên mạng blockchain toàn cầu.
+  * Bạn có toàn quyền mang lên sàn giao dịch mua bán lấy tiền thật một cách an toàn tuyệt đối thông qua **Hợp đồng thông minh (Smart Contract)**, không ai có thể giật đồ hay bùng kèo.
 
 ---
 
-## 2. NHỮNG KHÁI NIỆM KỸ THUẬT "KHÓ HIỂU" ĐƯỢC VÍ VON RA SAO?
+## 2. BẢN CHẤT CÁC CƠ CHẾ KỸ THUẬT QUA VÍ DỤ ĐỜI THỰC
 
 ### 1. Smart Contract (Hợp đồng thông minh) là gì?
-* **Ví von**: Nó giống hệt như một **Cây Bán Nước Tự Động**.
-  * Ở ngoài đời, bạn muốn mua nước phải có người bán hàng (bên trung gian), người đó có thể thối thiếu tiền hoặc lừa bạn.
-  * Cây bán nước tự động thì khác: Bạn nhét đúng 10.000đ và bấm nút, cái lò xo xoay và lon nước ngọt rơi xuống. Nếu nhét thiếu tiền, máy nhả tiền lại. Không ai can thiệp được, không cần tin tưởng ai, cứ đúng quy tắc cài sẵn là máy tự làm.
-  * **Smart Contract trong dự án** chính là một "cây bán hàng tự động" viết bằng code: Người mua đưa tiền -> Máy tự nhả thẻ bài và tự chia tiền cho người bán.
+* **Ví von**: **Cây Bán Nước Tự Động**.
+  * Ở đời thực, mua hàng qua người bán thì người đó có thể thối thiếu tiền hoặc đưa nhầm đồ.
+  * Cây bán nước tự động thì khác: Bạn nhét đúng 10.000đ và bấm nút lon Coca, lò xo xoay và lon Coca rơi xuống. Nếu nhét thiếu tiền, máy nhả tiền lại; nếu nhét thừa, máy thối đúng số dư. Không ai can thiệp được, cứ đúng quy tắc cài sẵn là máy tự chạy.
+  * **Smart Contract trong dự án** chính là "cây bán hàng tự động bằng mã nguồn": Người mua đưa tiền -> Hợp đồng tự động chuyển thẻ bài sang ví người mua, đồng thời chia tiền cho người bán và tác giả mà không cần bất kỳ bên trung gian nào đứng giữa.
 
 ---
 
-### 2. Ví MetaMask & Private Key là gì?
-* **Ví von**: Giống như **Chiếc Két Sắt Riêng Biệt** mà chìa khóa duy nhất nằm trong túi bạn.
-  * Web2 giống như bạn để đồ trong tủ ở phòng trọ: Chủ trọ luôn có chìa khóa sơ cua, họ thích mở lúc nào cũng được, đuổi bạn lúc nào cũng xong.
-  * Web3 là bạn tự mua két sắt mang theo người. Chỉ bạn có mật mã (Private Key). Kể cả trang web sàn giao dịch có bị mất điện sập nguồn, thẻ bài trong két của bạn vẫn nguyên vẹn 100%.
+### 2. Ví MetaMask, Địa Chỉ Ví & Private Key là gì?
+* **Ví von**: **Chiếc Két Sắt Riêng Biệt** mà chìa khóa duy nhất nằm trong túi bạn.
+  * **Địa chỉ ví (Address, ví dụ `0x0730...19F1C`)**: Giống như **Số tài khoản ngân hàng** hoặc số nhà của bạn. Bạn có thể công khai cho bất kỳ ai để họ gửi tiền hay gửi thẻ bài cho bạn.
+  * **Private Key (hoặc 12 từ khóa khôi phục)**: Giống như **Chìa khóa mở két sắt** hoặc mã PIN thẻ ATM. Ai giữ chìa này sẽ lấy được toàn bộ tài sản trong két. Trong Web3, **không có nút "Quên mật khẩu"** và không ai cấp lại được nếu bạn làm mất khóa.
 
 ---
 
-### 3. Đồng Tiền $RIFT (Chuẩn ERC-20) là gì?
-* **Ví von**: Giống như **Đồng Xèng ở khu vui chơi Timezone / Vincom**.
-  * Bạn cầm tiền mặt (ETH) đến quầy đổi lấy một nắm xèng ($RIFT).
-  * Bạn dùng xèng đó nhét vào máy để chơi trò bóc gói thẻ bài (Gacha), hoặc dùng xèng để mua thẻ bài của những người chơi khác trong sàn.
-* **Nút Faucet 1-Click (Vòi nước thử nghiệm)**:
-  * Giống như **Quầy phát mẫu thử nước ngọt miễn phí ngoài siêu thị**. Giảng viên chỉ cần bấm 1 cái là nhận ngay 1,000 xèng $RIFT để test game.
-  * *Khóa thời gian Cooldown 1 phút*: Giống như bảo vệ quy định "mỗi người chỉ được nhận 1 lon miễn phí, muốn lấy tiếp phải xếp hàng chờ 1 phút sau", tránh việc một người đứng bấm liên tục làm hết sạch xèng của hội trường.
+### 3. Đồng Tiền $RIFT (Chuẩn ERC-20) vs Tiền Tệ Gốc (ETH / TCRO)
+* **Ví von**: **Đồng Xèng ở khu vui chơi Timezone / Vincom**.
+  * Bạn cầm tiền mặt (ETH hoặc TCRO) đến quầy nạp để đổi lấy một nắm xèng ($RIFT).
+  * Bạn dùng xèng $RIFT này để tham gia các hoạt động trong game: bóc gói thẻ bài (Gacha), mua bán thẻ trên chợ.
+* **Tại sao game phải tạo đồng $RIFT riêng thay vì dùng thẳng ETH/TCRO?**
+  1. **Tránh biến động giá bên ngoài**: Giá đồng ETH ngoài đời tăng giảm từng ngày theo thị trường tài chính. Nếu định giá thẻ bài bằng ETH, hôm nay thẻ giá 100.000đ, ngày mai ETH sốt giá thì thẻ vọt lên 200.000đ, người chơi mới không thể tiếp cận được.
+  2. **Tự chủ nền kinh tế game (Tokenomics)**: Đội ngũ phát triển có thể tự do cân đối lạm phát, phát hành phần thưởng giải đấu, điều chỉnh giá thẻ bài ổn định mà không phụ thuộc vào mạng ngoài.
 
 ---
 
-### 4. Chuẩn ERC-1155 vs ERC-721: "Tại sao không dùng chuẩn cũ 721?"
-*(Đây là câu hỏi "bẫy" mà 90% Giảng viên sẽ hỏi để kiểm tra bạn có hiểu bài không)*
+### 4. Các Lá Bài Giống Nhau Hoạt Động Ra Sao? (Chuẩn ERC-1155 Semi-Fungible)
+*Câu hỏi giảng viên hay hỏi*: *"Nếu có 1,000 lá bài 'Yasuo Lôi Kiếm' phát hành cho 1,000 người, hệ thống phân biệt và quản lý thế nào?"*
 
-* **Ví von sự khác nhau**:
-  * **ERC-721 (Chuẩn cũ)**: Giống như **Bức tranh Mona Lisa** hoặc **Tờ Sổ Đỏ Nhà Đất**. Mỗi vật phẩm là độc nhất vô nhị trên đời.
-  * **ERC-1155 (Chuẩn dự án dùng)**: Giống như **Vé Xem Phim Suất Chiếu 19h của rạp CGV**. Rạp in ra 500 cái vé giống hệt nhau, ai cầm vé đó cũng vào xem đúng bộ phim đó (thuật ngữ gọi là *Semi-fungible* - Bán thay thế).
-* **Bài toán thực tế trong game bài**:
-  * Lá bài "Ahri Chín Đuôi" phát hành cho 1,000 người chơi. Cả 1,000 lá này có sức mạnh, hình ảnh và công dụng y hệt nhau.
-  * Nếu dùng ERC-721: Muốn tặng người chơi 5 lá bài khi mở gói, hợp đồng phải làm **5 thủ tục công chứng riêng biệt**, tốn 5 lần tiền phí mạng (Gas). Rất đắt đỏ và nghẽn mạng!
-  * Dùng ERC-1155: Gom cả 5 lá bài nhét chung vào **1 chiếc phong bì chuyển phát nhanh (`mintBatch`)** và gửi đi trong 1 lần duy nhất -> **Tiết kiệm đến 80% tiền phí Gas**.
-
----
-
-### 5. Chuẩn ERC-2981: Tiền Bản Quyền Cho Họa Sĩ Hoạt Động Ra Sao?
-* **Ví von**: Chuyện bản quyền bài hát của Nhạc sĩ.
-  * Ở đời thực: Họa sĩ vẽ một bức tranh bán đứt cho phòng tranh giá 5 triệu. Sau này phòng tranh bán lại cho đại gia giá 5 tỷ, họa sĩ chỉ biết đứng nhìn mà **không được thêm một xu nào**.
-  * Ở dự án này (ERC-2981): Hợp đồng thông minh được cài một điều luật vĩnh viễn: "Cứ mỗi lần thẻ bài này được bán lại trên sàn, máy sẽ **tự động cắt 2.5% giá bán** bắn thẳng vào tài khoản ngân hàng (ví) của người họa sĩ đã vẽ ra nó". Dù lá bài có sang tay qua 10,000 người thì họa sĩ vẫn nhận tiền bản quyền trọn đời.
+* **Ví von**: **Vé Xem Phim Suất Chiếu 19h của rạp CGV** hoặc **1,000 cuốn sách tái bản lần 1**.
+  * Cả 1,000 chiếc vé đều có chung một mã phim (ví dụ: `Phim ID = 101`).
+  * Tất cả hình ảnh, diễn viên, thời lượng của phim gắn chung vào mã `101` này.
+  * Người xem A giữ 2 vé (Số dư Balance = 2), người xem B giữ 1 vé (Balance = 1). Chúng có giá trị sử dụng thay thế cho nhau tương đương (gọi là *Semi-Fungible*).
+* **Cơ chế kỹ thuật trong game**:
+  * Mỗi chủng loại thẻ bài có một mã số định danh duy nhất: `Token ID` (ví dụ: Token ID 1 là Yasuo, Token ID 2 là Ahri).
+  * Tất cả các bản in của Token ID 1 đều dùng chung hình ảnh, tên gọi và chỉ số sức mạnh. Hợp đồng chỉ cần lưu một con số: *Địa chỉ ví X đang giữ bao nhiêu bản in của Token ID 1*.
+* **Tại sao dùng ERC-1155 mà không dùng chuẩn cũ ERC-721?**
+  * **ERC-721 (Chuẩn cũ)**: Giống như **Tờ Sổ Đỏ Nhà Đất** (độc bản 1-of-1). Nếu muốn mở một gói ra 5 lá bài, hợp đồng phải thực hiện **5 thủ tục công chứng riêng biệt**, tốn 5 lần phí mạng (Gas). Rất đắt và gây nghẽn mạng.
+  * **ERC-1155 (Chuẩn hiện đại)**: Cho phép gom cả 5 lá bài nhét chung vào **1 chiếc phong bì chuyển phát nhanh (`mintBatch`)** và gửi đi trong 1 lần duy nhất, giúp **tiết kiệm tới 80% tiền phí Gas**.
 
 ---
 
-### 6. Cơ Chế Ký Gửi (Escrow) Trên Sàn: Chống Bùng Kèo Như Thế Nào?
-* **Ví von**: Bác Bảo Vệ Giữ Đồ Trung Gian cực kỳ khó tính.
-  * **Cách mua bán chợ đen truyền thống**: Ông A bảo ông B "Mày chuyển khoản cho tao 500k trước rồi tao gửi mã thẻ game cho". Ông B chuyển tiền xong thì ông A lập tức chặn Facebook. Mất trắng tiền!
-  * **Cách Sàn Riftbound vận hành (Escrow)**:
-    1. Người bán muốn rao bán thẻ giá 50 $RIFT -> Bắt buộc phải đưa thẻ bài cho **Bác Bảo Vệ (Smart Contract Sàn)** cầm giữ trước. Thẻ bị khóa trong tủ của Sàn.
-    2. Người mua bước tới bấm "Mua" -> Bác Bảo Vệ yêu cầu đưa đủ 50 $RIFT.
-    3. Ngay khi tiền vừa chạm tay, Bác Bảo Vệ thực hiện động tác **Đổi Chéo Đồng Thời (Atomic Swap)**: Đưa thẻ cho người mua, đồng thời đưa tiền cho người bán.
-    4. Nếu người mua không đủ tiền: Tủ không mở, thẻ vẫn trả về cho người bán. Không ai có thể gian lận hay giật đồ của ai!
+### 5. Gói Lá Bài (Booster Pack) Cụ Thể Thế Nào? Từ Đâu Ra Và Ai Quản Lý?
+*Câu hỏi giảng viên hay hỏi*: *"Các gói thẻ bài từ đâu mà có? Ai quản lý việc tạo ra gói bài và bốc thẻ?"*
+
+* **Gói bài từ đâu mà có?**
+  * Gói bài được tạo ra từ hợp đồng thông minh **`RiftBoosterPack.sol`** theo quy chuẩn phát hành ban đầu của dự án.
+  * Giống như các bọc thẻ bài Pokemon nguyên seal được nhà máy niêm phong xuất xưởng, các gói bài trong game (Gói Tân Thủ, Gói Chiến Binh, Gói Thần Thoại) được định nghĩa sẵn trong mã nguồn với mức giá niêm yết bằng $RIFT.
+* **Cơ chế bốc bài (Gacha RNG) hoạt động ra sao?**
+  1. Người chơi trả phí $RIFT (ví dụ: 100 $RIFT) cho hợp đồng `RiftBoosterPack`.
+  2. Hợp đồng lập tức kích hoạt thuật toán sinh số ngẫu nhiên on-chain. Con số này được kết hợp từ: Thời gian đóng khối (`block.timestamp`), hạt ngẫu nhiên của chuỗi Ethereum (`block.prevrandao`), và địa chỉ ví người bốc (`msg.sender`).
+  3. Dựa trên số ngẫu nhiên, hợp đồng xác định độ hiếm theo tỷ lệ công khai: **70% Thường (Common), 25% Hiếm (Rare), 5% Thần Thoại (Mythic)**.
+  4. Hợp đồng gọi hàm `mintBatch` của `RiftCardNFT` để đúc mới các lá bài trúng thưởng và chuyển thẳng vào ví người chơi.
+* **Ai quản lý gói bài?**
+  * Hợp đồng thông minh quản lý tự động 100% bằng quy tắc toán học bất biến.
+  * Nhà phát hành (Admin) chỉ có quyền nạp thêm danh mục ID thẻ bài mới hoặc điều chỉnh giá bán gói, nhưng **tuyệt đối không thể can thiệp tráo bài, gian lận hay giữ bài xịn cho tài khoản quen biết**. Bất kỳ ai cũng có thể đọc code và kiểm chứng tính công bằng.
 
 ---
 
-### 7. Công Thức Chia Tiền 3 Dòng Tự Động: 95.5% - 2.0% - 2.5%
-Khi người mua trả 100 $RIFT mua một lá bài, Smart Contract tự động xé dòng tiền làm 3 mảnh ngay tại chỗ:
-* **95.5 $RIFT (95.5%)** -> Chuyển thẳng về ví **Người Bán** (thực nhận gần như trọn vẹn).
-* **2.0 $RIFT (2.0%)** -> Chuyển vào **Quỹ Kho Bạc Sàn (Treasury)** (dùng duy trì máy chủ, tổ chức giải đấu game).
-* **2.5 $RIFT (2.5%)** -> Chuyển vào ví **Họa Sĩ Sáng Tạo Thẻ Bài** (tiền bản quyền ERC-2981).
-* *Điểm hay*: Toàn bộ diễn ra trong 1 giây, không cần kế toán ngồi cộng sổ hay chuyển khoản tay cuối tháng.
+### 6. Phí Sàn (Protocol Fee) Là Gì? Ai Thu Và Dùng Để Làm Gì?
+* **Ví von**: **Phí bảo trì và quản lý chợ / Trung tâm thương mại**.
+* **Bản chất**:
+  * Khi hai người chơi mua bán thành công một lá bài trên sàn, Smart Contract tự động trích ra **2.0% giá trị giao dịch** chuyển về **Ví Kho Bạc (Treasury)** của dự án.
+* **Mục đích sử dụng**:
+  1. Duy trì chi phí vận hành máy chủ, dịch vụ CDN lưu trữ hình ảnh thẻ bài và kết nối node RPC.
+  2. Tạo nguồn quỹ tài trợ giải đấu game định kỳ cho cộng đồng người chơi.
+  3. Cung cấp thanh khoản dự phòng cho sàn giao dịch.
+* **Tính minh bạch**: Mức phí 2.0% được ghi cứng trong mã nguồn hợp đồng, không một ai có thể tự ý thu thêm hoặc ém nhẹm tiền phí.
 
 ---
 
-### 8. Chống Hack Reentrancy (Tấn Công Tái Nhập) Là Chống Cái Gì?
-* **Ví von**: **Tên trộm đứng rút tiền ở Cây ATM trước khi máy kịp trừ tiền trong tài khoản**.
-  * Lỗi Reentrancy xảy ra khi cây ATM nhả tiền ra ngoài trước rồi mới ghi sổ tài khoản về 0đ. Tên trộm viết một con bot siêu nhanh: Tiền vừa thò ra mép máy, nó gửi tiếp lệnh "Rút tiền tiếp!" cả ngàn lần trong 1 phần triệu giây khi máy chưa kịp ghi sổ. Thế là cây ATM bị rút cạn sạch tiền!
-  * **Cách dự án khắc phục (Quy tắc CEI - Checks-Effects-Interactions)**:
-    * Khi người dùng mua hoặc rút thẻ: Sàn sẽ **Gạch sổ trừ số lượng thẻ trước (Effects)** rồi sau đó mới tiến hành chuyển tiền/chuyển thẻ (Interactions).
-    * Kèm theo một ổ khóa cửa (`nonReentrant`): Khi một người đang bước vào phòng giao dịch, cửa tự động khóa chốt trong. Người đó phải xong xuôi đi ra thì người khác mới được vào. Triệt tiêu 100% nguy cơ bị hack cạn kho thẻ.
+### 7. Tiền Bản Quyền (Royalty Fee) Chuyển Cho Ai? Họa Sĩ Hay Người Sở Hữu Đầu Tiên?
+*Câu hỏi cốt lõi giảng viên kiểm tra kiến thức về chuẩn ERC-2981:*
+
+* **Ví von**: **Tiền tác quyền bài hát của Nhạc sĩ**.
+  * Ở ngoài đời truyền thống: Họa sĩ vẽ một bức tranh bán đứt cho người đầu tiên giá 5 triệu. 10 năm sau người đó bán lại cho đại gia giá 5 tỷ, người họa sĩ nghèo vẫn không được thêm một xu nào.
+  * Ở chuẩn **ERC-2981** của dự án: Quyền lợi người sáng tạo được bảo vệ trọn đời.
+* **Cơ chế chuyển tiền**:
+  * Tiền bản quyền (2.5%) được chuyển thẳng về **VÍ CỦA HỌA SĨ / NGƯỜI SÁNG TẠO LÁ BÀI (Creator/Artist)**, **KHÔNG PHẢI** người sở hữu đầu tiên (First Owner).
+* **Ví dụ thực tế**:
+  1. Họa sĩ Nam vẽ lá bài "Rồng Sấm Sét" và khai báo ví của mình là địa chỉ nhận bản quyền trên hợp đồng.
+  2. Người chơi A mở gói bài trúng lá này (A là người sở hữu đầu tiên).
+  3. A bán lá bài cho B với giá 100 $RIFT:
+     * **A (người bán)** nhận: **95.5 $RIFT** (95.5%).
+     * **Sàn** nhận phí duy trì: **2.0 $RIFT** (2.0%).
+     * **Họa sĩ Nam (Creator)** nhận tiền tác quyền: **2.5 $RIFT** (2.5%).
+  4. Sau này B bán lại cho C với giá 1,000 $RIFT: B nhận 955 $RIFT, còn Họa sĩ Nam tiếp tục nhận thêm 25 $RIFT. Dù lá bài sang tay hàng ngàn lần qua nhiều năm, tác giả luôn nhận được hoa hồng tự động.
 
 ---
 
-### 9. Thuật Toán Bóc Gói Thẻ Bài (Gacha RNG): Có Bị Nhà Game Bịp Không?
-* **Ví von**: **Quay Xổ Số Kiến Thiết Trực Tiếp Trên Tivi**.
-  * Game Web2: Bạn bấm mở hòm, vòng quay quay tít trên màn hình nhưng thực chất kết quả trúng hay trượt đã được máy chủ bí mật sắp đặt từ trước. Nhà phát hành có thể bí mật chỉnh tỷ lệ rớt đồ xuống 0.0001% mà bạn không hề hay biết.
-  * Hợp đồng `RiftBoosterPack.sol`: Con số ngẫu nhiên được nhào nặn từ các nguyên liệu công khai: Giờ giấc đóng block (`timestamp`), hạt xúc xắc ngẫu nhiên của toàn mạng Ethereum (`prevrandao`) và địa chỉ ví của bạn. Tỷ lệ 70% bài Thường, 25% bài Hiếm, 5% Sử Thi được viết thẳng vào code. Bất kỳ ai cũng có thể mở code ra soi, minh bạch tuyệt đối!
+### 8. Cơ Chế Ký Gửi (Escrow) Trên Sàn: Chống Bùng Kèo Ra Sao?
+* **Ví von**: **Giao dịch qua Bác Bảo Vệ công chứng cực kỳ nghiêm khắc**.
+  * **Chợ đen truyền thống**: A bảo B "Chuyển khoản trước cho tao 500k rồi tao đưa tài khoản game". B chuyển tiền xong thì A chặn tin nhắn. B mất trắng.
+  * **Cơ chế Ký gửi (Escrow) của Riftbound**:
+    1. Khi A muốn đăng bán lá bài: A buộc phải đưa thẻ bài cho Smart Contract Sàn (Bác Bảo Vệ) cầm giữ trước. Thẻ bị khóa niêm phong trong tủ ký gửi của sàn.
+    2. B muốn mua: B nạp đủ số tiền $RIFT theo giá niêm yết vào Smart Contract.
+    3. Ngay trong tích tắc đó, Smart Contract thực hiện động tác **Hoán đổi đồng thời (Atomic Swap)**: Giao thẻ cho B, đồng thời chia tiền cho A, Sàn và Họa sĩ.
+    4. Nếu B không đủ tiền: Giao dịch lập tức bị hủy bỏ, thẻ bài vẫn nằm an toàn trong tủ hoặc hoàn trả về cho A. Không một bên nào có thể lừa đảo bên nào.
 
 ---
 
-## 3. BẢNG PHẢN XẠ NHANH 30 GIÂY KHI GIẢNG VIÊN VẤN ĐÁP
+### 9. Chống Tự Mua Thẻ Của Chính Mình (Anti-Wash Trading)
+* **Vấn đề gian lận**: Kẻ gian tạo 2 tài khoản, tự bán tự mua một lá bài với giá 1,000,000 $RIFT để tạo cơn sốt ảo, thổi phồng giá trị thẻ bài nhằm lừa người chơi mới mua lại giá cao.
+* **Cách dự án ngăn chặn**:
+  * Tại Smart Contract sàn giao dịch: Kiểm tra ngay điều kiện tiên quyết:
+    `if (listing.seller == msg.sender) revert("Khong the tu mua the cua chinh minh");`
+  * Người bán nếu không muốn bán nữa chỉ có một cách duy nhất là bấm nút **"Hủy niêm yết" (Cancel Listing)** để rút thẻ bài về túi đồ, hoàn toàn không thể tự kích hoạt giao dịch mua bán ảo.
 
-| Giảng viên hỏi | Bạn trả lời ngắn gọn, tự tin thế này: |
+---
+
+### 10. Phí Gas (Gas Fee) Là Gì? Ai Nhận Và Tại Sao Phải Có?
+* **Ví von**: **Cước phí gửi xe / Phí qua trạm thu phí BOT**.
+* **Ai nhận phí gas?**
+  * Sàn Riftbound **hoàn toàn không nhận** khoản phí này.
+  * Phí gas được trả cho các máy tính đào/xác thực (Validators/Miners) trên toàn cầu để họ tiêu tốn điện năng và phần cứng xác nhận giao dịch của bạn vào khối block.
+* **Tại sao bắt buộc phải có phí gas?**
+  * **Chống nghẽn mạng và tấn công từ chối dịch vụ (Anti-DoS)**: Nếu việc gửi lệnh lên blockchain hoàn toàn miễn phí, kẻ xấu có thể viết đoạn mã gửi hàng tỷ giao dịch rác trong 1 giây làm sập toàn bộ hệ thống. Bắt buộc trả phí gas giúp ngăn chặn triệt để hành vi phá hoại này.
+
+---
+
+### 11. On-Chain vs Off-Chain: Hình Ảnh Thẻ Bài Nặng Vài Megabyte Lưu Ở Đâu?
+*Câu hỏi giảng viên hay hỏi*: *"Toàn bộ hình ảnh thẻ bài có lưu trực tiếp trong Smart Contract không?"*
+
+* **Câu trả lời**: **KHÔNG lưu trực tiếp file ảnh trên chuỗi (On-chain)**.
+* **Lý do**:
+  * Không gian lưu trữ trên Blockchain rất đắt đỏ. Lưu 1 Megabyte dữ liệu trực tiếp trên mạng Ethereum có thể tốn hàng chục triệu đồng tiền phí gas!
+* **Cách giải quyết chuẩn công nghiệp**:
+  * **On-Chain (Lưu trên chuỗi)**: Chỉ lưu thông tin nhẹ mang tính pháp lý: Mã thẻ bài (`Token ID`), số lượng sở hữu, lịch sử giao dịch và một đường link mã hóa (`tokenURI`).
+  * **Off-Chain (Lưu ngoài chuỗi)**: File ảnh chất lượng cao, hình động 3D, âm thanh và cốt truyện được lưu trên hệ thống lưu trữ phi tập trung **IPFS** hoặc mạng phân phối nội dung **CDN**. Smart contract chỉ cần trỏ đường link tới file ảnh này.
+
+---
+
+### 12. Smart Contract Có Sửa Được Không? Nếu Có Lỗi (Bug) Thì Sao?
+* **Bản chất**: Sau khi triển khai lên blockchain, Smart Contract có tính **Bất biến (Immutability)** — không một ai, kể cả lập trình viên viết ra nó, có thể sửa đổi mã nguồn đã chạy trên khối.
+* **Nếu phát hiện lỗi logic thì xử lý thế nào?**
+  1. **Giải pháp di cư (Migration)**: Triển khai một bản hợp đồng mới đã vá lỗi, sau đó chuyển giao số dư và dữ liệu từ hợp đồng cũ sang hợp đồng mới.
+  2. **Giải pháp nâng cấp (Proxy Pattern - ERC-1967)**: Tách hệ thống làm 2 hợp đồng: Hợp đồng chứa dữ liệu (Proxy) và Hợp đồng chứa logic xử lý (Implementation). Khi cần sửa logic, lập trình viên chỉ cần trỏ hợp đồng Proxy sang bản logic mới mà toàn bộ dữ liệu thẻ bài và số dư người chơi vẫn giữ nguyên vẹn.
+
+---
+
+### 13. Phân Biệt Testnet và Mainnet
+* **Testnet (Mạng thử nghiệm - ví dụ: Cronos Testnet, Sepolia)**:
+  * Là môi trường giả lập dành cho lập trình viên và người dùng chạy thử tính năng.
+  * Tiền tệ (TCRO, Sepolia ETH) được cấp miễn phí từ các vòi phát (Faucet) và **không có giá trị quy đổi kinh tế ngoài đời thực**.
+* **Mainnet (Mạng chính thức - ví dụ: Ethereum Mainnet, Cronos Mainnet)**:
+  * Là môi trường chạy thật nơi tài sản có giá trị tài chính thực tế được giao dịch bằng tiền thật (USD, VND).
+
+---
+
+## 3. BẢNG ĐỐI ĐÁP PHẢN XẠ NHANH 30 GIÂY KHI GIẢNG VIÊN VẤN ĐÁP
+
+| Giảng viên hỏi | Câu trả lời trọng tâm, ngắn gọn và tự tin |
 | :--- | :--- |
-| **"Tại sao em lại chọn chuẩn ERC-1155 mà không dùng ERC-721?"** | *"Dạ thưa Thầy, ERC-721 chỉ hợp với tranh độc bản 1-of-1. Thẻ bài game có hàng ngàn bản in giống nhau (Semi-fungible). ERC-1155 gom chung vào 1 contract và cho phép gửi nhiều thẻ cùng lúc (`mintBatch`), giúp **tiết kiệm tới 80% tiền phí Gas** cho người chơi ạ."* |
-| **"Cơ chế Escrow của bên em hoạt động ra sao?"** | *"Dạ, người bán phải nộp thẻ vào Smart Contract ký gửi trước. Khi người mua trả tiền, hợp đồng thực hiện **hoán đổi nguyên tử (Atomic Swap)**: Tiền sang tay người bán thì thẻ mới sang tay người mua trong cùng 1 tích tắc. Không bên nào có cơ hội lừa đảo bên nào ạ."* |
-| **"Nếu máy chủ Backend SQLite bị sập thì thẻ của người dùng có mất không?"** | *"Dạ hoàn toàn không mất ạ. Backend SQLite chỉ là bộ nhớ tạm để hiển thị web cho mượt. Quyền sở hữu thẻ và tiền đều nằm vĩnh viễn trên sổ cái Blockchain. Kể cả website sập hoàn toàn, người chơi vẫn cắm ví MetaMask vào Remix IDE để lấy lại thẻ bài bình thường ạ."* |
-| **"Bản quyền tác giả ERC-2981 được chia thế nào?"** | *"Dạ, mỗi khi thẻ bài được bán lại trên thị trường, hợp đồng sàn tự động trích đúng 2.5% giá trị giao dịch chuyển thẳng về ví tác giả. Việc này diễn ra tự động on-chain, không cần thông qua ban quản trị duyệt chi ạ."* |
-| **"Hợp đồng của em bảo vệ chống tấn công Reentrancy thế nào?"** | *"Dạ, em dùng modifier `nonReentrant` của OpenZeppelin để khóa hàm khi đang chạy, đồng thời tuân thủ mẫu thiết kế **Checks-Effects-Interactions**: kiểm tra điều kiện, cập nhật trừ số lượng thẻ trước rồi mới thực hiện chuyển tiền ra ngoài ạ."* |
+| **"Tại sao em lại chọn chuẩn ERC-1155 thay vì ERC-721?"** | *"Dạ thưa Thầy/Cô, ERC-721 chỉ phù hợp cho vật phẩm độc bản 1-of-1. Thẻ bài trong game có hàng ngàn bản in giống hệt nhau (Semi-fungible). ERC-1155 gom chung vào 1 hợp đồng duy nhất và cho phép chuyển nhiều thẻ cùng lúc (`mintBatch`), giúp **tiết kiệm tới 80% phí Gas** cho người chơi ạ."* |
+| **"Cơ chế ký gửi Escrow trên sàn của em hoạt động thế nào?"** | *"Dạ, người bán phải chuyển thẻ vào Smart Contract Sàn ký gửi trước. Khi người mua nạp tiền, hợp đồng thực hiện **hoán đổi đồng thời (Atomic Swap)**: Tiền sang tay người bán thì thẻ mới sang tay người mua trong cùng một tích tắc. Không ai có cơ hội bùng kèo ạ."* |
+| **"Tiền bản quyền tác giả 2.5% được chuyển cho ai?"** | *"Dạ theo chuẩn ERC-2981, tiền bản quyền được chuyển thẳng về **ví của Họa sĩ/Creator sáng tác ra thẻ bài**, chứ không phải người mua đầu tiên. Mỗi khi thẻ bài được bán lại trên thị trường thứ cấp, họa sĩ luôn nhận được 2.5% trọn đời ạ."* |
+| **"Gói thẻ bài Booster Pack từ đâu ra và ai quản lý?"** | *"Dạ gói bài do hợp đồng `RiftBoosterPack` phát hành với tỷ lệ rớt đồ minh bạch (70% Thường, 25% Hiếm, 5% Thần Thoại). Khi người chơi mua gói, hợp đồng dùng hàm ngẫu nhiên on-chain bốc thẻ và đúc trực tiếp vào ví người chơi. Nhà phát hành không thể can thiệp tráo bài ạ."* |
+| **"Phí sàn 2% dùng để làm gì và ai giữ?"** | *"Dạ phí sàn 2% được tự động trích nộp về ví Quỹ Kho Bạc (Treasury) nhằm chi trả chi phí hạ tầng máy chủ, lưu trữ dữ liệu và tài trợ giải đấu cho cộng đồng người chơi ạ."* |
+| **"Nếu website máy chủ SQLite bị sập thì thẻ của người dùng có mất không?"** | *"Dạ hoàn toàn không mất ạ. Backend SQLite chỉ là bộ nhớ đệm hiển thị giao diện cho mượt. Quyền sở hữu thẻ và tiền đều nằm trên sổ cái Blockchain. Kể cả trang web sập vĩnh viễn, người chơi vẫn cắm ví MetaMask vào Remix IDE hoặc Etherscan để lấy lại thẻ bài bình thường ạ."* |
+| **"Làm sao em chống việc người bán tự mua bài của mình để thổi giá (Wash Trading)?"** | *"Dạ Smart Contract có dòng kiểm tra điều kiện tiên quyết: nếu địa chỉ người mua trùng với địa chỉ người bán thì giao dịch lập tức bị hủy bỏ (`revert`). Người bán chỉ có thể chọn hủy niêm yết để nhận lại thẻ ạ."* |
+| **"Làm thế nào hợp đồng của em chống tấn công Reentrancy?"** | *"Dạ em dùng modifier `nonReentrant` của OpenZeppelin để khóa hàm khi đang chạy, kết hợp tuân thủ mô hình thiết kế **Checks-Effects-Interactions**: kiểm tra điều kiện, trừ số lượng thẻ trước rồi mới thực hiện chuyển tiền ra ngoài ạ."* |
+| **"Tại sao hình ảnh thẻ bài không lưu trực tiếp trên Blockchain?"** | *"Dạ vì phí gas lưu trữ trên chuỗi rất đắt (1 MB tốn hàng trăm đến hàng nghìn USD). Do đó chuỗi chỉ lưu mã Token ID và đường dẫn mã hóa `tokenURI`, còn file ảnh gốc được lưu trữ phi tập trung trên mạng IPFS/CDN ạ."* |
 
 ---
 
-## 4. KỊCH BẢN 4 BƯỚC BIỂU DIỄN THỰC HÀNH ĂN TRỌN ĐIỂM
+## 4. KỊCH BẢN 4 BƯỚC DEMO THỰC HÀNH GHI ĐIỂM TUYỆT ĐỐI
 
-1. **Bước 1 (Show uy tín kỹ thuật)**: Bật terminal gõ `npm test`. Khoe ngay **9 bài test xanh lá cây PASS 100% trong chưa đầy 1 giây** chứng minh hợp đồng không có lỗi logic.
-2. **Bước 2 (Demo tiền tệ)**: Vào web bấm **Faucet 1-Click** nhận 1,000 $RIFT. Bấm tiếp lần nữa để khoe dòng thông báo "Chặn spam Cooldown 1 phút" thể hiện tính bảo mật.
-3. **Bước 3 (Demo mở gói Gacha)**: Vào mục mở gói, chọn gói 100 $RIFT, ký ví MetaMask và trải nghiệm hiệu ứng lật thẻ bài 3D sống động.
-4. **Bước 4 (Demo sàn Escrow)**: Đăng bán lá bài vừa bóc được lên chợ. Lấy tài khoản thứ hai vào mua, sau đó mở kiểm tra lịch sử dòng tiền: Người bán nhận 95.5%, Quỹ nhận 2% và Tác giả nhận 2.5%.
+1. **Bước 1 (Chứng minh độ chuẩn chỉ mã nguồn)**:
+   * Mở terminal gõ: `npx hardhat test` (hoặc `npm test`).
+   * Chỉ cho Giảng viên thấy **toàn bộ bài test xanh lá cây PASS 100% trong chưa đầy 1 giây**, bao gồm test Mint thẻ, test Mua bán Escrow, test Chia 3 dòng tiền và test Chống Wash Trading.
+2. **Bước 2 (Demo tiền tệ & Faucet an toàn)**:
+   * Mở giao diện web trên Production, bấm nút **Nhận 1,000 $RIFT Miễn Phí (Không tốn gas)**.
+   * Khoe số dư tăng ngay lập tức lên 1,000 $RIFT mà ví MetaMask không bị trừ bất kỳ 1 xu TCRO phí gas nào.
+3. **Bước 3 (Demo mở gói Gacha Booster Pack)**:
+   * Vào mục Mở Gói Thẻ Bài, chọn một gói thẻ (ví dụ: Gói Chiến Binh 100 $RIFT).
+   * Bấm mở gói, trải nghiệm hiệu ứng lật mở 5 lá bài ngẫu nhiên và giải thích cơ chế tỷ lệ rớt đồ minh bạch của Smart Contract.
+4. **Bước 4 (Demo Sàn giao dịch & Chia 3 dòng tiền)**:
+   * Lấy lá bài vừa bóc được đăng bán lên Sàn Marketplace với giá 100 $RIFT.
+   * Dùng tài khoản ví thứ hai vào mua lá bài.
+   * Mở bảng lịch sử giao dịch (Activity Log) để chỉ rõ: Người bán nhận đủ 95.5 $RIFT, Quỹ nhận 2.0 $RIFT và Họa sĩ sáng tác nhận 2.5 $RIFT.
