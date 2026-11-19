@@ -60,6 +60,49 @@ const getInitialSelectedCardId = () => {
   return localStorage.getItem(LOCAL_STORAGE_SELECTED_CARD_KEY) || null;
 };
 
+// Robust Ethereum Provider Detection (Multi-wallet & Late injection support)
+export const getEthereumProvider = async () => {
+  if (typeof window === 'undefined') return null;
+
+  // 1. Immediate check: window.ethereum
+  if (window.ethereum) {
+    if (Array.isArray(window.ethereum.providers)) {
+      const metaMask = window.ethereum.providers.find((p) => p.isMetaMask);
+      if (metaMask) return metaMask;
+    }
+    return window.ethereum;
+  }
+
+  // 2. Wait up to 1000ms if extension script injection is delayed
+  return new Promise((resolve) => {
+    let resolved = false;
+
+    const onInitialized = () => {
+      if (resolved) return;
+      resolved = true;
+      window.removeEventListener('ethereum#initialized', onInitialized);
+      if (window.ethereum?.providers) {
+        resolve(window.ethereum.providers.find((p) => p.isMetaMask) || window.ethereum);
+      } else {
+        resolve(window.ethereum || null);
+      }
+    };
+
+    window.addEventListener('ethereum#initialized', onInitialized, { once: true });
+
+    setTimeout(() => {
+      if (resolved) return;
+      resolved = true;
+      window.removeEventListener('ethereum#initialized', onInitialized);
+      if (window.ethereum?.providers) {
+        resolve(window.ethereum.providers.find((p) => p.isMetaMask) || window.ethereum);
+      } else {
+        resolve(window.ethereum || null);
+      }
+    }, 1000);
+  });
+};
+
 export function Web3Provider({ children }) {
   // 1. Initial State: Strict MetaMask only, null if not connected
   const [account, setAccount] = useState(() => {
@@ -174,40 +217,52 @@ export function Web3Provider({ children }) {
       setWalletType(null);
       return;
     }
-    if (window.ethereum) {
-      window.ethereum
-        .request({ method: 'eth_accounts' })
-        .then((accounts) => {
-          if (accounts && accounts.length > 0) {
-            const acc = accounts[0];
-            setAccount(acc);
-            setWalletType('metamask');
-            localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, acc);
-            localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'metamask');
-            window.ethereum.request({ method: 'eth_chainId' }).then((cid) => {
-              setChainId(parseInt(cid, 16));
-            });
-          } else {
-            // Not connected to MetaMask
+    let isMounted = true;
+    getEthereumProvider().then((ethProvider) => {
+      if (!isMounted) return;
+      if (ethProvider) {
+        ethProvider
+          .request({ method: 'eth_accounts' })
+          .then((accounts) => {
+            if (!isMounted) return;
+            if (accounts && accounts.length > 0) {
+              const acc = accounts[0];
+              setAccount(acc);
+              setWalletType('metamask');
+              localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, acc);
+              localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'metamask');
+              ethProvider.request({ method: 'eth_chainId' }).then((cid) => {
+                if (isMounted) setChainId(parseInt(cid, 16));
+              });
+            } else {
+              // Not connected to MetaMask
+              setAccount(null);
+              setWalletType(null);
+              localStorage.removeItem(LOCAL_STORAGE_ACCOUNT_KEY);
+              localStorage.removeItem(LOCAL_STORAGE_WALLET_TYPE_KEY);
+            }
+          })
+          .catch(() => {
+            if (!isMounted) return;
             setAccount(null);
             setWalletType(null);
-            localStorage.removeItem(LOCAL_STORAGE_ACCOUNT_KEY);
-            localStorage.removeItem(LOCAL_STORAGE_WALLET_TYPE_KEY);
-          }
-        })
-        .catch(() => {
-          setAccount(null);
-          setWalletType(null);
-        });
-    } else {
-      setAccount(null);
-      setWalletType(null);
-    }
+          });
+      } else {
+        setAccount(null);
+        setWalletType(null);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Listen to MetaMask account & chain changes
   useEffect(() => {
-    if (window.ethereum) {
+    let cleanUp = null;
+    getEthereumProvider().then((provider) => {
+      if (!provider) return;
       const handleAccountsChanged = (accounts) => {
         if (accounts.length > 0) {
           const newAcc = accounts[0];
@@ -236,14 +291,22 @@ export function Web3Provider({ children }) {
         triggerRefresh();
       };
 
-      window.ethereum.on('accountsChanged', handleAccountsChanged);
-      window.ethereum.on('chainChanged', handleChainChanged);
+      if (provider.on) {
+        provider.on('accountsChanged', handleAccountsChanged);
+        provider.on('chainChanged', handleChainChanged);
+      }
 
-      return () => {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-        window.ethereum.removeListener('chainChanged', handleChainChanged);
+      cleanUp = () => {
+        if (provider.removeListener) {
+          provider.removeListener('accountsChanged', handleAccountsChanged);
+          provider.removeListener('chainChanged', handleChainChanged);
+        }
       };
-    }
+    });
+
+    return () => {
+      if (cleanUp) cleanUp();
+    };
   }, [triggerRefresh]);
 
   // Fetch balances: cả đồng ETH và đồng $RIFT
@@ -317,11 +380,9 @@ export function Web3Provider({ children }) {
 
   // Connect to MetaMask
   const connectMetaMask = async () => {
-    if (!window.ethereum) {
-      showToast('⚠️ Không tìm thấy tiện ích MetaMask! Vui lòng cài đặt tại metamask.io.', 'error');
-      if (typeof window !== 'undefined') {
-        window.open('https://metamask.io/download/', '_blank');
-      }
+    const ethProvider = await getEthereumProvider();
+    if (!ethProvider) {
+      showToast('⚠️ Không tìm thấy tiện ích MetaMask! Vui lòng kiểm tra xem bạn đã bật extension và mở khóa ví chưa.', 'error');
       return;
     }
     try {
@@ -330,17 +391,17 @@ export function Web3Provider({ children }) {
 
       let accounts = [];
       try {
-        await window.ethereum.request({
+        await ethProvider.request({
           method: 'wallet_requestPermissions',
           params: [{ eth_accounts: {} }],
         });
-        accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        accounts = await ethProvider.request({ method: 'eth_accounts' });
       } catch (permErr) {
         if (permErr.code === 4001) {
           // Người dùng chủ động hủy popup chọn ví
           return;
         }
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const provider = new ethers.BrowserProvider(ethProvider);
         accounts = await provider.send('eth_requestAccounts', []);
       }
 
@@ -348,7 +409,7 @@ export function Web3Provider({ children }) {
         const acc = accounts[0];
         setAccount(acc);
         setWalletType('metamask');
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const provider = new ethers.BrowserProvider(ethProvider);
         const network = await provider.getNetwork();
         setChainId(Number(network.chainId));
         localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, acc);
@@ -368,17 +429,18 @@ export function Web3Provider({ children }) {
 
   // Đổi tài khoản ví MetaMask (Cho phép chọn ví khác trực tiếp)
   const switchAccount = async () => {
-    if (!window.ethereum) {
-      showToast('⚠️ Vui lòng cài đặt ví MetaMask!', 'warning');
+    const ethProvider = await getEthereumProvider();
+    if (!ethProvider) {
+      showToast('⚠️ Không tìm thấy tiện ích ví MetaMask trên trình duyệt!', 'warning');
       return;
     }
     try {
       setIsConnecting(true);
-      await window.ethereum.request({
+      await ethProvider.request({
         method: 'wallet_requestPermissions',
         params: [{ eth_accounts: {} }],
       });
-      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+      const accounts = await ethProvider.request({ method: 'eth_accounts' });
       if (accounts && accounts.length > 0) {
         const newAcc = accounts[0];
         setAccount(newAcc);
@@ -386,7 +448,7 @@ export function Web3Provider({ children }) {
         localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, newAcc);
         localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'metamask');
         localStorage.removeItem('wallet_manually_disconnected');
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const provider = new ethers.BrowserProvider(ethProvider);
         const network = await provider.getNetwork();
         setChainId(Number(network.chainId));
         showToast(`🎉 Đã chuyển sang ví: ${newAcc.slice(0, 6)}...${newAcc.slice(-4)}`, 'success');
