@@ -460,8 +460,11 @@ def create_single_doc(file_name, title, md_path):
     markdown_to_docx_body(doc, content)
     
     out_path = os.path.join(DOCS_DIR, file_name)
-    doc.save(out_path)
-    print(f"-> Đã tạo thành công: {out_path}")
+    try:
+        doc.save(out_path)
+        print(f"-> Đã tạo thành công: {out_path}")
+    except PermissionError:
+        print(f"-> Cảnh báo: File '{file_name}' đang mở trong Word, không thể ghi đè. Vui lòng đóng Word nếu muốn cập nhật file này.")
 
 def create_master_report():
     doc = docx.Document()
@@ -543,8 +546,11 @@ def create_master_report():
             doc.add_page_break()
             
     master_path = os.path.join(DOCS_DIR, "BAO_CAO_GIUA_KY_BLOCKCHAIN_RIFTBOUND.docx")
-    doc.save(master_path)
-    print(f"-> Đã tạo thành công BÁO CÁO TỔNG HỢP TOÀN DIỆN: {master_path}")
+    try:
+        doc.save(master_path)
+        print(f"-> Đã tạo thành công BÁO CÁO TỔNG HỢP TOÀN DIỆN: {master_path}")
+    except PermissionError:
+        print(f"-> Cảnh báo: File 'BAO_CAO_GIUA_KY_BLOCKCHAIN_RIFTBOUND.docx' đang mở trong Word, không thể ghi đè.")
 
 if __name__ == "__main__":
     print("==================================================")
@@ -571,6 +577,11 @@ if __name__ == "__main__":
         "DOC_03_SO_SANH_CONG_NGHE_VA_DIEM_SANG_DU_AN.docx",
         "So Sánh Công Nghệ & Điểm Sáng Đồ Án",
         os.path.join(DOCS_DIR, "DOC_03_SO_SANH_CONG_NGHE_VA_DIEM_SANG_DU_AN.md")
+    )
+    create_single_doc(
+        "BO_CAU_HOI_VAN_DAP_THUC_TE_GIANG_VIEN.docx",
+        "Bộ Câu Hỏi Vấn Đáp Thực Tế Của Giảng Viên",
+        os.path.join(DOCS_DIR, "BO_CAU_HOI_VAN_DAP_THUC_TE_GIANG_VIEN.md")
     )
     
     # 2. Tạo 1 file Báo Cáo Tổng Hợp Toàn Diện (Master Report) có Trang Bìa học thuật
