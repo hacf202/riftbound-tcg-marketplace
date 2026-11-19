@@ -18,6 +18,7 @@ export default function SellModal({ card, ownedQuantity, onClose, onSuccess }) {
 
   const handleSell = async () => {
     if (!pricePerItem || pricePerItem <= 0) return;
+    if (quantity <= 0 || (ownedQuantity !== undefined && quantity > ownedQuantity)) return;
     setIsLoading(true);
     try {
       const success = await listCard(card.id, quantity, pricePerItem);
@@ -122,7 +123,7 @@ export default function SellModal({ card, ownedQuantity, onClose, onSuccess }) {
         {/* Action Button */}
         <button
           onClick={handleSell}
-          disabled={isLoading}
+          disabled={isLoading || !ownedQuantity || ownedQuantity <= 0 || quantity > ownedQuantity}
           className="w-full bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-slate-950 font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition active:scale-[0.99] flex items-center justify-center"
         >
           {isLoading ? (

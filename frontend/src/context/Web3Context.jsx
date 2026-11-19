@@ -1051,7 +1051,7 @@ export function Web3Provider({ children }) {
 
     // Sync with Database / LocalStorage
     try {
-      await universalFetch(`${API_BASE}/marketplace/sync-listing`, {
+      const res = await universalFetch(`${API_BASE}/marketplace/sync-listing`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1062,8 +1062,15 @@ export function Web3Provider({ children }) {
           pricePerItem,
         }),
       });
+
+      if (res && res.success === false) {
+        showToast(res.message || 'Lỗi khi niêm yết thẻ bài!', 'error');
+        return false;
+      }
     } catch (err) {
       console.log('Lỗi sync listing:', err);
+      showToast('Lỗi khi gửi yêu cầu niêm yết: ' + (err.message || ''), 'error');
+      return false;
     }
 
     showToast('🎉 Đã đưa lá bài lên Sàn Giao Dịch thành công!', 'success');

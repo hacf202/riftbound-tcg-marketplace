@@ -419,15 +419,51 @@ export const mockApiHandler = async (url, options = {}) => {
 
   // 7. Marketplace Actions
   if (pathname.startsWith('/marketplace/sync-listing') && method === 'POST') {
+    const seller = (body.seller || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase();
+    const cardId = Number(body.cardId);
+    const qty = Number(body.quantity || 1);
+
+    initLocalStore(seller);
+    const rawInv = localStorage.getItem(getInvKey(seller));
+    let inv = rawInv
+      ? JSON.parse(rawInv)
+      : { totalCardsCount: 0, uniqueCards: 0, estimatedPortfolioValueRift: 0, cards: [] };
+
+    // Kiểm tra tồn kho thẻ bài trong túi đồ người bán
+    const invIndex = inv.cards.findIndex(
+      (c) => Number(c.cardId || c.id) === cardId
+    );
+
+    if (invIndex === -1 || Number(inv.cards[invIndex].quantity || 0) < qty) {
+      return {
+        success: false,
+        message: `Số lượng thẻ trong túi đồ không đủ (${invIndex !== -1 ? inv.cards[invIndex].quantity : 0} < ${qty}) để đăng bán!`,
+      };
+    }
+
+    // Trừ số lượng thẻ trong túi đồ người bán ngay lập tức
+    inv.cards[invIndex].quantity = Number(inv.cards[invIndex].quantity) - qty;
+    if (inv.cards[invIndex].quantity <= 0) {
+      inv.cards.splice(invIndex, 1);
+    }
+    inv.totalCardsCount = Math.max(0, (inv.totalCardsCount || 0) - qty);
+    inv.uniqueCards = inv.cards.length;
+    localStorage.setItem(getInvKey(seller), JSON.stringify(inv));
+
+    // Thêm vào danh sách niêm yết trên Sàn
     const stored = localStorage.getItem(MKT_LISTINGS_KEY);
     const listings = stored ? JSON.parse(stored) : DEFAULT_LISTINGS;
-    const card = DEFAULT_CARDS.find((c) => c.id === Number(body.cardId)) || DEFAULT_CARDS[0];
+    const card =
+      DEFAULT_CARDS.find((c) => c.id === cardId) ||
+      allCards.find((c) => Number(c.id) === cardId) ||
+      DEFAULT_CARDS[0];
+
     const newListing = {
       listingId: body.listingId || Date.now() % 100000,
-      cardId: body.cardId,
-      quantity: body.quantity,
-      pricePerItem: body.pricePerItem,
-      seller: body.seller,
+      cardId: cardId,
+      quantity: qty,
+      pricePerItem: Number(body.pricePerItem),
+      seller: seller,
       card: card,
     };
     listings.unshift(newListing);
@@ -435,14 +471,14 @@ export const mockApiHandler = async (url, options = {}) => {
 
     recordActivity({
       type: 'LISTING',
-      user_address: (body.seller || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase(),
-      seller_address: (body.seller || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase(),
+      user_address: seller,
+      seller_address: seller,
       card_id: card.id,
       card_name: card.name,
-      quantity: Number(body.quantity || 1),
+      quantity: qty,
       price: Number(body.pricePerItem),
-      total_price: Number(body.pricePerItem) * Number(body.quantity || 1),
-      details: `Niêm yết ${body.quantity || 1} thẻ ${card.name} với giá ${body.pricePerItem} $RIFT/thẻ`,
+      total_price: Number(body.pricePerItem) * qty,
+      details: `Niêm yết ${qty} thẻ ${card.name} với giá ${body.pricePerItem} $RIFT/thẻ`,
     });
 
     return { success: true, message: 'Niêm yết thành công', data: newListing };
@@ -567,51 +603,72 @@ export const mockApiHandler = async (url, options = {}) => {
     let listings = stored ? JSON.parse(stored) : DEFAULT_LISTINGS;
     const target = listings.find((l) => Number(l.listingId) === Number(body.listingId));
     if (target) {
+      const seller = (body.seller || target.seller || '').toLowerCase();
+      const listingSeller = (target.seller || '').toLowerCase();
+
+      // Bảo vệ: chỉ người bán mới được hủy
+      if (seller && listingSeller && seller !== listingSeller) {
+        return { success: false, message: 'Chỉ người bán của thẻ này mới có quyền hủy niêm yết!' };
+      }
+
       listings = listings.filter((l) => Number(l.listingId) !== Number(body.listingId));
       localStorage.setItem(MKT_LISTINGS_KEY, JSON.stringify(listings));
 
-      // Hoàn trả thẻ bài về Túi đồ của người bán
-      if (body.seller || target.seller) {
-        const seller = (body.seller || target.seller).toLowerCase();
-        initLocalStore(seller);
-        const rawInv = localStorage.getItem(getInvKey(seller));
-        let inv = rawInv
-          ? JSON.parse(rawInv)
-          : { totalCardsCount: 0, uniqueCards: 0, estimatedPortfolioValueRift: 0, cards: [] };
+      // Hoàn trả thẻ bài về Túi đồ của người bán (Tự động gộp chống trùng thẻ)
+      initLocalStore(listingSeller);
+      const rawInv = localStorage.getItem(getInvKey(listingSeller));
+      let inv = rawInv
+        ? JSON.parse(rawInv)
+        : { totalCardsCount: 0, uniqueCards: 0, estimatedPortfolioValueRift: 0, cards: [] };
 
-        const cardObj =
-          target.card ||
-          DEFAULT_CARDS.find((c) => c.id === Number(target.cardId)) ||
-          DEFAULT_CARDS[0];
+      const cardObj =
+        target.card ||
+        DEFAULT_CARDS.find((c) => c.id === Number(target.cardId)) ||
+        allCards.find((c) => Number(c.id) === Number(target.cardId)) ||
+        DEFAULT_CARDS[0];
 
-        const qty = Number(target.quantity || 1);
-        const existingInInv = inv.cards.find(
-          (c) => Number(c.cardId || c.id) === Number(cardObj.id)
-        );
+      const qty = Number(target.quantity || 1);
+      const existingInInv = inv.cards.find(
+        (c) => Number(c.cardId || c.id) === Number(cardObj.id)
+      );
 
-        if (existingInInv) {
-          existingInInv.quantity = Number(existingInInv.quantity || 1) + qty;
-        } else {
-          inv.cards.unshift({
-            cardId: cardObj.id,
-            card: cardObj,
-            quantity: qty,
-          });
-        }
-        inv.totalCardsCount = (inv.totalCardsCount || 0) + qty;
-        inv.uniqueCards = inv.cards.length;
-        localStorage.setItem(getInvKey(seller), JSON.stringify(inv));
+      if (existingInInv) {
+        existingInInv.quantity = Number(existingInInv.quantity || 0) + qty;
+      } else {
+        inv.cards.unshift({
+          cardId: cardObj.id,
+          card: cardObj,
+          quantity: qty,
+        });
       }
+
+      // Tự động dọn dẹp các phần tử trùng cardId nếu có từ trước
+      const consolidated = [];
+      const seen = new Map();
+      for (const item of inv.cards) {
+        const cid = Number(item.cardId || item.id);
+        if (seen.has(cid)) {
+          seen.get(cid).quantity = Number(seen.get(cid).quantity || 0) + Number(item.quantity || 1);
+        } else {
+          const entry = { ...item, quantity: Number(item.quantity || 1) };
+          seen.set(cid, entry);
+          consolidated.push(entry);
+        }
+      }
+      inv.cards = consolidated.filter((c) => Number(c.quantity) > 0);
+      inv.totalCardsCount = inv.cards.reduce((sum, c) => sum + Number(c.quantity), 0);
+      inv.uniqueCards = inv.cards.length;
+      localStorage.setItem(getInvKey(listingSeller), JSON.stringify(inv));
 
       recordActivity({
         type: 'CANCEL',
-        user_address: (body.seller || target.seller || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase(),
-        seller_address: (body.seller || target.seller || '0x0730f3b21bf61d31d7db9e9094fb8c8b6d419f1c').toLowerCase(),
+        user_address: listingSeller,
+        seller_address: listingSeller,
         card_id: target.cardId || 0,
         card_name: (target.card && target.card.name) || 'Thẻ bài',
-        quantity: Number(target.quantity || 1),
+        quantity: qty,
         price: Number(target.pricePerItem || 0),
-        total_price: Number(target.pricePerItem || 0) * Number(target.quantity || 1),
+        total_price: Number(target.pricePerItem || 0) * qty,
         details: 'Hủy niêm yết thẻ bài trên sàn',
       });
     }
@@ -682,6 +739,23 @@ export const mockApiHandler = async (url, options = {}) => {
     if (raw) {
       try {
         const inv = JSON.parse(raw);
+        if (Array.isArray(inv.cards)) {
+          const consolidated = [];
+          const seen = new Map();
+          for (const item of inv.cards) {
+            const cid = Number(item.cardId || item.id);
+            if (seen.has(cid)) {
+              seen.get(cid).quantity = Number(seen.get(cid).quantity || 0) + Number(item.quantity || 1);
+            } else {
+              const entry = { ...item, quantity: Number(item.quantity || 1) };
+              seen.set(cid, entry);
+              consolidated.push(entry);
+            }
+          }
+          inv.cards = consolidated.filter((c) => Number(c.quantity) > 0);
+          inv.totalCardsCount = inv.cards.reduce((sum, c) => sum + Number(c.quantity), 0);
+          inv.uniqueCards = inv.cards.length;
+        }
         return { success: true, data: inv };
       } catch {}
     }

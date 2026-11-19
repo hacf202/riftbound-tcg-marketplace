@@ -108,13 +108,10 @@ router.get("/listings/:id", async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
+      message: "Lỗi máy chủ khi lấy chi tiết niêm yết",
       error: error.message,
     });
   }
-});
-
-/**
- * @route   POST /api/v1/marketplace/sync-listing
  * @desc    Đồng bộ lệnh niêm yết mới và lưu vào SQLite Database
  */
 router.post("/sync-listing", async (req, res) => {
@@ -141,8 +138,9 @@ router.post("/sync-listing", async (req, res) => {
       data: newListing,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(400).json({
       success: false,
+      message: error.message || "Lỗi khi niêm yết thẻ bài",
       error: error.message,
     });
   }
@@ -219,8 +217,9 @@ router.post("/sync-cancel", async (req, res) => {
       message: success ? "Đã hủy niêm yết thành công trong DB" : "Không tìm thấy niêm yết",
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(400).json({
       success: false,
+      message: error.message || "Lỗi khi hủy niêm yết",
       error: error.message,
     });
   }
@@ -256,6 +255,7 @@ router.get("/stats", async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
+      message: "Lỗi tính toán thống kê sàn",
       error: error.message,
     });
   }
@@ -277,6 +277,7 @@ router.get("/activities", async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
+      message: "Lỗi máy chủ khi lấy nhật ký giao dịch",
       error: error.message,
     });
   }

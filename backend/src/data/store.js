@@ -434,16 +434,38 @@ module.exports = {
     const listingId = Number(listingData.listingId) || Date.now() % 100000;
     const card = CARDS.find((c) => c.id === cardId);
 
-    // Lưu vào bảng listings
+    if (qty <= 0) {
+      throw new Error("Số lượng niêm yết phải lớn hơn 0!");
+    }
+    if (pricePerItem <= 0) {
+      throw new Error("Giá bán phải lớn hơn 0 $RIFT!");
+    }
+
+    // 1. Kiểm tra tồn kho thẻ bài thực tế của người bán trong SQLite
+    const invItem = await get(
+      `SELECT id, quantity FROM user_inventory WHERE LOWER(address) = LOWER(?) AND card_id = ?`,
+      [seller, cardId]
+    );
+
+    if (!invItem || Number(invItem.quantity) < qty) {
+      throw new Error(`Số lượng thẻ trong túi đồ không đủ (${invItem ? invItem.quantity : 0} < ${qty}) để đăng bán!`);
+    }
+
+    // 2. Trừ số lượng trong kho thẻ người bán ngay lập tức
+    const newQty = Number(invItem.quantity) - qty;
+    if (newQty > 0) {
+      await run(
+        `UPDATE user_inventory SET quantity = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+        [newQty, invItem.id]
+      );
+    } else {
+      await run(`DELETE FROM user_inventory WHERE id = ?`, [invItem.id]);
+    }
+
+    // 3. Lưu vào bảng listings
     const res = await run(
       `INSERT INTO listings (listing_id, card_id, seller, quantity, price_per_item, is_active) VALUES (?, ?, ?, ?, ?, 1)`,
       [listingId, cardId, seller, qty, pricePerItem]
-    );
-
-    // Trừ số lượng trong kho thẻ người bán
-    await run(
-      `UPDATE user_inventory SET quantity = MAX(0, quantity - ?) WHERE address = ? AND card_id = ?`,
-      [qty, seller, cardId]
     );
 
     // Ghi nhận lịch sử giao dịch vào bảng transactions
@@ -530,16 +552,32 @@ module.exports = {
     }
     if (!l) return false;
 
+    const sellerLower = (seller || "").toLowerCase();
+    const listingSellerLower = (l.seller || "").toLowerCase();
+
+    // Xác thực người gọi lệnh phải đúng là người bán
+    if (sellerLower && listingSellerLower && sellerLower !== listingSellerLower) {
+      throw new Error("Chỉ người bán của thẻ này mới có quyền hủy niêm yết!");
+    }
+
     await run(`UPDATE listings SET is_active = 0 WHERE id = ?`, [l.id]);
 
-    const sellerLower = (seller || l.seller || "").toLowerCase();
+    // Hoàn trả thẻ vào túi đồ seller (Dùng LOWER(address) để chống trùng lặp dòng trong SQLite)
+    const existing = await get(
+      `SELECT id, quantity FROM user_inventory WHERE LOWER(address) = LOWER(?) AND card_id = ?`,
+      [listingSellerLower, l.card_id]
+    );
 
-    // Hoàn trả thẻ vào túi đồ seller
-    const existing = await get(`SELECT quantity FROM user_inventory WHERE address = ? AND card_id = ?`, [sellerLower, l.card_id]);
     if (existing) {
-      await run(`UPDATE user_inventory SET quantity = quantity + ? WHERE address = ? AND card_id = ?`, [l.quantity, sellerLower, l.card_id]);
+      await run(
+        `UPDATE user_inventory SET quantity = quantity + ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+        [l.quantity, existing.id]
+      );
     } else {
-      await run(`INSERT INTO user_inventory (address, card_id, quantity) VALUES (?, ?, ?)`, [sellerLower, l.card_id, l.quantity]);
+      await run(
+        `INSERT INTO user_inventory (address, card_id, quantity, updated_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)`,
+        [listingSellerLower, l.card_id, l.quantity]
+      );
     }
 
     const card = CARDS.find((c) => c.id === l.card_id);
@@ -547,7 +585,7 @@ module.exports = {
     await run(
       `INSERT INTO transactions (type, user_address, seller_address, card_id, card_name, quantity, details)
        VALUES ('CANCEL', ?, ?, ?, ?, ?, 'Hủy niêm yết thẻ bài')`,
-      [sellerLower, sellerLower, l.card_id, card ? card.name : "Card", l.quantity]
+      [listingSellerLower, listingSellerLower, l.card_id, card ? card.name : "Card", l.quantity]
     );
 
     return true;
@@ -556,7 +594,15 @@ module.exports = {
   // 2. Quản lý Kho Thẻ Bài User từ DB
   getUserInventory: async (address) => {
     const addr = (address || "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266").toLowerCase();
-    let rows = await all(`SELECT card_id, quantity, updated_at FROM user_inventory WHERE LOWER(address) = LOWER(?) AND quantity > 0 ORDER BY updated_at DESC, id DESC`, [addr]);
+    // Tự động gộp nhóm (GROUP BY) nếu có các dòng cũ trùng card_id do lịch sử
+    let rows = await all(
+      `SELECT card_id, SUM(quantity) as quantity, MAX(updated_at) as updated_at 
+       FROM user_inventory 
+       WHERE LOWER(address) = LOWER(?) AND quantity > 0 
+       GROUP BY card_id 
+       ORDER BY MAX(updated_at) DESC, card_id DESC`,
+      [addr]
+    );
     
     // Nếu ví mới chưa có thẻ nào -> cấp bộ khởi đầu 6 lá bài
     if (rows.length === 0) {
@@ -571,7 +617,14 @@ module.exports = {
       for (const d of defaultStarter) {
         await run(`INSERT OR REPLACE INTO user_inventory (address, card_id, quantity, updated_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)`, [addr, d.card_id, d.quantity]);
       }
-      rows = await all(`SELECT card_id, quantity, updated_at FROM user_inventory WHERE LOWER(address) = LOWER(?) AND quantity > 0 ORDER BY updated_at DESC, id DESC`, [addr]);
+      rows = await all(
+        `SELECT card_id, SUM(quantity) as quantity, MAX(updated_at) as updated_at 
+         FROM user_inventory 
+         WHERE LOWER(address) = LOWER(?) AND quantity > 0 
+         GROUP BY card_id 
+         ORDER BY MAX(updated_at) DESC, card_id DESC`,
+        [addr]
+      );
     }
 
     return rows.map((r) => ({
