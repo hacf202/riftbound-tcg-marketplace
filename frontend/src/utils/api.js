@@ -481,6 +481,20 @@ export const mockApiHandler = async (url, options = {}) => {
       localStorage.setItem(getBalKey(seller), (currentSellerBal + sellerPayout).toString());
     }
 
+    // 2b. Cộng tiền bản quyền cho ví Họa sĩ sáng tác (2.5%)
+    const artistAddress = '0xbb0911987B295BC1F112356494d8Ad0Dc37f178a'.toLowerCase();
+    initLocalStore(artistAddress);
+    const royaltyPayout = totalPrice * 0.025;
+    const currentArtistBal = Number(localStorage.getItem(getBalKey(artistAddress)) || '0');
+    localStorage.setItem(getBalKey(artistAddress), (currentArtistBal + royaltyPayout).toString());
+
+    // 2c. Cộng tiền phí sàn cho ví Kho bạc (2.0%)
+    const treasuryAddress = '0xeb301886d4C303369C1A3bfA232B30F3D1c4Ea72'.toLowerCase();
+    initLocalStore(treasuryAddress);
+    const protocolPayout = totalPrice * 0.02;
+    const currentTreasuryBal = Number(localStorage.getItem(getBalKey(treasuryAddress)) || '0');
+    localStorage.setItem(getBalKey(treasuryAddress), (currentTreasuryBal + protocolPayout).toString());
+
     // 3. Thêm lá bài vừa mua vào Túi đồ (Inventory) của người mua
     const rawBuyerInv = localStorage.getItem(getInvKey(buyer));
     let buyerInv = rawBuyerInv
@@ -524,6 +538,8 @@ export const mockApiHandler = async (url, options = {}) => {
       type: 'SALE',
       user_address: buyer,
       seller_address: (target.seller || '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc').toLowerCase(),
+      creator_address: '0xbb0911987B295BC1F112356494d8Ad0Dc37f178a'.toLowerCase(),
+      treasury_address: '0xeb301886d4C303369C1A3bfA232B30F3D1c4Ea72'.toLowerCase(),
       card_id: cardObj.id,
       card_name: cardObj.name,
       quantity: qty,

@@ -7,6 +7,7 @@
     "RiftBoosterPack": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
     "RiftMarketplace": "0x0B306BF915C4d645ff596e518fAf3F9669b97016"
   },
-  "treasury": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "treasury": "0xeb301886d4C303369C1A3bfA232B30F3D1c4Ea72",
+  "royaltyReceiver": "0xbb0911987B295BC1F112356494d8Ad0Dc37f178a",
   "deployedAt": "2026-11-09T07:59:02.278Z"
 }

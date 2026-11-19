@@ -45,8 +45,8 @@
     console.log("-> Deployer Account:", deployerAddress);
     console.log("-> Chain ID:", network.chainId.toString());
 
-    const treasury = deployerAddress;
-    const royaltyVault = deployerAddress;
+    const treasury = "0xeb301886d4C303369C1A3bfA232B30F3D1c4Ea72";
+    const royaltyVault = "0xbb0911987B295BC1F112356494d8Ad0Dc37f178a";
     const royaltyBps = 250; // 2.5%
     const baseURI = "http://localhost:5000/api/v1/cards/metadata/";
 

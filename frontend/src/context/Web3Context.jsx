@@ -169,6 +169,11 @@ export function Web3Provider({ children }) {
 
   // Restore or verify MetaMask session on mount
   useEffect(() => {
+    if (localStorage.getItem('wallet_manually_disconnected') === 'true') {
+      setAccount(null);
+      setWalletType(null);
+      return;
+    }
     if (window.ethereum) {
       window.ethereum
         .request({ method: 'eth_accounts' })
@@ -210,7 +215,8 @@ export function Web3Provider({ children }) {
           setWalletType('metamask');
           localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, newAcc);
           localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'metamask');
-          showToast(`Đã kết nối ví MetaMask: ${newAcc.slice(0, 6)}...${newAcc.slice(-4)}`, 'success');
+          localStorage.removeItem('wallet_manually_disconnected');
+          showToast(`Đã chuyển sang ví: ${newAcc.slice(0, 6)}...${newAcc.slice(-4)}`, 'success');
           triggerRefresh();
         } else {
           setAccount(null);
@@ -219,6 +225,7 @@ export function Web3Provider({ children }) {
           setBalanceEth('0.0000');
           localStorage.removeItem(LOCAL_STORAGE_ACCOUNT_KEY);
           localStorage.removeItem(LOCAL_STORAGE_WALLET_TYPE_KEY);
+          localStorage.setItem('wallet_manually_disconnected', 'true');
           showToast('Đã ngắt kết nối ví MetaMask', 'info');
           triggerRefresh();
         }
@@ -319,23 +326,77 @@ export function Web3Provider({ children }) {
     }
     try {
       setIsConnecting(true);
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const accounts = await provider.send('eth_requestAccounts', []);
-      const network = await provider.getNetwork();
+      localStorage.removeItem('wallet_manually_disconnected');
 
-      if (accounts.length > 0) {
+      let accounts = [];
+      try {
+        await window.ethereum.request({
+          method: 'wallet_requestPermissions',
+          params: [{ eth_accounts: {} }],
+        });
+        accounts = await window.ethereum.request({ method: 'eth_accounts' });
+      } catch (permErr) {
+        if (permErr.code === 4001) {
+          // Người dùng chủ động hủy popup chọn ví
+          return;
+        }
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        accounts = await provider.send('eth_requestAccounts', []);
+      }
+
+      if (accounts && accounts.length > 0) {
         const acc = accounts[0];
         setAccount(acc);
         setWalletType('metamask');
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const network = await provider.getNetwork();
         setChainId(Number(network.chainId));
         localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, acc);
         localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'metamask');
-        showToast('🎉 Kết nối ví MetaMask thành công!', 'success');
+        showToast(`🎉 Đã kết nối ví: ${acc.slice(0, 6)}...${acc.slice(-4)}`, 'success');
         triggerRefresh();
       }
     } catch (error) {
       console.error(error);
-      showToast('Lỗi kết nối ví: ' + (error.message || 'Người dùng từ chối'), 'error');
+      if (error.code !== 4001) {
+        showToast('Lỗi kết nối ví: ' + (error.message || 'Người dùng từ chối'), 'error');
+      }
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+
+  // Đổi tài khoản ví MetaMask (Cho phép chọn ví khác trực tiếp)
+  const switchAccount = async () => {
+    if (!window.ethereum) {
+      showToast('⚠️ Vui lòng cài đặt ví MetaMask!', 'warning');
+      return;
+    }
+    try {
+      setIsConnecting(true);
+      await window.ethereum.request({
+        method: 'wallet_requestPermissions',
+        params: [{ eth_accounts: {} }],
+      });
+      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+      if (accounts && accounts.length > 0) {
+        const newAcc = accounts[0];
+        setAccount(newAcc);
+        setWalletType('metamask');
+        localStorage.setItem(LOCAL_STORAGE_ACCOUNT_KEY, newAcc);
+        localStorage.setItem(LOCAL_STORAGE_WALLET_TYPE_KEY, 'metamask');
+        localStorage.removeItem('wallet_manually_disconnected');
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const network = await provider.getNetwork();
+        setChainId(Number(network.chainId));
+        showToast(`🎉 Đã chuyển sang ví: ${newAcc.slice(0, 6)}...${newAcc.slice(-4)}`, 'success');
+        triggerRefresh();
+      }
+    } catch (err) {
+      if (err.code !== 4001) {
+        console.error('Lỗi đổi tài khoản:', err);
+        showToast('Lỗi khi đổi tài khoản: ' + (err.message || 'Hủy thao tác'), 'error');
+      }
     } finally {
       setIsConnecting(false);
     }
@@ -345,11 +406,12 @@ export function Web3Provider({ children }) {
   const disconnectWallet = () => {
     localStorage.removeItem(LOCAL_STORAGE_ACCOUNT_KEY);
     localStorage.removeItem(LOCAL_STORAGE_WALLET_TYPE_KEY);
+    localStorage.setItem('wallet_manually_disconnected', 'true');
     setAccount(null);
     setWalletType(null);
     setBalanceRift(0);
     setBalanceEth('0.0000');
-    showToast('Đã ngắt kết nối ví MetaMask', 'info');
+    showToast('Đã ngắt kết nối ví. Bạn có thể bấm "Đổi tài khoản" hoặc mở MetaMask để chọn ví khác.', 'info');
     triggerRefresh();
   };
 
@@ -595,7 +657,7 @@ export function Web3Provider({ children }) {
 
         const recipient =
           contractsConfig?.treasury ||
-          '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+          '0xeb301886d4C303369C1A3bfA232B30F3D1c4Ea72';
 
         const requiredWei = ethers.parseEther(numAmount.toString());
 
@@ -1022,6 +1084,7 @@ export function Web3Provider({ children }) {
         dataVersion,
         triggerRefresh,
         connectMetaMask,
+        switchAccount,
         disconnectWallet,
         switchNetworkToHardhat,
         switchNetworkToCronosTestnet,

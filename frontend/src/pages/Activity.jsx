@@ -42,9 +42,29 @@ export default function Activity() {
   const getActionBadge = (tx) => {
     const isBuyer = tx.user_address && account && tx.user_address.toLowerCase() === account.toLowerCase();
     const isSeller = tx.seller_address && account && tx.seller_address.toLowerCase() === account.toLowerCase();
+    const isCreator = tx.creator_address && account && tx.creator_address.toLowerCase() === account.toLowerCase();
+    const isTreasury = tx.treasury_address && account && tx.treasury_address.toLowerCase() === account.toLowerCase();
 
     switch (tx.type) {
       case 'SALE':
+        if (isCreator) {
+          return {
+            text: 'NHẬN BẢN QUYỀN (2.5%)',
+            cls: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+            sign: '+',
+            color: 'text-purple-400',
+            displayPrice: tx.royalty_fee || (Number(tx.total_price) * 0.025),
+          };
+        }
+        if (isTreasury) {
+          return {
+            text: 'NHẬN PHÍ SÀN (2%)',
+            cls: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
+            sign: '+',
+            color: 'text-blue-400',
+            displayPrice: tx.protocol_fee || (Number(tx.total_price) * 0.02),
+          };
+        }
         if (isBuyer) {
           return {
             text: 'MUA THẺ',
@@ -59,6 +79,7 @@ export default function Activity() {
             cls: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
             sign: '+',
             color: 'text-emerald-400',
+            displayPrice: tx.seller_payout || (Number(tx.total_price) * 0.955),
           };
         }
         return {
@@ -235,7 +256,9 @@ export default function Activity() {
                 const isMyTx =
                   account &&
                   ((tx.user_address && tx.user_address.toLowerCase() === account.toLowerCase()) ||
-                    (tx.seller_address && tx.seller_address.toLowerCase() === account.toLowerCase()));
+                    (tx.seller_address && tx.seller_address.toLowerCase() === account.toLowerCase()) ||
+                    (tx.creator_address && tx.creator_address.toLowerCase() === account.toLowerCase()) ||
+                    (tx.treasury_address && tx.treasury_address.toLowerCase() === account.toLowerCase()));
 
                 return (
                   <tr
@@ -277,7 +300,7 @@ export default function Activity() {
                     <td className="py-2.5 px-3 font-mono text-xs font-bold">
                       <span className={badge.color}>
                         {badge.sign}
-                        {tx.total_price || tx.price || 0} $RIFT
+                        {badge.displayPrice !== undefined ? badge.displayPrice : (tx.total_price || tx.price || 0)} $RIFT
                       </span>
                     </td>
                     <td

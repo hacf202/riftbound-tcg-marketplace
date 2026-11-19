@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useWeb3 } from '../context/Web3Context';
 import CurrencyConverterModal from './CurrencyConverterModal';
-import { ChevronDown, Copy, Check, LogOut } from 'lucide-react';
+import { ChevronDown, Copy, Check, LogOut, RefreshCw } from 'lucide-react';
 
 export default function Navbar() {
   const {
@@ -16,6 +16,7 @@ export default function Navbar() {
     activeTab,
     setActiveTab,
     connectMetaMask,
+    switchAccount,
     disconnectWallet,
     claimFaucet,
     switchNetworkToCronosTestnet,
